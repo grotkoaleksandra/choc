@@ -11,24 +11,31 @@ interface ProductCardProps {
 
 export default function ProductCard({ id, name, price, category, imageId }: ProductCardProps) {
   return (
-    <Link href={`/shop#${id}`} className="group block">
-      <div className="relative aspect-square overflow-hidden mb-3 bg-cream">
-        <Image
-          src={`https://picsum.photos/seed/${imageId}/400/400`}
-          alt={name}
-          fill
-          className="object-cover group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-          sizes="(max-width: 768px) 50vw, 25vw"
-        />
+    <Link href={`/shop#${id}`} className="group block tilt-card">
+      <div className="apothecary-border hover-wiggle">
+        <div className="apothecary-border-inner">
+          <div className="relative aspect-square overflow-hidden bg-cream">
+            <Image
+              src={`https://picsum.photos/seed/${imageId}/400/400`}
+              alt={name}
+              fill
+              className="object-cover group-hover:scale-[1.05] transition-transform duration-700 ease-out"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-warm/0 group-hover:bg-warm/10 transition-colors duration-500" />
+          </div>
+        </div>
       </div>
 
-      <span className="text-[10px] tracking-[0.2em] text-muted">
-        {category.toUpperCase()}
-      </span>
-      <h3 className="text-sm mt-1 group-hover:text-accent transition-colors duration-200 leading-tight">
-        {name}
-      </h3>
-      <p className="text-sm text-muted mt-0.5">{price}</p>
+      <div className="mt-3 text-center">
+        <span className="text-[10px] tracking-[0.2em] text-muted">
+          {category.toUpperCase()}
+        </span>
+        <h3 className="text-sm mt-1 group-hover:text-accent transition-colors duration-300 leading-tight">
+          {name}
+        </h3>
+        <p className="text-sm text-muted mt-0.5 font-display italic">{price}</p>
+      </div>
     </Link>
   );
 }

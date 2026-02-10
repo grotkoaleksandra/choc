@@ -7,19 +7,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-sm tracking-[0.3em] font-medium mb-3">CHOC</h3>
+            <h3 className="text-sm tracking-[0.3em] font-medium mb-3 hover-wiggle inline-block">CHOC</h3>
             <p className="text-xs text-muted leading-relaxed max-w-xs">
-              Chocolate, culture, and curated goods.
+              A chocolate journal and curated apothecary. Stories, craft, and fine chocolate.
             </p>
+            <div className="gold-line w-12 mt-4" />
           </div>
 
           {/* Navigate */}
           <div>
             <h4 className="text-xs tracking-[0.15em] text-muted mb-4">NAVIGATE</h4>
             <div className="flex flex-col gap-2 text-sm">
-              <Link href="/articles" className="hover:text-accent transition-colors duration-200">Journal</Link>
-              <Link href="/shop" className="hover:text-accent transition-colors duration-200">Shop</Link>
-              <Link href="/about" className="hover:text-accent transition-colors duration-200">About</Link>
+              <Link href="/articles" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">Journal</Link>
+              <Link href="/shop" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">Shop</Link>
+              <Link href="/about" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">About</Link>
             </div>
           </div>
 
@@ -27,16 +28,19 @@ export default function Footer() {
           <div>
             <h4 className="text-xs tracking-[0.15em] text-muted mb-4">CONNECT</h4>
             <div className="flex flex-col gap-2 text-sm">
-              <a href="#" className="hover:text-accent transition-colors duration-200">Instagram</a>
-              <a href="#" className="hover:text-accent transition-colors duration-200">Newsletter</a>
-              <a href="mailto:hello@choc.com" className="hover:text-accent transition-colors duration-200">hello@choc.com</a>
+              <a href="#" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">Instagram</a>
+              <a href="#" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">Newsletter</a>
+              <a href="mailto:hello@choc.com" className="link-fancy hover:text-accent transition-colors duration-200 inline-block">hello@choc.com</a>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-border-light">
+        <div className="mt-12 pt-6 border-t border-border-light flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-xs text-muted">
             &copy; {new Date().getFullYear()} CHOC
+          </p>
+          <p className="text-xs text-muted/40">
+            Made with &#127851; and intention
           </p>
         </div>
       </div>

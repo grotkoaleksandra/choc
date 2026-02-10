@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, EB_Garamond, Roboto_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SparkleTrail from "@/components/SparkleTrail";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -25,8 +26,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CHOC — Chocolate & Journal",
-  description: "Chocolate, culture, and curated goods.",
+  title: "CHOC — Chocolate Journal & Shop",
+  description: "A chocolate journal and curated shop. Stories, craft, and fine chocolate.",
 };
 
 export default function RootLayout({
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cormorant.variable} ${ebGaramond.variable} ${robotoMono.variable} antialiased`}>
+        <SparkleTrail />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

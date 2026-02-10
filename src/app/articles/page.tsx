@@ -1,66 +1,69 @@
 import ArticleCard from "@/components/ArticleCard";
 import SectionHeader from "@/components/SectionHeader";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const allArticles = [
   {
-    slug: "the-art-of-slow-living",
-    title: "The Art of Slow Living",
-    excerpt: "In a world that never stops, the most radical act might be to simply pause. We explore the growing movement of intentional deceleration.",
-    category: "Culture",
+    slug: "the-origin-of-cacao",
+    title: "The Origin of Cacao",
+    excerpt: "From the ancient forests of Mesoamerica to the finest chocolatiers of today.",
+    category: "Origins",
     date: "Feb 10, 2026",
-    imageId: 101,
+    imageId: 42,
   },
   {
-    slug: "materials-that-matter",
-    title: "Materials That Matter",
-    excerpt: "How a new generation of designers is rethinking what we make things from.",
-    category: "Design",
+    slug: "bean-to-bar-revolution",
+    title: "The Bean-to-Bar Revolution",
+    excerpt: "How a new generation of chocolate makers is changing everything we know about flavor.",
+    category: "Craft",
     date: "Feb 8, 2026",
-    imageId: 102,
+    imageId: 63,
   },
   {
-    slug: "kitchen-as-studio",
-    title: "The Kitchen as Studio",
-    excerpt: "When cooking becomes a creative practice, everything changes.",
-    category: "Food",
+    slug: "chocolate-and-terroir",
+    title: "Chocolate & Terroir",
+    excerpt: "Why the same cacao bean tastes different depending on where it grows.",
+    category: "Science",
     date: "Feb 5, 2026",
-    imageId: 103,
+    imageId: 74,
   },
   {
-    slug: "sound-of-silence",
-    title: "The Sound of Silence",
-    excerpt: "Acoustic design is shaping how we experience spaces — and ourselves.",
-    category: "Architecture",
+    slug: "the-art-of-tempering",
+    title: "The Art of Tempering",
+    excerpt: "The alchemy behind that perfect snap and glossy sheen.",
+    category: "Technique",
     date: "Feb 3, 2026",
-    imageId: 104,
+    imageId: 55,
   },
   {
-    slug: "color-theory-everyday",
-    title: "Color Theory for Everyday Life",
-    excerpt: "The palette of your environment affects more than you think.",
-    category: "Design",
+    slug: "cacao-ceremonies",
+    title: "The Return of Cacao Ceremonies",
+    excerpt: "An ancient Mesoamerican practice finding new life in modern cities.",
+    category: "Culture",
     date: "Jan 30, 2026",
-    imageId: 105,
+    imageId: 85,
   },
   {
-    slug: "fermentation-renaissance",
-    title: "The Fermentation Renaissance",
-    excerpt: "Ancient techniques are finding new life in modern kitchens around the world.",
-    category: "Food",
+    slug: "chocolate-and-architecture",
+    title: "Chocolate & Architecture",
+    excerpt: "How the spaces where chocolate is made and sold shape our experience of it.",
+    category: "Design",
     date: "Jan 27, 2026",
-    imageId: 106,
+    imageId: 96,
   },
 ];
 
 export default function ArticlesPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
-      <SectionHeader
-        centered
-        label="STORIES & IDEAS"
-        title="Journal"
-        subtitle="Stories, ideas, and perspectives."
-      />
+      <ScrollReveal>
+        <SectionHeader
+          centered
+          label="STORIES & IDEAS"
+          title="Journal"
+          subtitle="Exploring the world of chocolate through craft, culture, and science."
+        />
+      </ScrollReveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
         {allArticles.map((article) => (
