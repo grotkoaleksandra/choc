@@ -1,52 +1,36 @@
-# AlpacApps Infra
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A starter template for building full-stack business platforms with Claude Code. Set up messaging, marketing, customer management, and finance — all on free or near-free infrastructure.
+## Getting Started
 
-## What you get
+First, run the development server:
 
-- **Database + Auth + Storage** — Supabase (free)
-- **Website + Hosting** — GitHub Pages (free)
-- **Email** — Resend (free, 3,000/month)
-- **SMS** — Telnyx (~$0.004/message)
-- **Payments** — Square (2.9% + 30¢)
-- **E-Signatures** — SignWell (free, 3–25 docs/month)
-- **AI Features** — Google Gemini (free)
-- **AI Developer** — Claude Code (builds and manages everything)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Quick start
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1. **Clone this repo** — replace `my-project` with your project name (this will also become your GitHub repo name, so pick something unique — lowercase, hyphens, no spaces):
-   ```bash
-   git clone https://github.com/rsonnad/alpacapps-infra.git my-project
-   cd my-project
-   ```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-2. **Open in Claude Code** (desktop app or CLI):
-   ```bash
-   claude
-   ```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-3. **Run the setup skill**:
-   ```
-   /setup-alpacapps-infra
-   ```
+## Learn More
 
-Claude will create your own GitHub repo, disconnect from this starter template, then walk you through setting up each service interactively — creating your database, deploying edge functions, configuring webhooks, and building your CLAUDE.md.
+To learn more about Next.js, take a look at the following resources:
 
-## What happens during setup
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-The setup skill will:
-1. Ask what you're building and which services you need
-2. Create a new GitHub repo under your account (using the folder name you chose)
-3. Disconnect from the `alpacapps-infra` template origin
-4. Set up Supabase, deploy edge functions, configure webhooks
-5. Build your `CLAUDE.md` with all credentials and connection details
-6. Push everything to your new repo — your site goes live on GitHub Pages
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Full guide
+## Deploy on Vercel
 
-Read the complete infrastructure guide at: https://rsonnad.github.io/alpacapps/docs/alpacappsinfra.html
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License
-
-AGPL-3.0 — see [LICENSE](LICENSE). If you modify and distribute this, you must share your changes under the same license.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
