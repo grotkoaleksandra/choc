@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f6;
-  --foreground: #1a1a1a;
-  --accent: #8b4513;
-  --accent-light: #d4a574;
-  --muted: #6b6b6b;
+  --background: #f4f4f4;
+  --foreground: #000000;
+  --accent: #718f70;
+  --accent-light: #8aaa89;
+  --warm: #5C3A21;
+  --warm-light: #7A5C3E;
+  --cream: #f7f5f1;
+  --muted: #777777;
+  --border: #000000;
+  --border-light: #e0e0e0;
 }
 
 @theme inline {
@@ -13,23 +18,73 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
+  --color-warm: var(--warm);
+  --color-warm-light: var(--warm-light);
+  --color-cream: var(--cream);
   --color-muted: var(--muted);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f0f0f;
-    --foreground: #ededed;
-    --accent: #d4a574;
-    --accent-light: #8b4513;
+    --background: #111111;
+    --foreground: #e8e8e8;
+    --accent: #8aaa89;
+    --accent-light: #a3c4a2;
+    --warm: #C4956A;
+    --warm-light: #D4B08A;
+    --cream: #1a1a1a;
     --muted: #999999;
+    --border: #e8e8e8;
+    --border-light: #333333;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-mono), "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
 }
+
+/* Drop cap */
+.drop-cap::first-letter {
+  font-family: var(--font-display), serif;
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: var(--foreground);
+  font-weight: 300;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.4s; }

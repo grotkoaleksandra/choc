@@ -1,4 +1,5 @@
 import ProductCard from "@/components/ProductCard";
+import SectionHeader from "@/components/SectionHeader";
 
 const products = [
   { id: "ceramic-mug", name: "Handmade Ceramic Mug", price: "$38", category: "Kitchen", imageId: 201 },
@@ -14,9 +15,14 @@ const products = [
 export default function ShopPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
-      <h1 className="text-3xl font-bold mb-2">Shop</h1>
-      <p className="text-muted text-sm mb-10">Carefully curated goods for intentional living.</p>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <SectionHeader
+        centered
+        label="EST. 2026"
+        title="Shop"
+        subtitle="Carefully curated goods for intentional living."
+      />
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 stagger-children">
         {products.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}

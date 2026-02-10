@@ -1,4 +1,5 @@
 import ArticleCard from "@/components/ArticleCard";
+import SectionHeader from "@/components/SectionHeader";
 
 const allArticles = [
   {
@@ -54,9 +55,14 @@ const allArticles = [
 export default function ArticlesPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
-      <h1 className="text-3xl font-bold mb-2">Articles</h1>
-      <p className="text-muted text-sm mb-10">Stories, ideas, and perspectives.</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <SectionHeader
+        centered
+        label="STORIES & IDEAS"
+        title="Journal"
+        subtitle="Stories, ideas, and perspectives."
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
         {allArticles.map((article) => (
           <ArticleCard key={article.slug} {...article} />
         ))}
