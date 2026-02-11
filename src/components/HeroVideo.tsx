@@ -19,14 +19,10 @@ export default function HeroVideo() {
         muted
         loop
         playsInline
-        poster="https://picsum.photos/seed/chochero/1920/1080"
         onLoadedData={() => setLoaded(true)}
         className="will-change-transform"
+        src="/choc/hero.mp4"
       >
-        <source
-          src="https://assets.mixkit.co/videos/41126/41126-720.mp4"
-          type="video/mp4"
-        />
       </video>
 
       {/* Dark gradient overlay */}
