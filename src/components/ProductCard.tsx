@@ -11,18 +11,19 @@ interface ProductCardProps {
 
 export default function ProductCard({ id, name, price, category, imageId }: ProductCardProps) {
   return (
-    <Link href={`/shop#${id}`} className="group block tilt-card">
-      <div className="apothecary-border hover-wiggle">
+    <Link href={`/shop#${id}`} className="group block product-pop">
+      <div className="apothecary-border">
         <div className="apothecary-border-inner">
           <div className="relative aspect-square overflow-hidden bg-cream">
             <Image
-              src={`https://picsum.photos/seed/${imageId}/400/400`}
+              src={`https://picsum.photos/seed/choc${imageId}/400/400`}
               alt={name}
               fill
-              className="object-cover group-hover:scale-[1.05] transition-transform duration-700 ease-out"
+              className="object-cover img-bw group-hover:scale-[1.08] transition-transform duration-700 ease-out"
               sizes="(max-width: 768px) 50vw, 25vw"
             />
-            <div className="absolute inset-0 bg-warm/0 group-hover:bg-warm/10 transition-colors duration-500" />
+            {/* Slide-up label on hover */}
+            <div className="slide-up-label">VIEW</div>
           </div>
         </div>
       </div>
