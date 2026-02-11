@@ -101,12 +101,16 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-            <div className="gentle-spin inline-block text-gold-light text-2xl mb-6">&#10022;</div>
-            <blockquote className="font-display text-3xl md:text-5xl font-light italic leading-relaxed text-white/90 max-w-3xl">
-              &ldquo;Chocolate is the divine drink which builds up resistance and fights fatigue.&rdquo;
-            </blockquote>
-            <p className="text-xs tracking-[0.3em] text-white/50 mt-6">MONTEZUMA II</p>
-            <div className="gentle-spin inline-block text-gold-light text-2xl mt-6">&#10022;</div>
+            <p className="text-[10px] tracking-[0.4em] text-white/40 mb-6">LIMITED RUNS &middot; HANDCRAFTED</p>
+            <h2 className="font-display text-4xl md:text-6xl font-light italic leading-[1.1] text-white/90 max-w-3xl">
+              Artists Editions
+            </h2>
+            <p className="font-body text-sm md:text-base text-white/60 leading-relaxed max-w-md mt-6">
+              Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
+            </p>
+            <a href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300">
+              EXPLORE EDITIONS
+            </a>
           </div>
         </div>
       </section>
