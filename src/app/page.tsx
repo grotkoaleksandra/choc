@@ -123,32 +123,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter */}
+      {/* Contact */}
       <section className="py-20 mx-auto max-w-7xl px-6">
-        <ScrollReveal className="max-w-lg mx-auto text-center">
-          <div className="float-slow inline-block text-3xl mb-4">&#127851;</div>
+        <ScrollReveal className="max-w-xl mx-auto text-center">
+          <div className="float-slow inline-block text-3xl mb-4">&#9993;</div>
           <h2 className="font-display text-2xl md:text-3xl font-light italic mb-2">
-            Stay in the Loop
+            Want to Collab or Just Say Hi?
           </h2>
           <p className="text-xs tracking-[0.15em] text-muted mb-8">
-            NEW STORIES, RECIPES & CHOCOLATE DROPS
+            WE&rsquo;D LOVE TO HEAR FROM YOU
           </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+          <form className="flex flex-col gap-4 max-w-md mx-auto text-left">
+            <input
+              type="text"
+              placeholder="Your name"
+              className="w-full px-4 py-3 text-sm border border-border bg-transparent text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors"
+            />
             <input
               type="email"
-              placeholder="your@email.com"
-              className="flex-1 px-4 py-3 text-sm border border-border bg-transparent text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors"
+              placeholder="Your email"
+              className="w-full px-4 py-3 text-sm border border-border bg-transparent text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors"
+            />
+            <textarea
+              placeholder="Your message..."
+              rows={5}
+              className="w-full px-4 py-3 text-sm border border-border bg-transparent text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors resize-none"
             />
             <button
               type="submit"
-              className="px-6 py-3 text-xs tracking-[0.15em] bg-foreground text-background hover:bg-accent transition-colors duration-200 btn-bounce"
+              className="w-full px-6 py-3 text-xs tracking-[0.15em] bg-foreground text-background hover:bg-accent transition-colors duration-200 btn-bounce"
             >
-              SUBSCRIBE
+              SEND MESSAGE
             </button>
           </form>
-          <p className="text-xs text-muted/60 mt-4">
-            No spam. Unsubscribe anytime.
-          </p>
         </ScrollReveal>
       </section>
     </div>
