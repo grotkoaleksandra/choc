@@ -1,20 +1,11 @@
-import Image from "next/image";
 import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
 import ChocolateAnimation from "@/components/ChocolateAnimation";
 import ScrollReveal from "@/components/ScrollReveal";
 import Marquee from "@/components/Marquee";
 import SectionHeader from "@/components/SectionHeader";
+import HeroVideo from "@/components/HeroVideo";
 import Link from "next/link";
-
-const featuredArticle = {
-  slug: "the-origin-of-cacao",
-  title: "The Origin of Cacao",
-  excerpt: "From the ancient forests of Mesoamerica to the finest chocolatiers of today. We trace the journey of the world's most beloved ingredient.",
-  category: "Origins",
-  date: "Feb 10, 2026",
-  imageId: 42,
-};
 
 const articles = [
   {
@@ -53,44 +44,8 @@ const products = [
 export default function Home() {
   return (
     <div>
-      {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-          <ScrollReveal variant="left" className="md:col-span-5 space-y-5">
-            <span className="text-xs tracking-[0.2em] text-accent">FEATURED</span>
-            <h2 className="font-display text-4xl md:text-6xl font-light leading-[1.1] text-foreground italic">
-              {featuredArticle.title}
-            </h2>
-            <p className="font-body text-sm text-muted leading-relaxed max-w-md">
-              {featuredArticle.excerpt}
-            </p>
-            <div className="flex items-center gap-2 text-xs text-muted">
-              <span>{featuredArticle.category.toUpperCase()}</span>
-              <span className="text-border-light">/</span>
-              <span>{featuredArticle.date}</span>
-            </div>
-            <Link
-              href={`/articles/${featuredArticle.slug}`}
-              className="inline-block text-xs tracking-[0.15em] border-b border-foreground pb-0.5 hover:text-accent hover:border-accent transition-colors duration-200 btn-bounce"
-            >
-              READ THE STORY
-            </Link>
-          </ScrollReveal>
-
-          <ScrollReveal variant="right" className="md:col-span-7">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src={`https://picsum.photos/seed/${featuredArticle.imageId}/800/600`}
-                alt={featuredArticle.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 60vw"
-                priority
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* Full-screen video hero */}
+      <HeroVideo />
 
       {/* Marquee ticker */}
       <div className="border-y border-border-light py-3">

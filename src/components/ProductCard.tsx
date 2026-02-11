@@ -11,19 +11,17 @@ interface ProductCardProps {
 
 export default function ProductCard({ id, name, price, category, imageId }: ProductCardProps) {
   return (
-    <Link href={`/shop#${id}`} className="group block product-pop">
+    <Link href={`/shop#${id}`} className="group block product-card">
       <div className="apothecary-border">
         <div className="apothecary-border-inner">
-          <div className="relative aspect-square overflow-hidden bg-cream">
+          <div className="product-img relative aspect-square overflow-hidden bg-cream">
             <Image
               src={`https://picsum.photos/seed/choc${imageId}/400/400`}
               alt={name}
               fill
-              className="object-cover img-bw group-hover:scale-[1.08] transition-transform duration-700 ease-out"
+              className="object-cover group-hover:scale-[1.03] transition-transform duration-1000 ease-out"
               sizes="(max-width: 768px) 50vw, 25vw"
             />
-            {/* Slide-up label on hover */}
-            <div className="slide-up-label">VIEW</div>
           </div>
         </div>
       </div>
@@ -32,7 +30,7 @@ export default function ProductCard({ id, name, price, category, imageId }: Prod
         <span className="text-[10px] tracking-[0.2em] text-muted">
           {category.toUpperCase()}
         </span>
-        <h3 className="text-sm mt-1 group-hover:text-accent transition-colors duration-300 leading-tight">
+        <h3 className="product-name text-sm mt-1 leading-tight">
           {name}
         </h3>
         <p className="text-sm text-muted mt-0.5 font-display italic">{price}</p>
