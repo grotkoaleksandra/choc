@@ -15,7 +15,7 @@ export default function ArticleCard({ slug, title, excerpt, category, date, imag
   return (
     <Link href={`/articles/${slug}`} className="group block tilt-card">
       <article>
-        <div className={`relative ${featured ? "aspect-[16/9]" : "aspect-[4/3]"} mb-4 overflow-hidden`}>
+        <div className={`relative ${featured ? "aspect-[3/4]" : "aspect-[3/4]"} mb-4 overflow-hidden`}>
           <Image
             src={image}
             alt={title}

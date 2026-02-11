@@ -12,7 +12,7 @@ interface ProductCardProps {
 export default function ProductCard({ id, name, price, category, image }: ProductCardProps) {
   return (
     <Link href={`/shop#${id}`} className="group block product-card">
-      <div className="product-img relative aspect-square overflow-hidden bg-cream">
+      <div className="product-img relative aspect-[3/4] overflow-hidden bg-cream">
         <Image
           src={image}
           alt={name}
