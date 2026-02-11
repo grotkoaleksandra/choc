@@ -373,3 +373,72 @@ main {
 .scroll-indicator {
   animation: scrollPulse 2s ease-in-out infinite;
 }
+
+/* ---- Home floating nav ---- */
+.home-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.home-nav a {
+  pointer-events: auto;
+}
+
+/* ---- Snap scroll container ---- */
+.snap-container {
+  height: 100vh;
+  height: 100svh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-panel {
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Panel entrance animation — each panel fades in when snapped */
+.snap-panel > .panel-inner {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.snap-panel.is-visible > .panel-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero panel doesn't need inner wrapper */
+.snap-panel.snap-hero {
+  scroll-snap-align: start;
+}
+
+/* Image panel — full bleed */
+.snap-panel.snap-image {
+  justify-content: stretch;
+}
+.snap-panel.snap-image > .panel-inner {
+  height: 100%;
+  transform: none;
+}
+.snap-panel.snap-image.is-visible > .panel-inner {
+  opacity: 1;
+}
+
+/* Footer panel can be shorter */
+.snap-panel.snap-footer {
+  min-height: auto;
+  scroll-snap-align: end;
+}

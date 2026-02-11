@@ -39,9 +39,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${cormorant.variable} ${ebGaramond.variable} ${robotoMono.variable} antialiased`}>
         <SparkleTrail />
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
