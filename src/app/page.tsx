@@ -93,8 +93,8 @@ export default function Home() {
       <section className="snap-panel snap-image">
         <div className="panel-inner relative flex-1">
           <Image
-            src="/choc/img-1.png"
-            alt="Cacao beans and chocolate"
+            src="/choc/miguel.jpeg"
+            alt="Artists Editions — Miguel"
             fill
             className="object-cover"
             sizes="100vw"
@@ -111,15 +111,6 @@ export default function Home() {
             <a href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300">
               EXPLORE EDITIONS
             </a>
-            <div className="relative mt-10 w-48 md:w-64 aspect-[3/4] overflow-hidden border border-white/20">
-              <Image
-                src="/choc/miguel.jpeg"
-                alt="Miguel — Artists Edition"
-                fill
-                className="object-cover"
-                sizes="256px"
-              />
-            </div>
           </div>
         </div>
       </section>
