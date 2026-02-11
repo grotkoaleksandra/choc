@@ -11,7 +11,7 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between py-5">
           <Link href="/" className="inline-block hover-wiggle">
-            <h1 className="text-sm tracking-[0.3em] font-medium">CHOC</h1>
+            <h1 className="text-sm tracking-[0.3em] font-medium">SYRENA CHOCOLATE</h1>
           </Link>
 
           {/* Desktop Navigation */}

@@ -2,7 +2,8 @@ import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
 import ChocolateAnimation from "@/components/ChocolateAnimation";
 import ScrollReveal from "@/components/ScrollReveal";
-import Marquee from "@/components/Marquee";
+import Image from "next/image";
+
 import SectionHeader from "@/components/SectionHeader";
 import HeroVideo from "@/components/HeroVideo";
 import Link from "next/link";
@@ -47,25 +48,6 @@ export default function Home() {
       {/* Full-screen video hero */}
       <HeroVideo />
 
-      {/* Marquee ticker */}
-      <div className="border-y border-border-light py-3">
-        <Marquee
-          items={[
-            "SINGLE ORIGIN",
-            "BEAN TO BAR",
-            "72% CACAO",
-            "HANDCRAFTED",
-            "SMALL BATCH",
-            "ETHICALLY SOURCED",
-            "MESOAMERICAN HERITAGE",
-            "ROASTED WITH CARE",
-            "CHOCOLATE IS A FEELING",
-          ]}
-          separator=" &#9830; "
-          className="text-xs tracking-[0.2em] text-muted/60"
-        />
-      </div>
-
       {/* Chocolate animation divider */}
       <ScrollReveal variant="scale" className="flex items-center gap-6 py-10 mx-auto max-w-7xl px-6">
         <div className="flex-1 gold-line" />
@@ -75,34 +57,7 @@ export default function Home() {
         <div className="flex-1 gold-line" />
       </ScrollReveal>
 
-      {/* Recent Articles */}
-      <section className="mx-auto max-w-7xl px-6 py-12">
-        <ScrollReveal>
-          <SectionHeader label="FROM THE JOURNAL" linkHref="/articles" linkText="VIEW ALL" />
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 stagger-children">
-          <div className="md:col-span-3">
-            <ArticleCard {...articles[0]} featured />
-          </div>
-          <div className="md:col-span-2 flex flex-col gap-8">
-            <ArticleCard {...articles[1]} />
-            <ArticleCard {...articles[2]} />
-          </div>
-        </div>
-      </section>
-
-      {/* Decorative quote */}
-      <ScrollReveal className="py-16 text-center mx-auto max-w-3xl px-6">
-        <div className="gentle-spin inline-block text-gold text-2xl mb-4">&#10022;</div>
-        <blockquote className="font-display text-3xl md:text-4xl font-light italic leading-relaxed text-foreground/80">
-          &ldquo;Chocolate is the divine drink which builds up resistance and fights fatigue.&rdquo;
-        </blockquote>
-        <p className="text-xs tracking-[0.2em] text-muted mt-4">MONTEZUMA II</p>
-        <div className="gentle-spin inline-block text-gold text-2xl mt-4">&#10022;</div>
-      </ScrollReveal>
-
-      {/* Shop */}
+      {/* Shop — first section */}
       <section className="py-16 bg-cream">
         <div className="mx-auto max-w-7xl px-6">
           <ScrollReveal>
@@ -131,24 +86,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Second marquee — origins */}
-      <div className="border-y border-border-light py-3 bg-warm text-cream">
-        <Marquee
-          items={[
-            "VENEZUELA",
-            "ECUADOR",
-            "MADAGASCAR",
-            "PERU",
-            "COLOMBIA",
-            "GHANA",
-            "MEXICO",
-            "TANZANIA",
-            "BELIZE",
-          ]}
-          separator=" ~ "
-          className="text-xs tracking-[0.25em] opacity-70"
-        />
-      </div>
+      {/* Full-width image divider */}
+      <ScrollReveal variant="scale">
+        <div className="relative w-full" style={{ height: "70vh" }}>
+          <Image
+            src="https://picsum.photos/seed/syrenacacao/1600/900"
+            alt="Cacao beans and chocolate"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+      </ScrollReveal>
+
+      {/* Decorative quote */}
+      <ScrollReveal className="py-16 text-center mx-auto max-w-3xl px-6">
+        <div className="gentle-spin inline-block text-gold text-2xl mb-4">&#10022;</div>
+        <blockquote className="font-display text-3xl md:text-4xl font-light italic leading-relaxed text-foreground/80">
+          &ldquo;Chocolate is the divine drink which builds up resistance and fights fatigue.&rdquo;
+        </blockquote>
+        <p className="text-xs tracking-[0.2em] text-muted mt-4">MONTEZUMA II</p>
+        <div className="gentle-spin inline-block text-gold text-2xl mt-4">&#10022;</div>
+      </ScrollReveal>
+
+      {/* Journal — second section, all cards in one row */}
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <ScrollReveal>
+          <SectionHeader label="FROM THE JOURNAL" linkHref="/articles" linkText="VIEW ALL" />
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
+          {articles.map((article) => (
+            <ArticleCard key={article.slug} {...article} />
+          ))}
+        </div>
+      </section>
 
       {/* Newsletter */}
       <section className="py-20 mx-auto max-w-7xl px-6">

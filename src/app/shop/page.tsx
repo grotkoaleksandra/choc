@@ -1,7 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import SectionHeader from "@/components/SectionHeader";
 import ScrollReveal from "@/components/ScrollReveal";
-import Marquee from "@/components/Marquee";
 
 const products = [
   { id: "dark-72", name: "Single Origin Dark 72%", price: "$14", category: "Bars", imageId: 301 },
@@ -34,18 +33,6 @@ export default function ShopPage() {
         </div>
       </div>
 
-      <div className="mt-12 border-y border-border-light py-3">
-        <Marquee
-          items={[
-            "FREE SHIPPING OVER $50",
-            "HANDMADE IN SMALL BATCHES",
-            "ETHICALLY SOURCED CACAO",
-            "GIFT WRAPPING AVAILABLE",
-          ]}
-          separator=" &#9830; "
-          className="text-xs tracking-[0.2em] text-muted/50"
-        />
-      </div>
     </div>
   );
 }

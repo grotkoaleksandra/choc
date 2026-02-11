@@ -26,8 +26,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CHOC — Chocolate Journal & Shop",
-  description: "A chocolate journal and curated shop. Stories, craft, and fine chocolate.",
+  title: "SYRENA CHOCOLATE — Journal & Shop",
+  description: "A chocolate journal and curated shop by Syrena Chocolate. Stories, craft, and fine chocolate.",
 };
 
 export default function RootLayout({

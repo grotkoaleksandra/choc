@@ -40,8 +40,8 @@ export default function HeroVideo() {
           <p className="text-[10px] tracking-[0.4em] text-white/50 mb-4">
             A CHOCOLATE JOURNAL & APOTHECARY
           </p>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-white leading-[1.05] italic mb-6">
-            CHOC
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-light text-white leading-[1.05] italic mb-6">
+            SYRENA CHOCOLATE
           </h1>
           <p className="font-body text-sm md:text-base text-white/70 leading-relaxed max-w-md mb-8">
             Stories, craft, and fine chocolate. From the ancient forests of Mesoamerica to your hands.

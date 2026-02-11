@@ -14,7 +14,7 @@ export default function AboutPage() {
       <div className="space-y-6 font-body text-base text-foreground/80 leading-[1.8]">
         <ScrollReveal>
           <p className="drop-cap">
-            CHOC is a chocolate journal and curated apothecary. We tell stories about cacao \u2014
+            Syrena Chocolate is a chocolate journal and curated apothecary. We tell stories about cacao \u2014
             its origins, its makers, and the culture that surrounds it \u2014 and we offer a small,
             intentional selection of fine chocolates and cacao goods.
           </p>
@@ -28,7 +28,7 @@ export default function AboutPage() {
         </ScrollReveal>
         <ScrollReveal delay={200}>
           <p>
-            Founded in 2026, CHOC draws inspiration from the chocolate houses of old Europe, the cacao
+            Founded in 2026, Syrena Chocolate draws inspiration from the chocolate houses of old Europe, the cacao
             ceremonies of Mesoamerica, and the modern bean-to-bar movement. We're a place where the
             ancient and the contemporary meet \u2014 where a 3,000-year-old ingredient finds new expression.
           </p>
@@ -63,8 +63,8 @@ export default function AboutPage() {
         </div>
         <p className="text-sm text-muted">
           For editorial inquiries, wholesale, or just to talk chocolate \u2014 reach out at{" "}
-          <a href="mailto:hello@choc.com" className="text-foreground hover:text-accent transition-colors link-fancy">
-            hello@choc.com
+          <a href="mailto:hello@syrenachocolate.com" className="text-foreground hover:text-accent transition-colors link-fancy">
+            hello@syrenachocolate.com
           </a>
         </p>
       </ScrollReveal>
