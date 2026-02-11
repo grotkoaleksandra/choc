@@ -15,7 +15,7 @@ const articles = [
     excerpt: "How a new generation of chocolate makers is changing everything we know about flavor.",
     category: "Craft",
     date: "Feb 8, 2026",
-    imageId: 63,
+    image: "/choc/img-2.png",
   },
   {
     slug: "chocolate-and-terroir",
@@ -23,7 +23,7 @@ const articles = [
     excerpt: "Why the same cacao bean tastes different depending on where it grows.",
     category: "Science",
     date: "Feb 5, 2026",
-    imageId: 74,
+    image: "/choc/img-3.png",
   },
   {
     slug: "the-art-of-tempering",
@@ -31,15 +31,15 @@ const articles = [
     excerpt: "The alchemy behind that perfect snap and glossy sheen.",
     category: "Technique",
     date: "Feb 3, 2026",
-    imageId: 55,
+    image: "/choc/img-4.png",
   },
 ];
 
 const products = [
-  { id: "dark-72", name: "Single Origin Dark 72%", price: "$14", category: "Bars", imageId: 301 },
-  { id: "sea-salt-caramel", name: "Sea Salt & Caramel", price: "$16", category: "Bars", imageId: 302 },
-  { id: "cacao-nibs", name: "Roasted Cacao Nibs", price: "$12", category: "Pantry", imageId: 303 },
-  { id: "drinking-choc", name: "Ceremonial Drinking Chocolate", price: "$22", category: "Drinks", imageId: 304 },
+  { id: "dark-72", name: "Single Origin Dark 72%", price: "$14", category: "Bars", image: "/choc/img-3.png" },
+  { id: "sea-salt-caramel", name: "Sea Salt & Caramel", price: "$16", category: "Bars", image: "/choc/img-5.png" },
+  { id: "cacao-nibs", name: "Roasted Cacao Nibs", price: "$12", category: "Pantry", image: "/choc/img-4.png" },
+  { id: "drinking-choc", name: "Ceremonial Drinking Chocolate", price: "$22", category: "Drinks", image: "/choc/img-2.png" },
 ];
 
 export default function Home() {
@@ -93,7 +93,7 @@ export default function Home() {
       <section className="snap-panel snap-image">
         <div className="panel-inner relative flex-1">
           <Image
-            src="https://picsum.photos/seed/syrenacacao/1600/900"
+            src="/choc/img-1.png"
             alt="Cacao beans and chocolate"
             fill
             className="object-cover"

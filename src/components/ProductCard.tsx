@@ -6,17 +6,17 @@ interface ProductCardProps {
   name: string;
   price: string;
   category: string;
-  imageId: number;
+  image: string;
 }
 
-export default function ProductCard({ id, name, price, category, imageId }: ProductCardProps) {
+export default function ProductCard({ id, name, price, category, image }: ProductCardProps) {
   return (
     <Link href={`/shop#${id}`} className="group block product-card">
       <div className="apothecary-border">
         <div className="apothecary-border-inner">
           <div className="product-img relative aspect-square overflow-hidden bg-cream">
             <Image
-              src={`https://picsum.photos/seed/choc${imageId}/400/400`}
+              src={image}
               alt={name}
               fill
               className="object-cover group-hover:scale-[1.03] transition-transform duration-1000 ease-out"

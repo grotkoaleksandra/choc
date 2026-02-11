@@ -3,14 +3,14 @@ import SectionHeader from "@/components/SectionHeader";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const products = [
-  { id: "dark-72", name: "Single Origin Dark 72%", price: "$14", category: "Bars", imageId: 301 },
-  { id: "sea-salt-caramel", name: "Sea Salt & Caramel", price: "$16", category: "Bars", imageId: 302 },
-  { id: "cacao-nibs", name: "Roasted Cacao Nibs", price: "$12", category: "Pantry", imageId: 303 },
-  { id: "drinking-choc", name: "Ceremonial Drinking Chocolate", price: "$22", category: "Drinks", imageId: 304 },
-  { id: "milk-hazelnut", name: "Milk & Hazelnut Gianduja", price: "$15", category: "Bars", imageId: 305 },
-  { id: "cacao-butter", name: "Raw Cacao Butter", price: "$18", category: "Pantry", imageId: 306 },
-  { id: "chili-dark", name: "Oaxacan Chili & Dark", price: "$16", category: "Bars", imageId: 307 },
-  { id: "hot-choc-mix", name: "Spiced Hot Chocolate Mix", price: "$20", category: "Drinks", imageId: 308 },
+  { id: "dark-72", name: "Single Origin Dark 72%", price: "$14", category: "Bars", image: "/choc/img-3.png" },
+  { id: "sea-salt-caramel", name: "Sea Salt & Caramel", price: "$16", category: "Bars", image: "/choc/img-5.png" },
+  { id: "cacao-nibs", name: "Roasted Cacao Nibs", price: "$12", category: "Pantry", image: "/choc/img-4.png" },
+  { id: "drinking-choc", name: "Ceremonial Drinking Chocolate", price: "$22", category: "Drinks", image: "/choc/img-2.png" },
+  { id: "milk-hazelnut", name: "Milk & Hazelnut Gianduja", price: "$15", category: "Bars", image: "/choc/img-5.png" },
+  { id: "cacao-butter", name: "Raw Cacao Butter", price: "$18", category: "Pantry", image: "/choc/img-1.png" },
+  { id: "chili-dark", name: "Oaxacan Chili & Dark", price: "$16", category: "Bars", image: "/choc/img-3.png" },
+  { id: "hot-choc-mix", name: "Spiced Hot Chocolate Mix", price: "$20", category: "Drinks", image: "/choc/img-4.png" },
 ];
 
 export default function ShopPage() {

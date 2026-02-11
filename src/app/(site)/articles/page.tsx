@@ -9,7 +9,7 @@ const allArticles = [
     excerpt: "From the ancient forests of Mesoamerica to the finest chocolatiers of today.",
     category: "Origins",
     date: "Feb 10, 2026",
-    imageId: 42,
+    image: "/choc/img-1.png",
   },
   {
     slug: "bean-to-bar-revolution",
@@ -17,7 +17,7 @@ const allArticles = [
     excerpt: "How a new generation of chocolate makers is changing everything we know about flavor.",
     category: "Craft",
     date: "Feb 8, 2026",
-    imageId: 63,
+    image: "/choc/img-2.png",
   },
   {
     slug: "chocolate-and-terroir",
@@ -25,7 +25,7 @@ const allArticles = [
     excerpt: "Why the same cacao bean tastes different depending on where it grows.",
     category: "Science",
     date: "Feb 5, 2026",
-    imageId: 74,
+    image: "/choc/img-3.png",
   },
   {
     slug: "the-art-of-tempering",
@@ -33,7 +33,7 @@ const allArticles = [
     excerpt: "The alchemy behind that perfect snap and glossy sheen.",
     category: "Technique",
     date: "Feb 3, 2026",
-    imageId: 55,
+    image: "/choc/img-4.png",
   },
   {
     slug: "cacao-ceremonies",
@@ -41,7 +41,7 @@ const allArticles = [
     excerpt: "An ancient Mesoamerican practice finding new life in modern cities.",
     category: "Culture",
     date: "Jan 30, 2026",
-    imageId: 85,
+    image: "/choc/img-5.png",
   },
   {
     slug: "chocolate-and-architecture",
@@ -49,7 +49,7 @@ const allArticles = [
     excerpt: "How the spaces where chocolate is made and sold shape our experience of it.",
     category: "Design",
     date: "Jan 27, 2026",
-    imageId: 96,
+    image: "/choc/img-1.png",
   },
 ];
 

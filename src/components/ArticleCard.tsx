@@ -7,17 +7,17 @@ interface ArticleCardProps {
   excerpt: string;
   category: string;
   date: string;
-  imageId: number;
+  image: string;
   featured?: boolean;
 }
 
-export default function ArticleCard({ slug, title, excerpt, category, date, imageId, featured }: ArticleCardProps) {
+export default function ArticleCard({ slug, title, excerpt, category, date, image, featured }: ArticleCardProps) {
   return (
     <Link href={`/articles/${slug}`} className="group block tilt-card">
       <article>
         <div className={`relative ${featured ? "aspect-[16/9]" : "aspect-[4/3]"} mb-4 overflow-hidden`}>
           <Image
-            src={`https://picsum.photos/seed/${imageId}/800/600`}
+            src={image}
             alt={title}
             fill
             className="object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
