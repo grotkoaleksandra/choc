@@ -13,7 +13,7 @@ interface ArticleCardProps {
 
 export default function ArticleCard({ slug, title, excerpt, category, date, image, featured }: ArticleCardProps) {
   return (
-    <Link href={`/articles/${slug}`} className="group block tilt-card">
+    <Link href={`/articles/${slug}`} className="group block">
       <article>
         <div className={`relative ${featured ? "aspect-[3/4]" : "aspect-[3/4]"} mb-4 overflow-hidden`}>
           <Image

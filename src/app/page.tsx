@@ -58,9 +58,9 @@ export default function Home() {
       <HeroVideo />
 
       {/* ─── Chocolate unwrap divider ─── */}
-      <ScrollReveal variant="pop" className="flex items-center gap-6 py-14 mx-auto max-w-7xl px-6">
+      <ScrollReveal variant="scale" className="flex items-center gap-6 py-14 mx-auto max-w-7xl px-6">
         <div className="flex-1 gold-line" />
-        <div className="float hover-rubber inline-block">
+        <div className="float inline-block">
           <ChocolateAnimation />
         </div>
         <div className="flex-1 gold-line" />
@@ -68,7 +68,7 @@ export default function Home() {
 
       {/* ─── Shop ─── */}
       <section className="py-20 bg-cream relative">
-        <ScrollReveal variant="bounce">
+        <ScrollReveal>
           <div className="mx-auto max-w-7xl px-6">
             <SectionHeader
               centered
@@ -82,51 +82,51 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 mt-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {products.map((product, i) => (
-              <ScrollReveal key={product.id} variant={i % 2 === 0 ? "spin-left" : "spin-right"} delay={i * 120}>
+              <ScrollReveal key={product.id} variant={i % 2 === 0 ? "left" : "right"} delay={i * 100}>
                 <ProductCard {...product} />
               </ScrollReveal>
             ))}
           </div>
         </div>
 
-        <ScrollReveal variant="bounce" delay={500} className="text-center mt-12">
+        <ScrollReveal delay={400} className="text-center mt-12">
           <Link
             href="/shop"
-            className="inline-block text-xs tracking-[0.15em] border border-border px-8 py-3 hover:bg-foreground hover:text-background transition-all duration-200 btn-bounce hover-rubber"
+            className="inline-block text-xs tracking-[0.15em] border border-border px-8 py-3 hover:bg-foreground hover:text-background transition-all duration-200"
           >
             BROWSE ALL
           </Link>
         </ScrollReveal>
       </section>
 
-      {/* ─── Artists Editions — full bleed with parallax ─── */}
+      {/* ─── Artists Editions — full bleed ─── */}
       <section className="relative overflow-hidden" style={{ height: "85vh" }}>
-        <div className="parallax-wrap absolute inset-0">
+        <div className="absolute inset-0">
           <Image
             src="/choc/miguel.jpeg"
             alt="Artists Editions — Miguel"
             fill
-            className="object-cover scale-110"
+            className="object-cover"
             sizes="100vw"
           />
         </div>
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-          <ScrollReveal variant="flip">
+          <ScrollReveal>
             <p className="text-[10px] tracking-[0.4em] text-white/40 mb-6">LIMITED RUNS · HANDCRAFTED</p>
           </ScrollReveal>
-          <ScrollReveal variant="bounce" delay={150}>
+          <ScrollReveal delay={150}>
             <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light italic leading-[1.1] text-white/90 max-w-3xl">
               Artists Editions
             </h2>
           </ScrollReveal>
-          <ScrollReveal variant="up" delay={300}>
+          <ScrollReveal delay={300}>
             <p className="font-body text-sm md:text-base text-white/60 leading-relaxed max-w-md mt-6">
               Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
             </p>
           </ScrollReveal>
-          <ScrollReveal variant="pop" delay={450}>
-            <Link href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300 hover-rubber">
+          <ScrollReveal delay={450}>
+            <Link href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300">
               EXPLORE EDITIONS
             </Link>
           </ScrollReveal>
@@ -135,22 +135,22 @@ export default function Home() {
 
       {/* ─── Journal ─── */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <ScrollReveal variant="wobble">
+        <ScrollReveal>
           <SectionHeader label="FROM THE JOURNAL" linkHref="/articles" linkText="VIEW ALL" />
         </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
           {articles.map((article, i) => (
-            <ScrollReveal key={article.slug} variant="bounce" delay={i * 180}>
+            <ScrollReveal key={article.slug} delay={i * 150} wipe>
               <ArticleCard {...article} />
             </ScrollReveal>
           ))}
         </div>
       </section>
 
-      {/* ─── Fun divider with spinning stars ─── */}
+      {/* ─── Divider with spinning stars ─── */}
       <div className="py-10 text-center overflow-hidden">
-        <ScrollReveal variant="pop">
+        <ScrollReveal variant="scale">
           <span className="inline-flex items-center gap-4 text-muted/30">
             <span className="gentle-spin inline-block text-gold text-xl">✦</span>
             <span className="text-[10px] tracking-[0.4em]">MADE WITH LOVE & CACAO</span>
@@ -161,7 +161,7 @@ export default function Home() {
 
       {/* ─── Contact ─── */}
       <section className="py-20 mx-auto max-w-7xl px-6">
-        <ScrollReveal variant="wobble" className="max-w-xl mx-auto text-center">
+        <ScrollReveal className="max-w-xl mx-auto text-center">
           <div className="float-slow inline-block text-3xl mb-4">✉</div>
           <h2 className="font-display text-2xl md:text-3xl font-light italic mb-2">
             Want to Collab or Just Say Hi?
@@ -170,7 +170,7 @@ export default function Home() {
             WE&rsquo;D LOVE TO HEAR FROM YOU
           </p>
         </ScrollReveal>
-        <ScrollReveal variant="bounce" delay={200} className="max-w-md mx-auto">
+        <ScrollReveal delay={200} className="max-w-md mx-auto">
           <form className="flex flex-col gap-4 text-left">
             <input
               type="text"
@@ -189,7 +189,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="w-full px-6 py-3 text-xs tracking-[0.15em] bg-foreground text-background hover:bg-accent transition-colors duration-200 btn-bounce hover-rubber"
+              className="w-full px-6 py-3 text-xs tracking-[0.15em] bg-foreground text-background hover:bg-accent transition-colors duration-200"
             >
               SEND MESSAGE
             </button>
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       {/* ─── Footer ─── */}
-      <ScrollReveal variant="up">
+      <ScrollReveal>
         <footer className="mt-10 border-t-2 border-border">
           <div className="mx-auto max-w-7xl px-6 py-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
