@@ -388,57 +388,146 @@ main {
   pointer-events: auto;
 }
 
-/* ---- Snap scroll container ---- */
-.snap-container {
-  height: 100vh;
-  height: 100svh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  -webkit-overflow-scrolling: touch;
+/* ---- Whimsical scroll reveals ---- */
+
+/* Bounce up — springy entrance */
+.reveal-bounce {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reveal-bounce.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-.snap-panel {
-  min-height: 100vh;
-  min-height: 100svh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+/* Spin in from left */
+.reveal-spin-left {
+  opacity: 0;
+  transform: translateX(-80px) rotate(-8deg);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-spin-left.revealed {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* Spin in from right */
+.reveal-spin-right {
+  opacity: 0;
+  transform: translateX(80px) rotate(8deg);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-spin-right.revealed {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* Pop in — scale up with bounce */
+.reveal-pop {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reveal-pop.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Flip in */
+.reveal-flip {
+  opacity: 0;
+  transform: perspective(600px) rotateX(-20deg) translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-flip.revealed {
+  opacity: 1;
+  transform: perspective(600px) rotateX(0deg) translateY(0);
+}
+
+/* Stagger cascade — children fly in one by one with rotation */
+@keyframes cascadeIn {
+  from { opacity: 0; transform: translateY(40px) rotate(-3deg) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+}
+.cascade-children > * {
+  opacity: 0;
+  animation: cascadeIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.cascade-children > *:nth-child(1) { animation-delay: 0.1s; }
+.cascade-children > *:nth-child(2) { animation-delay: 0.22s; }
+.cascade-children > *:nth-child(3) { animation-delay: 0.34s; }
+.cascade-children > *:nth-child(4) { animation-delay: 0.46s; }
+
+/* Wobble — playful entrance */
+@keyframes wobbleIn {
+  0% { opacity: 0; transform: translateY(30px) rotate(0deg); }
+  40% { opacity: 1; transform: translateY(-8px) rotate(2deg); }
+  60% { transform: translateY(4px) rotate(-1.5deg); }
+  80% { transform: translateY(-2px) rotate(0.5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+.reveal-wobble {
+  opacity: 0;
+}
+.reveal-wobble.revealed {
+  animation: wobbleIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Parallax image wrapper */
+.parallax-wrap {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   overflow: hidden;
 }
-
-/* Panel entrance animation — each panel fades in when snapped */
-.snap-panel > .panel-inner {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.snap-panel.is-visible > .panel-inner {
-  opacity: 1;
-  transform: translateY(0);
+.parallax-wrap img {
+  transition: transform 0.1s linear;
 }
 
-/* Hero panel doesn't need inner wrapper */
-.snap-panel.snap-hero {
-  scroll-snap-align: start;
+/* Floating emoji decorations */
+@keyframes floatAround {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(12px, -18px) rotate(10deg); }
+  50%  { transform: translate(-8px, -30px) rotate(-5deg); }
+  75%  { transform: translate(15px, -12px) rotate(15deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.float-emoji {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.15;
+  pointer-events: none;
+  animation: floatAround 12s ease-in-out infinite;
 }
 
-/* Image panel — full bleed */
-.snap-panel.snap-image {
-  justify-content: stretch;
+/* Rubber band on hover */
+@keyframes rubberBand {
+  0% { transform: scale(1); }
+  30% { transform: scaleX(1.25) scaleY(0.75); }
+  40% { transform: scaleX(0.75) scaleY(1.25); }
+  50% { transform: scaleX(1.15) scaleY(0.85); }
+  65% { transform: scaleX(0.95) scaleY(1.05); }
+  75% { transform: scaleX(1.05) scaleY(0.95); }
+  100% { transform: scale(1); }
 }
-.snap-panel.snap-image > .panel-inner {
-  height: 100%;
-  transform: none;
-}
-.snap-panel.snap-image.is-visible > .panel-inner {
-  opacity: 1;
+.hover-rubber:hover {
+  animation: rubberBand 0.7s ease;
 }
 
-/* Footer panel can be shorter */
-.snap-panel.snap-footer {
-  min-height: auto;
-  scroll-snap-align: end;
+/* Letter-by-letter wave */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
+.wave-text span {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+.wave-text span:nth-child(2n) { animation-delay: 0.1s; }
+.wave-text span:nth-child(3n) { animation-delay: 0.2s; }
+.wave-text span:nth-child(5n) { animation-delay: 0.3s; }
+.wave-text span:nth-child(7n) { animation-delay: 0.15s; }

@@ -5,7 +5,7 @@ import { useEffect, useRef, ReactNode } from "react";
 interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
-  variant?: "up" | "left" | "right" | "scale";
+  variant?: "up" | "left" | "right" | "scale" | "bounce" | "spin-left" | "spin-right" | "pop" | "flip" | "wobble";
   delay?: number;
   wipe?: boolean;
 }
@@ -38,6 +38,12 @@ export default function ScrollReveal({ children, className = "", variant = "up",
     left: "reveal-left",
     right: "reveal-right",
     scale: "reveal-scale",
+    bounce: "reveal-bounce",
+    "spin-left": "reveal-spin-left",
+    "spin-right": "reveal-spin-right",
+    pop: "reveal-pop",
+    flip: "reveal-flip",
+    wobble: "reveal-wobble",
   }[variant];
 
   const wipeClass = wipe ? " img-wipe" : "";
