@@ -13,6 +13,9 @@
   --border-light: #e0e0e0;
   --gold: #c9a96e;
   --gold-light: #dfc999;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-mono: "Roboto Mono", "Courier New", monospace;
 }
 
 @theme inline {
