@@ -282,6 +282,103 @@ main {
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
+/* ---- Cacao bean crack animation ---- */
+.choc-anim-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Lines that draw outward from center */
+.choc-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  flex: 1;
+  max-width: 300px;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.choc-line-left {
+  transform-origin: right center;
+  transition-delay: 0.6s;
+}
+.choc-line-right {
+  transform-origin: left center;
+  transition-delay: 0.6s;
+}
+.choc-line.draw {
+  transform: scaleX(1);
+}
+
+/* Bean container */
+.choc-bean {
+  position: relative;
+  width: 60px;
+  height: 50px;
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+/* Bean halves split apart */
+.choc-bean-half {
+  position: absolute;
+  top: 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+  transition-delay: 0.1s;
+}
+.choc-bean-left {
+  left: 0;
+  transform-origin: center center;
+}
+.choc-bean-right {
+  right: 0;
+  transform-origin: center center;
+}
+.choc-bean.crack .choc-bean-left {
+  transform: translateX(-12px) rotate(-15deg);
+}
+.choc-bean.crack .choc-bean-right {
+  transform: translateX(12px) rotate(15deg);
+}
+
+/* Gold dust burst */
+.choc-dust {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+@keyframes dustBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--dist) * -0.5)) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0);
+  }
+}
+
+.choc-particle {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: var(--gold);
+  border-radius: 50%;
+  animation: dustBurst var(--dur) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--delay);
+  box-shadow: 0 0 4px var(--gold-light);
+}
+
 /* ---- Product card — classic glow ---- */
 .product-card {
   transition: border-color 0.6s ease;

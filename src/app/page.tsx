@@ -57,14 +57,10 @@ export default function Home() {
       {/* ─── Hero Video ─── */}
       <HeroVideo />
 
-      {/* ─── Chocolate unwrap divider ─── */}
-      <ScrollReveal variant="scale" className="flex items-center gap-6 py-14 mx-auto max-w-7xl px-6">
-        <div className="flex-1 gold-line" />
-        <div className="float inline-block">
-          <ChocolateAnimation />
-        </div>
-        <div className="flex-1 gold-line" />
-      </ScrollReveal>
+      {/* ─── Cacao bean crack divider ─── */}
+      <div className="py-14 mx-auto max-w-7xl px-6">
+        <ChocolateAnimation />
+      </div>
 
       {/* ─── Shop ─── */}
       <section className="py-20 bg-cream relative">
