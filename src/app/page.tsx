@@ -99,8 +99,8 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{ height: "85vh" }}>
         <div className="absolute inset-0">
           <Image
-            src="/choc/miguel.jpeg"
-            alt="Artists Editions — Miguel"
+            src="/choc/artists-editions.svg"
+            alt="Artists Editions — abstract gold and chocolate composition"
             fill
             className="object-cover"
             sizes="100vw"

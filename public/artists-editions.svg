@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Warm gradients -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a0e08"/>
+      <stop offset="40%" stop-color="#2c1810"/>
+      <stop offset="100%" stop-color="#0d0906"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="30%" cy="40%" r="45%">
+      <stop offset="0%" stop-color="#c9a96e" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#8b6914" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1a0e08" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="75%" cy="55%" r="40%">
+      <stop offset="0%" stop-color="#5C3A21" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#3a2010" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0d0906" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="55%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#dfc999" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1a0e08" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c9a96e" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#c9a96e" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#dfc999" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#c9a96e" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gold-stroke2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dfc999" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#c9a96e" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#dfc999" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#c9a96e" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="warm-fill" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#5C3A21" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2c1810" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="warm-fill2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7A5C3E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#3a2010" stop-opacity="0.05"/>
+    </linearGradient>
+
+    <!-- Noise texture -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <filter id="blur-sm">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="blur-lg">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+
+    <!-- Clip paths for organic shapes -->
+    <clipPath id="organic1">
+      <ellipse cx="960" cy="540" rx="600" ry="400" transform="rotate(-12 960 540)"/>
+    </clipPath>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Ambient glows -->
+  <rect width="1920" height="1080" fill="url(#glow1)"/>
+  <rect width="1920" height="1080" fill="url(#glow2)"/>
+  <rect width="1920" height="1080" fill="url(#glow3)"/>
+
+  <!-- Large flowing organic shapes (chocolate tones) -->
+  <path d="M-100,600 C200,350 500,700 750,450 C1000,200 1100,500 1300,380 C1500,260 1700,550 2020,400 L2020,1100 L-100,1100Z"
+        fill="url(#warm-fill)" opacity="0.6"/>
+  <path d="M-100,750 C300,500 600,800 900,600 C1200,400 1400,650 1700,500 C1850,430 1920,480 2020,520 L2020,1100 L-100,1100Z"
+        fill="url(#warm-fill2)" opacity="0.5"/>
+
+  <!-- Flowing gold lines — primary composition -->
+  <!-- Line 1: sweeping arc top-left to center-right -->
+  <path d="M-50,200 C300,180 500,400 700,350 C900,300 1050,150 1300,280 C1550,410 1750,200 1970,350"
+        fill="none" stroke="url(#gold-stroke)" stroke-width="1.2" opacity="0.7"/>
+
+  <!-- Line 2: undulating wave mid-canvas -->
+  <path d="M-50,500 C200,420 350,580 550,480 C750,380 900,560 1100,470 C1300,380 1500,520 1700,440 C1850,390 1920,460 1970,430"
+        fill="none" stroke="url(#gold-stroke2)" stroke-width="0.8" opacity="0.55"/>
+
+  <!-- Line 3: gentle S-curve lower -->
+  <path d="M-50,720 C250,680 450,780 700,700 C950,620 1150,750 1400,680 C1650,610 1800,700 1970,660"
+        fill="none" stroke="url(#gold-stroke)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Delicate inner lines echoing the main curves -->
+  <path d="M100,215 C350,200 540,410 720,365 C890,325 1030,175 1280,300"
+        fill="none" stroke="#c9a96e" stroke-width="0.4" opacity="0.3"/>
+  <path d="M200,510 C380,440 500,590 680,500 C860,410 1020,570 1200,490"
+        fill="none" stroke="#dfc999" stroke-width="0.4" opacity="0.25"/>
+
+  <!-- Circular composition elements -->
+  <!-- Large ring — subtle, off-center -->
+  <circle cx="680" cy="460" r="280" fill="none" stroke="#c9a96e" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="680" cy="460" r="282" fill="none" stroke="#c9a96e" stroke-width="0.3" opacity="0.12"/>
+
+  <!-- Smaller orbiting ring -->
+  <circle cx="1250" cy="380" r="160" fill="none" stroke="#dfc999" stroke-width="0.5" opacity="0.18"/>
+
+  <!-- Tiny accent circle cluster -->
+  <circle cx="520" cy="380" r="3" fill="#c9a96e" opacity="0.5"/>
+  <circle cx="535" cy="370" r="1.5" fill="#dfc999" opacity="0.4"/>
+  <circle cx="510" cy="395" r="2" fill="#c9a96e" opacity="0.35"/>
+
+  <circle cx="1380" cy="300" r="2.5" fill="#c9a96e" opacity="0.45"/>
+  <circle cx="1395" cy="312" r="1.5" fill="#dfc999" opacity="0.35"/>
+
+  <circle cx="950" cy="250" r="2" fill="#dfc999" opacity="0.3"/>
+  <circle cx="800" cy="600" r="2.5" fill="#c9a96e" opacity="0.25"/>
+
+  <!-- Abstract angular shapes — like chocolate shards -->
+  <polygon points="850,300 870,280 920,320 900,340" fill="#5C3A21" opacity="0.12"/>
+  <polygon points="1100,400 1130,370 1160,420 1140,440" fill="#7A5C3E" opacity="0.08"/>
+  <polygon points="400,500 430,470 465,510 445,535" fill="#5C3A21" opacity="0.1"/>
+
+  <!-- Elegant thin intersecting lines -->
+  <line x1="600" y1="0" x2="900" y2="1080" stroke="#c9a96e" stroke-width="0.3" opacity="0.12"/>
+  <line x1="1200" y1="0" x2="1000" y2="1080" stroke="#dfc999" stroke-width="0.3" opacity="0.1"/>
+  <line x1="0" y1="400" x2="1920" y2="500" stroke="#c9a96e" stroke-width="0.2" opacity="0.08"/>
+
+  <!-- Organic splatter / droplet shapes -->
+  <ellipse cx="350" cy="650" rx="40" ry="55" transform="rotate(-25 350 650)" fill="#5C3A21" opacity="0.08"/>
+  <ellipse cx="1500" cy="550" rx="50" ry="35" transform="rotate(15 1500 550)" fill="#7A5C3E" opacity="0.06"/>
+  <ellipse cx="1050" cy="700" rx="30" ry="45" transform="rotate(-10 1050 700)" fill="#5C3A21" opacity="0.07"/>
+
+  <!-- Gold dust particles scattered -->
+  <circle cx="300" cy="300" r="1" fill="#dfc999" opacity="0.6"/>
+  <circle cx="450" cy="250" r="0.8" fill="#c9a96e" opacity="0.5"/>
+  <circle cx="620" cy="180" r="1.2" fill="#dfc999" opacity="0.45"/>
+  <circle cx="780" cy="320" r="0.7" fill="#c9a96e" opacity="0.5"/>
+  <circle cx="1050" cy="200" r="1" fill="#dfc999" opacity="0.4"/>
+  <circle cx="1200" cy="550" r="0.9" fill="#c9a96e" opacity="0.5"/>
+  <circle cx="1400" cy="250" r="1.1" fill="#dfc999" opacity="0.45"/>
+  <circle cx="1550" cy="400" r="0.8" fill="#c9a96e" opacity="0.4"/>
+  <circle cx="1700" cy="300" r="1" fill="#dfc999" opacity="0.35"/>
+  <circle cx="250" cy="500" r="0.9" fill="#c9a96e" opacity="0.4"/>
+  <circle cx="1600" cy="650" r="1.2" fill="#dfc999" opacity="0.3"/>
+  <circle cx="500" cy="700" r="0.7" fill="#c9a96e" opacity="0.35"/>
+  <circle cx="1100" cy="600" r="1" fill="#dfc999" opacity="0.3"/>
+  <circle cx="850" cy="150" r="0.8" fill="#c9a96e" opacity="0.4"/>
+  <circle cx="160" cy="400" r="1" fill="#dfc999" opacity="0.3"/>
+  <circle cx="1800" cy="500" r="0.9" fill="#c9a96e" opacity="0.35"/>
+
+  <!-- Subtle texture overlay -->
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.03"/>
+
+  <!-- Vignette -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+    <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+  </radialGradient>
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+</svg>
