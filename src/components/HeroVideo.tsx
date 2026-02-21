@@ -38,7 +38,7 @@ export default function HeroVideo() {
           }}
         >
           <p className="text-[10px] tracking-[0.4em] text-white/50 mb-4">
-            A CHOCOLATE JOURNAL & APOTHECARY
+            CRAFT CHOCOLATE · BEAN TO BAR
           </p>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-light text-white leading-[1.05] italic mb-6">
             SYRENA CHOCOLATE
