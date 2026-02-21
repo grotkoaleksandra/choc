@@ -631,3 +631,107 @@ main {
 .wave-text span:nth-child(3n) { animation-delay: 0.2s; }
 .wave-text span:nth-child(5n) { animation-delay: 0.3s; }
 .wave-text span:nth-child(7n) { animation-delay: 0.15s; }
+
+/* ---- Artists Editions — layered abstract background ---- */
+.artists-editions-bg {
+  background:
+    /* Gold diagonal streaks */
+    linear-gradient(
+      135deg,
+      transparent 20%,
+      rgba(201, 169, 110, 0.06) 22%,
+      transparent 24%,
+      transparent 40%,
+      rgba(201, 169, 110, 0.04) 41%,
+      transparent 43%,
+      transparent 65%,
+      rgba(223, 201, 153, 0.05) 66%,
+      transparent 68%
+    ),
+    /* Warm spotlight top-left */
+    radial-gradient(
+      ellipse 80% 70% at 20% 30%,
+      rgba(92, 58, 33, 0.45) 0%,
+      transparent 70%
+    ),
+    /* Gold glow center */
+    radial-gradient(
+      ellipse 50% 60% at 55% 50%,
+      rgba(201, 169, 110, 0.15) 0%,
+      transparent 70%
+    ),
+    /* Deep chocolate accent bottom-right */
+    radial-gradient(
+      ellipse 70% 50% at 80% 75%,
+      rgba(58, 32, 16, 0.5) 0%,
+      transparent 70%
+    ),
+    /* Soft warm glow bottom-left */
+    radial-gradient(
+      ellipse 60% 40% at 15% 80%,
+      rgba(122, 92, 62, 0.2) 0%,
+      transparent 70%
+    ),
+    /* Tiny gold highlight upper-right */
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(223, 201, 153, 0.12) 0%,
+      transparent 40%
+    ),
+    /* Base gradient */
+    linear-gradient(
+      160deg,
+      #1a0e08 0%,
+      #2c1810 35%,
+      #1f130c 65%,
+      #0d0906 100%
+    );
+}
+
+/* Animated shimmer overlay */
+.artists-editions-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent 0px,
+      transparent 80px,
+      rgba(201, 169, 110, 0.02) 82px,
+      transparent 84px
+    ),
+    repeating-linear-gradient(
+      60deg,
+      transparent 0px,
+      transparent 120px,
+      rgba(223, 201, 153, 0.015) 122px,
+      transparent 124px
+    );
+  animation: shimmerDrift 20s ease-in-out infinite alternate;
+}
+
+/* Decorative accent line */
+.artists-editions-bg::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.25) 20%,
+    rgba(223, 201, 153, 0.4) 50%,
+    rgba(201, 169, 110, 0.25) 80%,
+    transparent 100%
+  );
+  transform: translateY(-50%) rotate(-2deg);
+  opacity: 0.6;
+}
+
+@keyframes shimmerDrift {
+  0% { transform: translateX(-20px); opacity: 0.6; }
+  100% { transform: translateX(20px); opacity: 1; }
+}
