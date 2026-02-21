@@ -1,7 +1,6 @@
 import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
 import ChocolateAnimation from "@/components/ChocolateAnimation";
-import Image from "next/image";
 import SectionHeader from "@/components/SectionHeader";
 import HeroVideo from "@/components/HeroVideo";
 import HomeNav from "@/components/HomeNav";
@@ -97,16 +96,8 @@ export default function Home() {
 
       {/* ─── Artists Editions — full bleed ─── */}
       <section className="relative overflow-hidden" style={{ height: "85vh" }}>
-        <div className="absolute inset-0">
-          <Image
-            src="/choc/artists-editions.svg"
-            alt="Artists Editions — abstract gold and chocolate composition"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="artists-editions-bg absolute inset-0" />
+        <div className="absolute inset-0 bg-black/30" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
           <ScrollReveal>
             <p className="text-[10px] tracking-[0.4em] text-white/40 mb-6">LIMITED RUNS · HANDCRAFTED</p>
