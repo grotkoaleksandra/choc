@@ -68,7 +68,7 @@ export default function Home() {
             <SectionHeader
               centered
               label="THE CHOCOLATE SHOP"
-              title="From the Apothecary"
+              title="This Months Edition"
               subtitle="Fine chocolates and cacao goods, crafted with intention."
             />
           </div>
