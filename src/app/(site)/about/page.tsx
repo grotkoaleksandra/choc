@@ -14,7 +14,7 @@ export default function AboutPage() {
       <div className="space-y-6 font-body text-base text-foreground/80 leading-[1.8]">
         <ScrollReveal>
           <p className="drop-cap">
-            Syrena Chocolate is a chocolate journal and curated apothecary. We tell stories about cacao \u2014
+            Syrena Chocolate is a chocolate journal and curated atelier. We tell stories about cacao \u2014
             its origins, its makers, and the culture that surrounds it \u2014 and we offer a small,
             intentional selection of fine chocolates and cacao goods.
           </p>

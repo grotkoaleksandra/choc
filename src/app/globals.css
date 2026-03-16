@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f4f4;
-  --foreground: #000000;
-  --accent: #718f70;
-  --accent-light: #8aaa89;
-  --warm: #5C3A21;
-  --warm-light: #7A5C3E;
-  --cream: #f7f5f1;
-  --muted: #777777;
-  --border: #000000;
-  --border-light: #e0e0e0;
+  --background: #1a1a1a;
+  --foreground: #e8e8e8;
+  --accent: #8aaa89;
+  --accent-light: #a3c4a2;
+  --warm: #C4956A;
+  --warm-light: #D4B08A;
+  --cream: #222222;
+  --muted: #999999;
+  --border: #444444;
+  --border-light: #333333;
   --gold: #c9a96e;
   --gold-light: #dfc999;
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -36,22 +36,7 @@
   --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #111111;
-    --foreground: #e8e8e8;
-    --accent: #8aaa89;
-    --accent-light: #a3c4a2;
-    --warm: #C4956A;
-    --warm-light: #D4B08A;
-    --cream: #1a1a1a;
-    --muted: #999999;
-    --border: #e8e8e8;
-    --border-light: #333333;
-    --gold: #dfc999;
-    --gold-light: #e8d9b3;
-  }
-}
+/* Dark theme is now the default — no media query override needed */
 
 body {
   background: var(--background);

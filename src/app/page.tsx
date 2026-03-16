@@ -1,6 +1,5 @@
 import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
-import ChocolateAnimation from "@/components/ChocolateAnimation";
 import SectionHeader from "@/components/SectionHeader";
 import HeroVideo from "@/components/HeroVideo";
 import HomeNav from "@/components/HomeNav";
@@ -56,9 +55,9 @@ export default function Home() {
       {/* ─── Hero Video ─── */}
       <HeroVideo />
 
-      {/* ─── Cacao bean crack divider ─── */}
+      {/* ─── Divider ─── */}
       <div className="py-14 mx-auto max-w-7xl px-6">
-        <ChocolateAnimation />
+        <div className="gold-line w-full max-w-md mx-auto" />
       </div>
 
       {/* ─── Shop ─── */}
@@ -68,11 +67,7 @@ export default function Home() {
             <SectionHeader
               centered
               label="THE CHOCOLATE SHOP"
-<<<<<<< HEAD
-              title="This Months Edition"
-=======
-              title="From the Atelier"
->>>>>>> 4d3dab6 (Change Artists Editions heading to Featured This Month)
+              title="The Chocolate Shop"
               subtitle="Fine chocolates and cacao goods, crafted with intention."
             />
           </div>

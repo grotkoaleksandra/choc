@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h3 className="text-sm tracking-[0.3em] font-medium mb-3 hover-wiggle inline-block">SYRENA CHOCOLATE</h3>
             <p className="text-xs text-muted leading-relaxed max-w-xs">
-              A chocolate journal and curated apothecary by Syrena Chocolate. Stories, craft, and fine chocolate.
+              A chocolate journal and curated atelier by Syrena Chocolate. Stories, craft, and fine chocolate.
             </p>
             <div className="gold-line w-12 mt-4" />
           </div>
