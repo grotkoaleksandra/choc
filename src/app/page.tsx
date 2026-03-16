@@ -68,7 +68,11 @@ export default function Home() {
             <SectionHeader
               centered
               label="THE CHOCOLATE SHOP"
+<<<<<<< HEAD
               title="This Months Edition"
+=======
+              title="From the Atelier"
+>>>>>>> 4d3dab6 (Change Artists Editions heading to Featured This Month)
               subtitle="Fine chocolates and cacao goods, crafted with intention."
             />
           </div>
@@ -104,7 +108,7 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light italic leading-[1.1] text-white/90 max-w-3xl">
-              Artists Editions
+              Featured This Month
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={300}>
@@ -192,7 +196,7 @@ export default function Home() {
               <div className="md:col-span-2">
                 <h3 className="text-sm tracking-[0.3em] font-medium mb-3 hover-wiggle inline-block">SYRENA CHOCOLATE</h3>
                 <p className="text-xs text-muted leading-relaxed max-w-xs">
-                  A chocolate journal and curated apothecary by Syrena Chocolate. Stories, craft, and fine chocolate.
+                  A chocolate journal and curated atelier by Syrena Chocolate. Stories, craft, and fine chocolate.
                 </p>
                 <div className="gold-line w-12 mt-4" />
               </div>
