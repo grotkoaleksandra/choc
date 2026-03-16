@@ -27,34 +27,48 @@ export default function ChocolateAnimation() {
       {/* Left line draws in */}
       <div className={`choc-line choc-line-left ${visible ? "draw" : ""}`} />
 
-      {/* Center bean cracks open */}
-      <div className={`choc-bean ${visible ? "crack" : ""}`}>
-        <div className="choc-bean-half choc-bean-left">
-          <svg viewBox="0 0 30 50" width="30" height="50">
-            <path d="M28 5 Q30 25, 28 45 Q15 48, 8 40 Q2 30, 4 20 Q6 8, 15 3 Q22 0, 28 5Z" fill="var(--warm)" />
-            <path d="M28 5 Q30 25, 28 45" stroke="var(--warm-light)" strokeWidth="1.5" fill="none" opacity="0.6" />
-          </svg>
-        </div>
-        <div className="choc-bean-half choc-bean-right">
-          <svg viewBox="0 0 30 50" width="30" height="50">
-            <path d="M2 5 Q0 25, 2 45 Q15 48, 22 40 Q28 30, 26 20 Q24 8, 15 3 Q8 0, 2 5Z" fill="var(--warm)" />
-            <path d="M2 5 Q0 25, 2 45" stroke="var(--warm-light)" strokeWidth="1.5" fill="none" opacity="0.6" />
+      {/* Chocolate bar snaps in half */}
+      <div className={`choc-bar ${visible ? "snap" : ""}`}>
+        {/* Left half */}
+        <div className="choc-bar-half choc-bar-left">
+          <svg viewBox="0 0 48 36" width="48" height="36">
+            {/* Bar body */}
+            <rect x="0" y="0" width="48" height="36" rx="2" fill="var(--warm)" />
+            {/* Score lines (chocolate squares) */}
+            <line x1="16" y1="0" x2="16" y2="36" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="32" y1="0" x2="32" y2="36" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="0" y1="12" x2="48" y2="12" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="0" y1="24" x2="48" y2="24" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            {/* Subtle highlight */}
+            <rect x="1" y="1" width="46" height="4" rx="1" fill="var(--warm-light)" opacity="0.15" />
           </svg>
         </div>
 
-        {/* Gold dust particles */}
+        {/* Right half */}
+        <div className="choc-bar-half choc-bar-right">
+          <svg viewBox="0 0 48 36" width="48" height="36">
+            <rect x="0" y="0" width="48" height="36" rx="2" fill="var(--warm)" />
+            <line x1="16" y1="0" x2="16" y2="36" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="32" y1="0" x2="32" y2="36" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="0" y1="12" x2="48" y2="12" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <line x1="0" y1="24" x2="48" y2="24" stroke="var(--warm-light)" strokeWidth="0.5" opacity="0.4" />
+            <rect x="1" y="1" width="46" height="4" rx="1" fill="var(--warm-light)" opacity="0.15" />
+          </svg>
+        </div>
+
+        {/* Snap crumbs */}
         {visible && (
           <div className="choc-dust">
-            {Array.from({ length: 12 }).map((_, i) => (
+            {Array.from({ length: 8 }).map((_, i) => (
               <span
                 key={i}
                 className="choc-particle"
                 style={{
-                  "--angle": `${i * 30}deg`,
-                  "--dist": `${20 + Math.random() * 30}px`,
-                  "--size": `${2 + Math.random() * 3}px`,
-                  "--delay": `${0.4 + Math.random() * 0.3}s`,
-                  "--dur": `${0.6 + Math.random() * 0.4}s`,
+                  "--angle": `${180 + (i * 22.5 - 78)}deg`,
+                  "--dist": `${14 + Math.random() * 20}px`,
+                  "--size": `${2 + Math.random() * 2.5}px`,
+                  "--delay": `${0.3 + Math.random() * 0.2}s`,
+                  "--dur": `${0.5 + Math.random() * 0.3}s`,
                 } as React.CSSProperties}
               />
             ))}
