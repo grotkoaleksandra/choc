@@ -94,29 +94,42 @@ export default function Home() {
         </ScrollReveal>
       </section>
 
-      {/* ─── Artists Editions — full bleed ─── */}
-      <section className="relative overflow-hidden" style={{ height: "85vh" }}>
-        <div className="artists-editions-bg absolute inset-0" />
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
-          <ScrollReveal>
-            <p className="text-[10px] tracking-[0.4em] text-white/40 mb-6">LIMITED RUNS · HANDCRAFTED</p>
-          </ScrollReveal>
-          <ScrollReveal delay={150}>
-            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light italic leading-[1.1] text-white/90 max-w-3xl">
-              Featured This Month
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={300}>
-            <p className="font-body text-sm md:text-base text-white/60 leading-relaxed max-w-md mt-6">
-              Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={450}>
-            <Link href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] text-white border border-white/40 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300">
-              EXPLORE EDITIONS
-            </Link>
-          </ScrollReveal>
+      {/* ─── Featured This Month ─── */}
+      <section className="relative py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            {/* Left — text */}
+            <ScrollReveal>
+              <div>
+                <p className="text-[10px] tracking-[0.4em] text-muted mb-4">LIMITED RUNS · HANDCRAFTED</p>
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light italic leading-[1.1] mb-6">
+                  Featured This Month
+                </h2>
+                <div className="gold-line w-16 mb-6" />
+                <p className="font-body text-sm md:text-base text-muted leading-relaxed max-w-sm">
+                  Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
+                </p>
+                <Link href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] border border-border px-6 py-3 hover:bg-foreground hover:text-background transition-all duration-300">
+                  EXPLORE EDITIONS
+                </Link>
+              </div>
+            </ScrollReveal>
+
+            {/* Right — stacked card preview */}
+            <ScrollReveal delay={200} variant="right">
+              <div className="relative">
+                <div className="featured-card-stack">
+                  <div className="featured-card featured-card-back" />
+                  <div className="featured-card featured-card-mid" />
+                  <div className="featured-card featured-card-front overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-[#2c1810] via-[#3a2014] to-[#1a0e08] flex items-center justify-center">
+                      <span className="font-display text-3xl italic text-gold/60">SC</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
