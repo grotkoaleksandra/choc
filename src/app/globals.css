@@ -13,9 +13,9 @@
   --border-light: #333333;
   --gold: #c9a96e;
   --gold-light: #dfc999;
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
-  --font-mono: "Roboto Mono", "Courier New", monospace;
+  --font-display: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Courier New", monospace;
 }
 
 @theme inline {
@@ -41,10 +41,13 @@
 body {
   background: transparent;
   color: var(--foreground);
-  font-family: var(--font-mono), "Courier New", monospace;
-  font-size: 14px;
+  font-family: var(--font-body), -apple-system, sans-serif;
+  font-size: 15px;
   line-height: 1.6;
+  letter-spacing: -0.005em;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 html {
   background: var(--background);

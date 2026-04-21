@@ -1,4 +1,5 @@
 import ArticleCard from "@/components/ArticleCard";
+import CollapsingHero from "@/components/CollapsingHero";
 import HomeNav from "@/components/HomeNav";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
@@ -39,8 +40,8 @@ const products = [
 
 const marqueeItems = [
   "SYRENA CHOCOLATE",
-  "BEAN · TO · BAR",
-  "ATELIER WARSZAWA",
+  "BEAN TO BAR",
+  "ATELIER · WARSZAWA",
   "EDITION N°07",
   "LIMITED RUNS",
   "HANDCRAFTED",
@@ -52,102 +53,20 @@ export default function Home() {
     <main className="relative">
       <HomeNav />
 
-      {/* ════════════════════════════════════════════════════════════════
-          I. EDITORIAL HERO — massive typographic statement
-      ════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col justify-between pt-28 pb-10 px-6 md:px-12">
-        {/* Vertical chapter label (left edge) */}
-        <div className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2 rotate-[-90deg] origin-left">
-          <span className="text-[9px] tracking-[0.5em] text-white/40">
-            CHAPITRE I  ·  ATELIER
-          </span>
-        </div>
+      {/* I. HERO — full-screen video that collapses on scroll */}
+      <CollapsingHero />
 
-        {/* Edition marker (right edge) */}
-        <div className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2 rotate-90 origin-right">
-          <span className="text-[9px] tracking-[0.5em] text-white/40">
-            EDITION  ·  MMXXVI  ·  N°07
-          </span>
-        </div>
-
-        {/* Top meta row */}
-        <ScrollReveal>
-          <div className="flex items-start justify-between w-full">
-            <div className="flex items-center gap-3 text-[10px] tracking-[0.3em] text-white/50">
-              <span className="inline-block w-6 h-px bg-white/30" />
-              <span>A CHOCOLATE JOURNAL</span>
-            </div>
-            <div className="hidden md:flex items-center gap-3 text-[10px] tracking-[0.3em] text-white/50">
-              <span>EST.  ·  WARSAW</span>
-              <span className="inline-block w-6 h-px bg-white/30" />
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Main typographic block */}
-        <div className="flex-1 flex items-center">
-          <div className="w-full max-w-[1400px] mx-auto">
-            <ScrollReveal>
-              <div className="mb-2 text-[10px] tracking-[0.4em] text-white/40">
-                <span className="text-gold">✦</span>  I.  INTRODUCTION
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={120}>
-              <h1 className="font-display italic font-light text-white leading-[0.85] tracking-tight text-[18vw] md:text-[15vw] lg:text-[13vw]">
-                Syrena.
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={260}>
-              <div className="mt-6 md:mt-10 grid grid-cols-12 gap-4 items-end">
-                <div className="col-span-12 md:col-span-5 md:col-start-2">
-                  <p className="font-body text-base md:text-lg text-white/70 leading-[1.5]">
-                    A studio for fine chocolate, born in Warsaw. We work
-                    slowly, with single-origin cacao, letting terroir and
-                    craft speak louder than any recipe.
-                  </p>
-                </div>
-                <div className="col-span-12 md:col-span-4 md:col-start-9 flex flex-col items-start md:items-end gap-3">
-                  <Link
-                    href="/shop"
-                    className="group text-[11px] tracking-[0.3em] text-white/80 hover:text-white transition-colors"
-                  >
-                    <span className="relative">
-                      ENTER THE ATELIER
-                      <span className="block h-px w-full bg-white/60 mt-2 origin-left scale-x-100 group-hover:scale-x-0 transition-transform duration-500" />
-                    </span>
-                  </Link>
-                  <span className="text-[10px] tracking-[0.3em] text-white/30">↓  SCROLL</span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-
-        {/* Bottom meta row */}
-        <ScrollReveal delay={400}>
-          <div className="flex items-end justify-between w-full text-[10px] tracking-[0.3em] text-white/40">
-            <span>N°01 — COMMENCEMENT</span>
-            <span className="hidden md:inline">→  CONTINUE</span>
-            <span>SYRENA · MMXXVI</span>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════
-          II. MARQUEE — kinetic ticker
-      ════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-10 border-y border-white/10 overflow-hidden">
+      {/* II. MARQUEE — kinetic ticker */}
+      <section className="relative py-6 border-y border-white/10 overflow-hidden bg-black/20 backdrop-blur-sm">
         <div className="marquee-track">
           {Array.from({ length: 3 }).map((_, rep) => (
             <div key={rep} className="flex items-center shrink-0">
               {marqueeItems.map((item, i) => (
                 <span key={`${rep}-${i}`} className="flex items-center">
-                  <span className="font-display italic text-4xl md:text-6xl text-white/80 px-10 whitespace-nowrap">
+                  <span className="text-[11px] tracking-[0.4em] text-white/75 px-8 whitespace-nowrap">
                     {item}
                   </span>
-                  <span className="text-gold text-2xl">✦</span>
+                  <span className="text-gold text-xs">✦</span>
                 </span>
               ))}
             </div>
@@ -155,72 +74,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          III. MANIFESTO — single large statement
-      ════════════════════════════════════════════════════════════════ */}
-      <section className="relative py-32 md:py-48 px-6 md:px-12">
+      {/* III. MANIFESTO */}
+      <section className="relative py-28 md:py-40 px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-6">
           <div className="col-span-12 md:col-span-2">
             <ScrollReveal>
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                II. MANIFESTO
+              <span className="text-[10px] tracking-[0.4em] text-white/45">
+                I. MANIFESTO
               </span>
             </ScrollReveal>
           </div>
-          <div className="col-span-12 md:col-span-8">
+          <div className="col-span-12 md:col-span-9">
             <ScrollReveal delay={120}>
-              <p className="font-display italic font-light text-white leading-[1.15] text-3xl md:text-5xl lg:text-6xl">
-                Chocolate is not a confection. It is a language —
-                <span className="text-white/50"> a record of soil, of weather,
-                of patient hands</span>, translated through fire and time.
+              <p
+                className="font-display text-white leading-[1.1] tracking-[-0.015em] text-3xl md:text-5xl lg:text-[4rem]"
+                style={{ fontWeight: 400 }}
+              >
+                Chocolate is not a confection.
+                <span className="text-white/45"> It is a record of soil, weather, and patient hands </span>
+                — translated through fire and time.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={280}>
               <div className="mt-12 gold-line w-24" />
-              <p className="mt-6 text-[11px] tracking-[0.3em] text-white/50">
-                — A.G.  ·  FOUNDER & MAKER
+              <p className="mt-6 text-[11px] tracking-[0.3em] text-white/50 font-mono">
+                A.GROTKO  ·  FOUNDER
               </p>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          IV. FEATURED EDITION — hero product
-      ════════════════════════════════════════════════════════════════ */}
+      {/* IV. FEATURED EDITION */}
       <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <ScrollReveal>
-            <div className="flex items-baseline justify-between mb-16 md:mb-24">
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                III.  FEATURED EDITION
+            <div className="flex items-baseline justify-between mb-16 md:mb-20">
+              <span className="text-[10px] tracking-[0.4em] text-white/45">
+                II.  FEATURED EDITION
               </span>
-              <span className="text-[10px] tracking-[0.3em] text-white/30">
+              <span className="text-[10px] tracking-[0.3em] text-white/35 font-mono">
                 N°07 · SPRING
               </span>
             </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-12 gap-6 items-end">
-            {/* Large number */}
             <ScrollReveal delay={150} className="col-span-12 md:col-span-2">
-              <span className="block font-display font-light text-white/20 text-[180px] md:text-[240px] leading-none -ml-3">
+              <span
+                className="block font-display text-white/15 leading-[0.8] -ml-2 text-[160px] md:text-[220px]"
+                style={{ fontWeight: 400 }}
+              >
                 07
               </span>
             </ScrollReveal>
 
-            {/* Product title block */}
             <div className="col-span-12 md:col-span-6">
               <ScrollReveal delay={240}>
-                <p className="text-[10px] tracking-[0.4em] text-gold mb-4">
+                <p className="text-[10px] tracking-[0.4em] text-gold mb-4 font-mono">
                   LIMITED  ·  48 EDITIONS
                 </p>
-                <h2 className="font-display italic font-light text-white leading-[0.95] text-6xl md:text-8xl">
+                <h2
+                  className="font-display text-white leading-[0.95] tracking-[-0.02em] text-6xl md:text-8xl"
+                  style={{ fontWeight: 400 }}
+                >
                   Chuao,
                   <br />
                   Unsweetened
                 </h2>
-                <p className="mt-8 font-body text-base text-white/60 max-w-md leading-relaxed">
+                <p className="mt-8 text-base text-white/65 max-w-md leading-[1.6]">
                   A bar made from a single harvest on Venezuela&rsquo;s
                   Chuao peninsula — fermented nine days, aged slowly, and
                   finished unsweetened so the fruit of the bean carries the
@@ -229,32 +151,31 @@ export default function Home() {
               </ScrollReveal>
             </div>
 
-            {/* Specs column */}
             <ScrollReveal delay={340} className="col-span-12 md:col-span-4">
-              <div className="border-l border-white/15 pl-6 md:pl-10 font-mono text-[11px] tracking-[0.15em] text-white/50">
+              <div className="border-l border-white/15 pl-6 md:pl-10 font-mono text-[11px] tracking-[0.12em] text-white/55">
                 <dl className="space-y-5">
                   <div className="flex justify-between">
-                    <dt className="text-white/30">ORIGIN</dt>
-                    <dd className="text-white/80 text-right">CHUAO · VE</dd>
+                    <dt className="text-white/35">ORIGIN</dt>
+                    <dd className="text-white/85 text-right">CHUAO · VE</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-white/30">HARVEST</dt>
-                    <dd className="text-white/80 text-right">2025 · AUT.</dd>
+                    <dt className="text-white/35">HARVEST</dt>
+                    <dd className="text-white/85 text-right">2025 · AUTUMN</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-white/30">FERMENT</dt>
-                    <dd className="text-white/80 text-right">9 DAYS</dd>
+                    <dt className="text-white/35">FERMENT</dt>
+                    <dd className="text-white/85 text-right">9 DAYS</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-white/30">CACAO</dt>
-                    <dd className="text-white/80 text-right">100%</dd>
+                    <dt className="text-white/35">CACAO</dt>
+                    <dd className="text-white/85 text-right">100%</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-white/30">EDITION</dt>
-                    <dd className="text-white/80 text-right">48 BARS</dd>
+                    <dt className="text-white/35">EDITION</dt>
+                    <dd className="text-white/85 text-right">48 BARS</dd>
                   </div>
                   <div className="flex justify-between pt-5 border-t border-white/10">
-                    <dt className="text-white/30">PRICE</dt>
+                    <dt className="text-white/35">PRICE</dt>
                     <dd className="text-gold text-right">$38</dd>
                   </div>
                 </dl>
@@ -271,21 +192,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          V. INDEX — asymmetric shop grid
-      ════════════════════════════════════════════════════════════════ */}
+      {/* V. INDEX */}
       <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <ScrollReveal>
-            <div className="flex items-baseline justify-between mb-16">
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                IV.  THE INDEX
+            <div className="flex items-baseline justify-between mb-12">
+              <span className="text-[10px] tracking-[0.4em] text-white/45">
+                III.  THE INDEX
               </span>
               <Link
                 href="/shop"
                 className="text-[10px] tracking-[0.3em] text-white/60 hover:text-white transition-colors link-fancy"
               >
-                SEE ALL → 32 ITEMS
+                SEE ALL →
               </Link>
             </div>
           </ScrollReveal>
@@ -295,20 +214,23 @@ export default function Home() {
               <ScrollReveal key={p.id} delay={i * 80}>
                 <Link
                   href="/shop"
-                  className="group grid grid-cols-12 gap-6 py-8 md:py-10 items-baseline hover:pl-3 transition-[padding] duration-500"
+                  className="group grid grid-cols-12 gap-6 py-7 md:py-9 items-baseline hover:pl-3 transition-[padding] duration-500"
                 >
-                  <span className="col-span-1 font-mono text-[11px] tracking-[0.2em] text-white/40">
+                  <span className="col-span-1 font-mono text-[11px] tracking-[0.2em] text-white/45">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="col-span-12 md:col-span-5 -mt-1">
-                    <h3 className="font-display italic font-light text-white text-3xl md:text-5xl leading-[0.95] group-hover:text-gold transition-colors duration-500">
+                    <h3
+                      className="font-display text-white text-3xl md:text-5xl leading-[1.0] tracking-[-0.015em] group-hover:text-gold transition-colors duration-500"
+                      style={{ fontWeight: 400 }}
+                    >
                       {p.name}
                     </h3>
                   </div>
-                  <div className="col-span-6 md:col-span-3 text-[11px] tracking-[0.2em] font-mono text-white/50">
+                  <div className="col-span-6 md:col-span-3 text-[11px] tracking-[0.2em] font-mono text-white/55">
                     {p.origin}
                   </div>
-                  <div className="col-span-3 md:col-span-2 text-[11px] tracking-[0.2em] font-mono text-white/50">
+                  <div className="col-span-3 md:col-span-2 text-[11px] tracking-[0.2em] font-mono text-white/55">
                     {p.percent}
                   </div>
                   <div className="col-span-3 md:col-span-1 text-right text-[13px] font-mono text-white group-hover:text-gold transition-colors duration-500">
@@ -321,15 +243,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          VI. JOURNAL — editorial magazine grid
-      ════════════════════════════════════════════════════════════════ */}
+      {/* VI. JOURNAL */}
       <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <ScrollReveal>
-            <div className="flex items-baseline justify-between mb-16">
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                V.  THE JOURNAL
+            <div className="flex items-baseline justify-between mb-12">
+              <span className="text-[10px] tracking-[0.4em] text-white/45">
+                IV.  THE JOURNAL
               </span>
               <Link
                 href="/articles"
@@ -341,7 +261,6 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid grid-cols-12 gap-8 md:gap-10">
-            {/* Feature article — spans wide */}
             <ScrollReveal delay={120} className="col-span-12 md:col-span-7">
               <Link href={`/articles/${articles[0].slug}`} className="group block">
                 <div className="flex items-baseline gap-3 mb-4">
@@ -349,14 +268,17 @@ export default function Home() {
                     01 — FEATURE
                   </span>
                   <span className="flex-1 h-px bg-white/15" />
-                  <span className="font-mono text-[10px] tracking-[0.2em] text-white/40">
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-white/45">
                     {articles[0].date}
                   </span>
                 </div>
-                <h3 className="font-display italic font-light text-white text-5xl md:text-7xl leading-[0.95] group-hover:text-gold transition-colors duration-500">
+                <h3
+                  className="font-display text-white text-5xl md:text-7xl leading-[0.95] tracking-[-0.02em] group-hover:text-gold transition-colors duration-500"
+                  style={{ fontWeight: 400 }}
+                >
                   {articles[0].title}
                 </h3>
-                <p className="mt-6 text-white/60 leading-relaxed max-w-lg">
+                <p className="mt-6 text-white/65 leading-[1.6] max-w-lg">
                   {articles[0].excerpt}
                 </p>
                 <span className="mt-6 inline-block text-[10px] tracking-[0.3em] text-white/50 group-hover:text-white transition-colors">
@@ -365,7 +287,6 @@ export default function Home() {
               </Link>
             </ScrollReveal>
 
-            {/* Secondary articles — narrow column */}
             <div className="col-span-12 md:col-span-5 flex flex-col gap-8 md:gap-10 md:pl-10 md:border-l md:border-white/10">
               {articles.slice(1).map((a, i) => (
                 <ScrollReveal key={a.slug} delay={220 + i * 100}>
@@ -377,39 +298,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          VII. COLOPHON — closing statement & contact
-      ════════════════════════════════════════════════════════════════ */}
+      {/* VII. COLOPHON */}
       <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-12 gap-6 md:gap-10">
             <div className="col-span-12 md:col-span-5">
               <ScrollReveal>
-                <span className="text-[10px] tracking-[0.4em] text-white/40">
-                  VI.  COLOPHON
+                <span className="text-[10px] tracking-[0.4em] text-white/45">
+                  V.  COLOPHON
                 </span>
-                <h2 className="mt-6 font-display italic font-light text-white text-4xl md:text-6xl leading-[1.0]">
+                <h2
+                  className="mt-6 font-display text-white text-4xl md:text-6xl leading-[1.0] tracking-[-0.02em]"
+                  style={{ fontWeight: 400 }}
+                >
                   A correspondence,
                   <br />
                   not a transaction.
                 </h2>
-                <p className="mt-8 text-white/60 leading-relaxed max-w-sm">
+                <p className="mt-8 text-white/65 leading-[1.6] max-w-sm">
                   Collaborations, press, and private commissions. Write to
                   us — we answer every letter.
                 </p>
-                <div className="mt-10 space-y-3 font-mono text-[11px] tracking-[0.2em] text-white/60">
+                <div className="mt-10 space-y-3 font-mono text-[11px] tracking-[0.15em] text-white/65">
                   <div className="flex gap-6">
-                    <span className="text-white/30 w-20">STUDIO</span>
+                    <span className="text-white/35 w-20">STUDIO</span>
                     <span>Mokotowska 12 · Warszawa</span>
                   </div>
                   <div className="flex gap-6">
-                    <span className="text-white/30 w-20">CORRESP.</span>
+                    <span className="text-white/35 w-20">WRITE</span>
                     <a href="mailto:hello@syrenachocolate.com" className="text-white hover:text-gold transition-colors">
                       hello@syrenachocolate.com
                     </a>
                   </div>
                   <div className="flex gap-6">
-                    <span className="text-white/30 w-20">INSTAGRAM</span>
+                    <span className="text-white/35 w-20">INSTAGRAM</span>
                     <a href="#" className="text-white hover:text-gold transition-colors">@syrenachocolate</a>
                   </div>
                 </div>
@@ -420,7 +342,7 @@ export default function Home() {
               <ScrollReveal delay={200}>
                 <form className="flex flex-col gap-5">
                   <div>
-                    <label className="block text-[10px] tracking-[0.3em] text-white/40 mb-2">
+                    <label className="block text-[10px] tracking-[0.3em] text-white/45 mb-2 font-mono">
                       01  ·  NAME
                     </label>
                     <input
@@ -429,7 +351,7 @@ export default function Home() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-[0.3em] text-white/40 mb-2">
+                    <label className="block text-[10px] tracking-[0.3em] text-white/45 mb-2 font-mono">
                       02  ·  CORRESPONDENCE
                     </label>
                     <input
@@ -438,7 +360,7 @@ export default function Home() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] tracking-[0.3em] text-white/40 mb-2">
+                    <label className="block text-[10px] tracking-[0.3em] text-white/45 mb-2 font-mono">
                       03  ·  MESSAGE
                     </label>
                     <textarea
@@ -459,38 +381,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          FOOTER
-      ════════════════════════════════════════════════════════════════ */}
+      {/* FOOTER */}
       <footer className="relative border-t border-white/10 px-6 md:px-12 py-10">
         <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 md:col-span-4">
-            <h3 className="font-display italic font-light text-white text-2xl">Syrena</h3>
-            <p className="mt-1 text-[10px] tracking-[0.3em] text-white/40">
-              A CHOCOLATE ATELIER · EST. MMXX
+            <h3 className="font-display text-white text-2xl" style={{ fontWeight: 400 }}>
+              Syrena Chocolate
+            </h3>
+            <p className="mt-1 text-[10px] tracking-[0.3em] text-white/40 font-mono">
+              ATELIER · EST. MMXX
             </p>
           </div>
           <div className="col-span-6 md:col-span-2">
-            <p className="text-[10px] tracking-[0.3em] text-white/30 mb-3">INDEX</p>
+            <p className="text-[10px] tracking-[0.3em] text-white/35 mb-3 font-mono">INDEX</p>
             <div className="flex flex-col gap-1.5 text-sm">
-              <Link href="/articles" className="text-white/70 hover:text-gold transition-colors">Journal</Link>
-              <Link href="/shop" className="text-white/70 hover:text-gold transition-colors">Shop</Link>
-              <Link href="/about" className="text-white/70 hover:text-gold transition-colors">About</Link>
+              <Link href="/articles" className="text-white/75 hover:text-gold transition-colors">Journal</Link>
+              <Link href="/shop" className="text-white/75 hover:text-gold transition-colors">Shop</Link>
+              <Link href="/about" className="text-white/75 hover:text-gold transition-colors">About</Link>
             </div>
           </div>
           <div className="col-span-6 md:col-span-3">
-            <p className="text-[10px] tracking-[0.3em] text-white/30 mb-3">CORRESPONDENCE</p>
+            <p className="text-[10px] tracking-[0.3em] text-white/35 mb-3 font-mono">CORRESPONDENCE</p>
             <div className="flex flex-col gap-1.5 text-sm">
-              <a href="mailto:hello@syrenachocolate.com" className="text-white/70 hover:text-gold transition-colors">hello@syrenachocolate.com</a>
-              <a href="#" className="text-white/70 hover:text-gold transition-colors">Instagram</a>
+              <a href="mailto:hello@syrenachocolate.com" className="text-white/75 hover:text-gold transition-colors">hello@syrenachocolate.com</a>
+              <a href="#" className="text-white/75 hover:text-gold transition-colors">Instagram</a>
             </div>
           </div>
           <div className="col-span-12 md:col-span-3 md:text-right">
-            <p className="text-[10px] tracking-[0.3em] text-white/30">
+            <p className="text-[10px] tracking-[0.3em] text-white/35 font-mono">
               © MMXXVI  ·  WARSZAWA
-            </p>
-            <p className="mt-1 text-[10px] tracking-[0.3em] text-white/20">
-              SITE BY SYRENA STUDIO
             </p>
           </div>
         </div>

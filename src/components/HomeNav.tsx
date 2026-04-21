@@ -1,32 +1,48 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function HomeNav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="home-nav">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between py-6">
-        <Link
-          href="/"
-          className="flex items-center gap-3 group"
-        >
-          <span className="text-gold text-sm transition-transform duration-500 group-hover:rotate-[360deg]">✦</span>
-          <span className="font-display italic text-lg text-white/90 group-hover:text-white transition-colors">
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 transition-colors duration-500"
+      style={{
+        backgroundColor: scrolled ? "rgba(10,10,10,0.55)" : "transparent",
+        backdropFilter: scrolled ? "blur(10px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between py-5">
+        <Link href="/" className="flex items-center gap-3 group">
+          <span
+            className="font-display text-white/90 group-hover:text-white transition-colors text-lg md:text-xl"
+            style={{ fontWeight: 400 }}
+          >
             Syrena
           </span>
-          <span className="hidden md:inline text-[9px] tracking-[0.4em] text-white/30">
-            · CHOCOLATE ATELIER
+          <span className="hidden md:inline text-[10px] tracking-[0.35em] text-white/30 font-mono">
+            CHOCOLATE
           </span>
         </Link>
-        <div className="flex items-center gap-8 text-[10px] tracking-[0.3em]">
-          <Link href="/articles" className="text-white/50 hover:text-white transition-colors duration-300">
-            <span className="text-white/30 mr-2">I.</span>JOURNAL
+        <div className="flex items-center gap-7 md:gap-10 text-[10px] tracking-[0.3em]">
+          <Link href="/articles" className="text-white/60 hover:text-white transition-colors duration-300">
+            JOURNAL
           </Link>
-          <Link href="/shop" className="text-white/50 hover:text-white transition-colors duration-300">
-            <span className="text-white/30 mr-2">II.</span>SHOP
+          <Link href="/shop" className="text-white/60 hover:text-white transition-colors duration-300">
+            SHOP
           </Link>
-          <Link href="/about" className="text-white/50 hover:text-white transition-colors duration-300">
-            <span className="text-white/30 mr-2">III.</span>ABOUT
+          <Link href="/about" className="text-white/60 hover:text-white transition-colors duration-300">
+            ABOUT
           </Link>
         </div>
       </div>
