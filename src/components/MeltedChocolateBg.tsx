@@ -187,62 +187,94 @@ export default function MeltedChocolateBg() {
       mouseInside = false;
     };
 
-    // The cursor cuts through the surface: we only create a disturbance
-    // where the mouse HAS MOVED since the last frame. The disturbance is
-    // a narrow slash elongated along the motion vector — like a blade edge
-    // slicing the liquid — so waves peel outward perpendicular to the
-    // direction of travel and trail behind the cursor.
+    // Smoothed motion direction — keeps the arrow stable while moving
+    let dirX = 0;
+    let dirY = 0;
+
+    // The cursor paints an ARROW / TEARDROP shape on the surface: the tip
+    // sits at the cursor and the body trails behind along the direction of
+    // motion. No radial splash — just a clean directional shape that
+    // follows the mouse. Wave propagation is very slow so it doesn't
+    // spread out in circles.
     const applyMousePress = () => {
       if (!mouseInside) return;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
       const speed = Math.sqrt(dx * dx + dy * dy);
 
-      // No motion, no disturbance — surface stays perfectly still
       if (speed < 0.3) {
         lastMouseX = mouseX;
         lastMouseY = mouseY;
         return;
       }
 
-      // Motion direction (unit vector) and its perpendicular
+      // Smooth direction (exponential moving average) so the arrow doesn't
+      // wobble when the mouse jitters
       const nx = dx / speed;
       const ny = dy / speed;
-      // perpendicular
-      const px = -ny;
-      const py = nx;
+      const dirBlend = 0.35;
+      dirX = dirX * (1 - dirBlend) + nx * dirBlend;
+      dirY = dirY * (1 - dirBlend) + ny * dirBlend;
+      const dl = Math.sqrt(dirX * dirX + dirY * dirY) || 1;
+      const ax = dirX / dl; // arrow direction (unit)
+      const ay = dirY / dl;
+      const px = -ay; // perpendicular
+      const py = ax;
 
-      // Stamp an elongated slash along the segment [last → current]
-      // The slash is narrow across the motion (px,py axis) and long along
-      // the motion (nx,ny axis).
-      const steps = Math.max(2, Math.ceil(speed / 2));
-      const strength = Math.min(0.1 + speed * 0.02, 0.55);
+      // Arrow geometry in grid units
+      const LENGTH = 10; // how far behind the tip the tail extends
+      const MAX_WIDTH = 2.2; // widest point across
+      const strength = Math.min(0.25 + speed * 0.025, 0.85);
+
+      // Interpolate along the cursor's last step so fast moves still paint a
+      // continuous arrow without gaps. For each sub-step we stamp the whole
+      // arrow shape with a fractional strength.
+      const steps = Math.max(1, Math.ceil(speed / 6));
 
       for (let s = 0; s <= steps; s++) {
         const t = s / steps;
-        const cxPx = lastMouseX + dx * t;
-        const cyPx = lastMouseY + dy * t;
-        const gx = (cxPx / width) * GRID_W;
-        const gy = (cyPx / height) * GRID_H;
+        const tipPx = lastMouseX + dx * t;
+        const tipPy = lastMouseY + dy * t;
+        const gx = (tipPx / width) * GRID_W;
+        const gy = (tipPy / height) * GRID_H;
         const cx = Math.floor(gx);
         const cy = Math.floor(gy);
         const fx = gx - cx;
         const fy = gy - cy;
 
-        const radius = 4;
-        for (let j = -radius; j <= radius; j++) {
-          for (let i = -radius; i <= radius; i++) {
+        // Bounding box of the arrow stamp in cells
+        const searchR = Math.ceil(LENGTH) + 1;
+        for (let j = -searchR; j <= searchR; j++) {
+          for (let i = -searchR; i <= searchR; i++) {
             const x = cx + i;
             const y = cy + j;
             if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
             const di = i - fx;
             const dj = j - fy;
-            // Project the offset onto along/perp axes of motion
-            const along = di * nx + dj * ny;
+            // Offset projected onto arrow (along, perp) axes.
+            // Convention: along > 0 is BEHIND the tip (along the arrow
+            // body), so along = -(di·ax + dj·ay).
+            const along = -(di * ax + dj * ay);
             const perp = di * px + dj * py;
-            // Narrow across the blade (σ = 0.8), longer along (σ = 2.0)
-            const fall = Math.exp(-(perp * perp) / 1.2 - (along * along) / 8);
-            h[idx(x, y)] -= strength * fall / steps;
+
+            // Skip anything ahead of the tip (sharp point) or past the tail
+            if (along < -0.2 || along > LENGTH) continue;
+
+            // Teardrop profile: sin(π · u) where u = along/LENGTH ∈ [0,1].
+            // Zero at the tip (sharp point), peaks around the middle, zero
+            // at the tail (smooth taper).
+            const u = along / LENGTH;
+            const widthFactor = Math.sin(Math.PI * u);
+            if (widthFactor <= 0.01) continue;
+
+            const localWidth = MAX_WIDTH * widthFactor;
+            const pn = perp / localWidth;
+            if (pn <= -1 || pn >= 1) continue;
+
+            // Parabolic cross-section (round edges)
+            const crossFall = 1 - pn * pn;
+            const fall = crossFall * widthFactor;
+            h[idx(x, y)] -= (strength * fall) / (steps + 1);
           }
         }
       }
@@ -254,8 +286,8 @@ export default function MeltedChocolateBg() {
     // Discrete 2D wave equation step.
     // h_next = 2·h - h_prev + c² · Laplacian(h), then damp.
     const waveStep = () => {
-      const c2 = 0.22; // wave-speed² — bigger = faster ripples
-      const damp = 0.985; // global damping — lower = faster settle
+      const c2 = 0.06; // wave-speed² — small so the arrow doesn't spread into circles
+      const damp = 0.93; // global damping — low so the arrow fades quickly when mouse stops
       for (let y = 1; y < GRID_H - 1; y++) {
         const row = y * GRID_W;
         for (let x = 1; x < GRID_W - 1; x++) {
