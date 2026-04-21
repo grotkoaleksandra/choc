@@ -184,22 +184,18 @@ export default function MeltedChocolateBg() {
       mouseInside = false;
     };
 
-    // Continuously press the surface down wherever the cursor is, and
-    // interpolate along the cursor's last step so fast moves still leave a
-    // continuous wake.
+    // Hold a depression at the cursor that smoothly follows the mouse.
+    // The cursor-position depression is re-stamped each frame, so the
+    // depression always tracks the mouse. When the mouse moves we also
+    // stamp along the path so fast moves leave a continuous wake behind.
     const applyMousePress = () => {
       if (!mouseInside) return;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
       const speed = Math.sqrt(dx * dx + dy * dy);
       const steps = Math.max(1, Math.ceil(speed / 4));
-      // Press strength scales a little with speed — faster cut, bigger wake
-      const baseStrength = 0.55 + Math.min(speed * 0.015, 0.45);
 
-      for (let s = 0; s <= steps; s++) {
-        const t = steps === 0 ? 0 : s / steps;
-        const px = lastMouseX + dx * t;
-        const py = lastMouseY + dy * t;
+      const stampAt = (px: number, py: number, strength: number) => {
         const gx = (px / width) * GRID_W;
         const gy = (py / height) * GRID_H;
         const cx = Math.floor(gx);
@@ -216,33 +212,26 @@ export default function MeltedChocolateBg() {
             const dj = j - fy;
             const d2 = di * di + dj * dj;
             const fall = Math.exp(-d2 / 2.2);
-            // Push surface DOWN — creates a depression like a finger in water
-            h[idx(x, y)] -= baseStrength * fall / (steps + 1);
+            h[idx(x, y)] -= strength * fall;
           }
         }
+      };
+
+      // Constant finger-in-water press at the current cursor position — the
+      // fluid follows the mouse even when it's stationary.
+      stampAt(mouseX, mouseY, 0.18);
+
+      // Additional wake along the path taken since last frame
+      if (speed > 0.5) {
+        const wakeStrength = Math.min(speed * 0.035, 0.55) / steps;
+        for (let s = 1; s <= steps; s++) {
+          const t = s / steps;
+          stampAt(lastMouseX + dx * t, lastMouseY + dy * t, wakeStrength);
+        }
       }
+
       lastMouseX = mouseX;
       lastMouseY = mouseY;
-    };
-
-    // Very gentle idle disturbances so the surface never goes perfectly flat
-    let tTime = 0;
-    const addAmbient = () => {
-      tTime += 0.006;
-      for (let k = 0; k < 2; k++) {
-        const gx = Math.floor(GRID_W * (0.5 + Math.sin(tTime + k * 2.2) * 0.42));
-        const gy = Math.floor(GRID_H * (0.5 + Math.cos(tTime * 0.73 + k * 1.7) * 0.42));
-        const push = Math.sin(tTime * 3 + k * 1.9) * 0.04;
-        for (let j = -2; j <= 2; j++) {
-          for (let i = -2; i <= 2; i++) {
-            const x = gx + i;
-            const y = gy + j;
-            if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
-            const fall = Math.exp(-(i * i + j * j) / 3);
-            h[idx(x, y)] += push * fall;
-          }
-        }
-      }
     };
 
     // Discrete 2D wave equation step.
@@ -291,7 +280,6 @@ export default function MeltedChocolateBg() {
     let rafId = 0;
     const loop = () => {
       applyMousePress();
-      addAmbient();
       waveStep();
       uploadHeight();
 
