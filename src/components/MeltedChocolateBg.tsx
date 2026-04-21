@@ -52,12 +52,15 @@ export default function MeltedChocolateBg() {
       uniform vec2 u_texSize;
       uniform vec2 u_resolution;
 
-      const float NORMAL_STRENGTH = 9.0;
-      const float SHININESS = 160.0;
+      const float NORMAL_STRENGTH = 8.0;
+      const float SHININESS = 110.0;
 
-      const vec3 AMB = vec3(14.0, 8.0, 5.0) / 255.0;
-      const vec3 DIF = vec3(140.0, 82.0, 40.0) / 255.0;
-      const vec3 SPC = vec3(255.0, 232.0, 188.0) / 255.0;
+      // Page color (cream) is the base; the lit surface reads as a quiet
+      // milk/ivory wash — ripples show up as gentle highlights and shadows
+      // rather than dark chocolate relief.
+      const vec3 AMB = vec3(236.0, 228.0, 211.0) / 255.0;  /* same as --background */
+      const vec3 DIF = vec3(221.0, 210.0, 186.0) / 255.0;  /* paper-deep */
+      const vec3 SPC = vec3(252.0, 246.0, 230.0) / 255.0;  /* paper */
 
       // Height is stored in [0,1], centered at 0.5 (0 = baseline).
       float sampleHeight(vec2 uv) {
@@ -81,18 +84,18 @@ export default function MeltedChocolateBg() {
         vec3 H = normalize(L + V);
 
         float diff = max(dot(N, L), 0.0);
-        float spec = pow(max(dot(N, H), 0.0), SHININESS);
-        float fres = pow(1.0 - max(N.z, 0.0), 2.0) * 0.4;
+        float spec = pow(max(dot(N, H), 0.0), SHININESS) * 0.35;
+        float fres = pow(1.0 - max(N.z, 0.0), 2.0) * 0.15;
 
-        // Very slight depth modulation from surface height so crests feel warmer
-        float depth = 0.85 + h * 0.25;
+        // Very slight depth modulation — tiny warm shift with height
+        float depth = 0.95 + h * 0.12;
 
-        vec3 color = AMB + DIF * diff * depth + SPC * (spec + fres * 0.3);
+        vec3 color = AMB * depth + (DIF - AMB) * diff * 0.55 + SPC * (spec + fres);
 
-        // Soft vignette so corners settle into darkness
+        // Whisper-soft vignette — keep the page open, corners barely warmer
         vec2 fromCenter = (v_uv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0);
-        float vig = smoothstep(0.9, 0.32, length(fromCenter));
-        color *= mix(0.5, 1.0, vig);
+        float vig = smoothstep(0.95, 0.4, length(fromCenter));
+        color *= mix(0.92, 1.0, vig);
 
         gl_FragColor = vec4(color, 1.0);
       }
