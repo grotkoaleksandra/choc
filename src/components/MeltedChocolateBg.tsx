@@ -139,6 +139,9 @@ export default function MeltedChocolateBg() {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.uniform1i(locTex, 0);
+    // Flip Y on upload so texture row 0 (our grid's top) maps to the top of the
+    // screen. Without this, WebGL's bottom-origin UVs mirror the effect vertically.
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
     // ---------- wave simulation (CPU) ----------
     const size = GRID_W * GRID_H;
