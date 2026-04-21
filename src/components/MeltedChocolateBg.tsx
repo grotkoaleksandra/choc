@@ -18,8 +18,8 @@ import { useEffect, useRef } from "react";
  * a glossy 3D liquid look.
  */
 
-const GRID_W = 256;
-const GRID_H = 160;
+const GRID_W = 384;
+const GRID_H = 240;
 
 export default function MeltedChocolateBg() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -52,8 +52,8 @@ export default function MeltedChocolateBg() {
       uniform vec2 u_texSize;
       uniform vec2 u_resolution;
 
-      const float NORMAL_STRENGTH = 18.0;
-      const float SHININESS = 90.0;
+      const float NORMAL_STRENGTH = 9.0;
+      const float SHININESS = 160.0;
 
       const vec3 AMB = vec3(14.0, 8.0, 5.0) / 255.0;
       const vec3 DIF = vec3(140.0, 82.0, 40.0) / 255.0;
@@ -221,10 +221,10 @@ export default function MeltedChocolateBg() {
       const px = -ay; // perpendicular
       const py = ax;
 
-      // Arrow geometry in grid units
-      const LENGTH = 10; // how far behind the tip the tail extends
-      const MAX_WIDTH = 2.2; // widest point across
-      const strength = Math.min(0.25 + speed * 0.025, 0.85);
+      // Arrow geometry in grid units (scaled for the higher-res grid)
+      const LENGTH = 18; // how far behind the tip the tail extends
+      const MAX_WIDTH = 4.0; // widest point across
+      const strength = Math.min(0.18 + speed * 0.015, 0.6);
 
       // Interpolate along the cursor's last step so fast moves still paint a
       // continuous arrow without gaps. For each sub-step we stamp the whole
@@ -283,22 +283,21 @@ export default function MeltedChocolateBg() {
       lastMouseY = mouseY;
     };
 
-    // Discrete 2D wave equation step.
-    // h_next = 2·h - h_prev + c² · Laplacian(h), then damp.
-    const waveStep = () => {
-      const c2 = 0.06; // wave-speed² — small so the arrow doesn't spread into circles
-      const damp = 0.93; // global damping — low so the arrow fades quickly when mouse stops
+    // No wave physics — just diffusion (a tiny blur each frame so the arrow
+    // edges stay buttery) and exponential decay (so it fades smoothly when
+    // the mouse stops). This is non-oscillating, non-jittery, ultra calm.
+    const updateSurface = () => {
+      const alpha = 0.16; // diffusion amount per frame (0 = rigid, 0.25 = max stable)
+      const decay = 0.955; // per-frame fade toward flat
       for (let y = 1; y < GRID_H - 1; y++) {
         const row = y * GRID_W;
         for (let x = 1; x < GRID_W - 1; x++) {
           const i = row + x;
           const lap =
             h[i - 1] + h[i + 1] + h[i - GRID_W] + h[i + GRID_W] - 4 * h[i];
-          const next = (2 * h[i] - hPrev[i] + c2 * lap) * damp;
-          hPrev[i] = next;
+          hPrev[i] = (h[i] + alpha * lap) * decay;
         }
       }
-      // Swap — hPrev now holds the new step
       const tmp = h;
       h = hPrev;
       hPrev = tmp;
@@ -329,7 +328,7 @@ export default function MeltedChocolateBg() {
     let rafId = 0;
     const loop = () => {
       applyMousePress();
-      waveStep();
+      updateSurface();
       uploadHeight();
 
       gl.uniform2f(locTexSize, GRID_W, GRID_H);
