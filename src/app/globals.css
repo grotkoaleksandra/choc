@@ -614,42 +614,81 @@ main {
 .wave-text span:nth-child(5n) { animation-delay: 0.3s; }
 .wave-text span:nth-child(7n) { animation-delay: 0.15s; }
 
-/* ---- Featured This Month — stacked cards ---- */
-.featured-card-stack {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  max-width: 360px;
-  margin: 0 auto;
-}
-.featured-card {
+/* ---- Melted chocolate background ---- */
+.melted-choc-bg {
   position: absolute;
   inset: 0;
-  border: 1px solid var(--border);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 30% 20%, #3a2014 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, #2c1810 0%, transparent 60%),
+    linear-gradient(160deg, #1a0e08 0%, #2c1810 50%, #0d0906 100%);
 }
-.featured-card-back {
-  background: var(--cream);
-  transform: rotate(4deg) translate(12px, -8px);
-  opacity: 0.4;
+.melted-choc-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
 }
-.featured-card-mid {
-  background: var(--cream);
-  border-color: var(--border-light);
-  transform: rotate(2deg) translate(6px, -4px);
+.melted-choc-layer {
+  position: absolute;
+  inset: 0;
+  filter: url(#melted-goo);
+  mix-blend-mode: screen;
+}
+.melted-choc-blob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: transform;
+  pointer-events: none;
+}
+.melted-choc-blob.blob-0 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle at 35% 35%, #7a4a2a 0%, #5c3a21 45%, #3a2014 100%);
+  opacity: 0.85;
+}
+.melted-choc-blob.blob-1 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle at 40% 40%, #8c5a36 0%, #5c3a21 50%, transparent 100%);
+  opacity: 0.75;
+}
+.melted-choc-blob.blob-2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at 30% 30%, #6d4224 0%, #4a2e1a 50%, transparent 100%);
+  opacity: 0.8;
+}
+.melted-choc-blob.blob-3 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at 50% 40%, #9a663e 0%, #6d4224 50%, transparent 100%);
   opacity: 0.6;
 }
-.featured-card-front {
-  background: var(--background);
-  border-color: var(--gold);
-  transform: rotate(0deg);
+.melted-choc-blob.blob-4 {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle at 45% 35%, #5c3a21 0%, #2c1810 55%, transparent 100%);
+  opacity: 0.9;
 }
-.featured-card-stack:hover .featured-card-back {
-  transform: rotate(6deg) translate(16px, -12px);
+
+/* Subtle gold sheen across the whole surface */
+.melted-choc-shine {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 30% 25% at 30% 35%, rgba(223, 201, 153, 0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 25% 20% at 70% 65%, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
+    linear-gradient(130deg, transparent 40%, rgba(223, 201, 153, 0.05) 50%, transparent 60%);
+  pointer-events: none;
+  animation: meltedSheen 14s ease-in-out infinite alternate;
+  mix-blend-mode: overlay;
 }
-.featured-card-stack:hover .featured-card-mid {
-  transform: rotate(3deg) translate(8px, -6px);
+@keyframes meltedSheen {
+  0% { transform: translate(-3%, -2%) rotate(0deg); opacity: 0.7; }
+  50% { transform: translate(2%, 3%) rotate(1.5deg); opacity: 1; }
+  100% { transform: translate(3%, -1%) rotate(-1deg); opacity: 0.8; }
 }
-.featured-card-stack:hover .featured-card-front {
-  transform: rotate(-1deg) translate(-2px, 2px);
-}
+

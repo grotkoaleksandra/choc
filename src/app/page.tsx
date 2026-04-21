@@ -1,6 +1,7 @@
 import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
 import ChocolateAnimation from "@/components/ChocolateAnimation";
+import MeltedChocolateBg from "@/components/MeltedChocolateBg";
 import SectionHeader from "@/components/SectionHeader";
 import HeroVideo from "@/components/HeroVideo";
 import HomeNav from "@/components/HomeNav";
@@ -94,42 +95,31 @@ export default function Home() {
         </ScrollReveal>
       </section>
 
-      {/* ─── Featured This Month ─── */}
-      <section className="relative py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            {/* Left — text */}
-            <ScrollReveal>
-              <div>
-                <p className="text-[10px] tracking-[0.4em] text-muted mb-4">LIMITED RUNS · HANDCRAFTED</p>
-                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light italic leading-[1.1] mb-6">
-                  Featured This Month
-                </h2>
-                <div className="gold-line w-16 mb-6" />
-                <p className="font-body text-sm md:text-base text-muted leading-relaxed max-w-sm">
-                  Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
-                </p>
-                <Link href="/shop" className="inline-block mt-8 text-xs tracking-[0.2em] border border-border px-6 py-3 hover:bg-foreground hover:text-background transition-all duration-300">
-                  EXPLORE EDITIONS
-                </Link>
-              </div>
-            </ScrollReveal>
-
-            {/* Right — stacked card preview */}
-            <ScrollReveal delay={200} variant="right">
-              <div className="relative">
-                <div className="featured-card-stack">
-                  <div className="featured-card featured-card-back" />
-                  <div className="featured-card featured-card-mid" />
-                  <div className="featured-card featured-card-front overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-[#2c1810] via-[#3a2014] to-[#1a0e08] flex items-center justify-center">
-                      <span className="font-display text-3xl italic text-gold/60">SC</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
+      {/* ─── Featured This Month — melted chocolate ─── */}
+      <section className="relative overflow-hidden" style={{ minHeight: "85vh" }}>
+        <MeltedChocolateBg />
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 text-center py-24">
+          <ScrollReveal>
+            <p className="text-[10px] tracking-[0.4em] text-white/50 mb-6">LIMITED RUNS · HANDCRAFTED</p>
+          </ScrollReveal>
+          <ScrollReveal delay={150}>
+            <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light italic leading-[1.1] text-white/95 max-w-3xl mix-blend-plus-lighter">
+              Featured This Month
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={250}>
+            <div className="gold-line w-20 mx-auto mt-8 mb-6" />
+          </ScrollReveal>
+          <ScrollReveal delay={300}>
+            <p className="font-body text-sm md:text-base text-white/70 leading-relaxed max-w-md">
+              Collaborations with artists, designers, and makers. Each edition is a limited release — once it&rsquo;s gone, it&rsquo;s gone.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={450}>
+            <Link href="/shop" className="inline-block mt-10 text-xs tracking-[0.2em] text-white border border-white/40 px-8 py-3 backdrop-blur-sm bg-black/10 hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+              EXPLORE EDITIONS
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
