@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1a1a;
-  --foreground: #e8e8e8;
+  --background: #0d0d0d;
+  --foreground: #ebe4d0;
   --accent: #8aaa89;
   --accent-light: #a3c4a2;
   --warm: #C4956A;
   --warm-light: #D4B08A;
-  --cream: #222222;
-  --muted: #999999;
-  --border: #444444;
-  --border-light: #333333;
+  --cream: #1a1a1a;
+  --muted: #8c8677;
+  --border: #2a2824;
+  --border-light: #1e1c18;
   --gold: #c9a96e;
   --gold-light: #dfc999;
+  --bone: #e8ddc4;
+  --bone-deep: #d4c6a6;
+  --ink: #05050a;
+  --acid: #c7ff3a;
+  --blood: #b43a20;
   --font-display: "Instrument Serif", "Times New Roman", Georgia, serif;
-  --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-editorial: "Fraunces", "Instrument Serif", Georgia, serif;
+  --font-body: "Bricolage Grotesque", "Inter", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Courier New", monospace;
 }
 
@@ -31,7 +37,13 @@
   --color-border-light: var(--border-light);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
+  --color-bone: var(--bone);
+  --color-bone-deep: var(--bone-deep);
+  --color-ink: var(--ink);
+  --color-acid: var(--acid);
+  --color-blood: var(--blood);
   --font-display: var(--font-display);
+  --font-editorial: var(--font-editorial);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
 }
@@ -628,5 +640,335 @@ main {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AVANT-GARDE LAYER — editorial / brutalist / broken-grid moves
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Rotated vertical text (reads bottom-to-top, pinned to edges) */
+.vert-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.4em;
+}
+.vert-text-up {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.3em;
+}
+
+/* Marginalia — small rotated annotations in the margin */
+.marginalia {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(232, 221, 196, 0.45);
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  white-space: nowrap;
+}
+
+/* Fraunces editorial headline — variable WONK + SOFT axes */
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+}
+.font-editorial-tight {
+  font-family: var(--font-editorial);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+}
+
+/* Bricolage body — variable, slightly condensed */
+.font-bricolage {
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+}
+
+/* Stencil-style brutalist uppercase label */
+.label-brut {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.55;
+}
+.label-brut-hot {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--blood);
+}
+
+/* Inverted/bone sections — flip polarity for a stark magazine spread */
+.spread-bone {
+  background: var(--bone);
+  color: var(--ink);
+}
+.spread-bone a { color: var(--ink); }
+.spread-bone .label-brut { color: var(--ink); opacity: 0.55; }
+
+/* Mix-blend-difference — type inverts over whatever is behind it */
+.blend-diff {
+  mix-blend-mode: difference;
+  color: #ffffff;
+}
+
+/* Ghost number — huge faded numeral used as a compositional anchor */
+.ghost-numeral {
+  font-family: var(--font-editorial);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  font-size: clamp(14rem, 28vw, 32rem);
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 221, 196, 0.14);
+}
+.ghost-numeral-filled {
+  font-family: var(--font-editorial);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-size: clamp(10rem, 22vw, 26rem);
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+  color: rgba(232, 221, 196, 0.06);
+}
+
+/* Hairline cross registration mark (print-production feel) */
+.crosshair {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+.crosshair::before,
+.crosshair::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  opacity: 0.55;
+}
+.crosshair::before {
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  transform: translateX(-0.5px);
+}
+.crosshair::after {
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  transform: translateY(-0.5px);
+}
+
+/* Kinetic marquee — reverse direction variant */
+@keyframes marqueeReverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.marquee-track-reverse {
+  display: flex;
+  animation: marqueeReverse 42s linear infinite;
+  width: max-content;
+}
+.marquee-track-reverse:hover { animation-play-state: paused; }
+
+/* Slow/fast ticker speeds */
+.ticker-slow { animation-duration: 60s; }
+.ticker-fast { animation-duration: 22s; }
+
+/* Editorial drop cap — Fraunces WONK */
+.drop-cap-editorial::first-letter {
+  font-family: var(--font-editorial);
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-style: italic;
+  float: left;
+  font-size: 6.5rem;
+  line-height: 0.78;
+  padding: 0.3rem 0.6rem 0 0;
+  color: var(--gold);
+}
+
+/* Rotated tag — slightly tilted uppercase labels */
+.tag-rotate {
+  display: inline-block;
+  transform: rotate(-3.5deg);
+  transform-origin: left center;
+}
+.tag-rotate-right {
+  display: inline-block;
+  transform: rotate(2.5deg);
+  transform-origin: right center;
+}
+
+/* Running text marquee for pull-quotes (no animation, just sized big) */
+.pull-brut {
+  font-family: var(--font-editorial);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 20, "WONK" 1;
+  font-style: italic;
+  font-size: clamp(3rem, 10vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+/* Rule with end caps — brutalist divider */
+.rule-caps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rule-caps::before,
+.rule-caps::after {
+  content: "";
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+  flex: 1;
+}
+
+/* Infinite orbit — slow circular drift for decorative nodes */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+}
+.orbit { animation: orbit 28s linear infinite; }
+
+/* Acid tick — a thin acid-green highlight for callouts */
+.acid-under {
+  background-image: linear-gradient(var(--acid), var(--acid));
+  background-repeat: no-repeat;
+  background-size: 100% 6px;
+  background-position: 0 95%;
+  color: inherit;
+  padding: 0 2px;
+}
+
+/* Diagonal scroll ribbon separator */
+.ribbon-cut {
+  height: 44px;
+  background:
+    linear-gradient(135deg, transparent 0%, transparent 48%, var(--bone) 48%, var(--bone) 52%, transparent 52%) 0 0 / 44px 44px repeat-x;
+  opacity: 0.08;
+}
+
+/* Big index number — uppercase figure pinned to corner of a card */
+.index-figure {
+  font-family: var(--font-editorial);
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* Table-of-contents row hover — slides content + reveals arrow */
+.toc-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: baseline;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(232, 221, 196, 0.12);
+  transition: background-color 0.4s ease, padding 0.4s ease;
+}
+.toc-row:hover {
+  background-color: rgba(232, 221, 196, 0.04);
+  padding-left: 16px;
+}
+.toc-row .toc-title {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+}
+.toc-row:hover .toc-title {
+  transform: translateX(6px);
+  color: var(--gold);
+}
+
+/* Broken grid helpers — slight rotation on hover, unsettled feel */
+.jitter-card {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.jitter-card:hover { transform: rotate(-1.2deg) translateY(-4px); }
+.jitter-card-alt:hover { transform: rotate(1deg) translateY(-4px); }
+
+/* Vertical meta column — tech-drawing aesthetic */
+.spec-col dt {
+  color: rgba(232, 221, 196, 0.38);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.spec-col dd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--bone);
+}
+
+/* Hard-edged button — no rounded corners, inverts on hover */
+.btn-hard {
+  display: inline-block;
+  padding: 18px 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--bone);
+  border: 1px solid var(--bone);
+  background: transparent;
+  transition: background-color 0.25s ease, color 0.25s ease, letter-spacing 0.4s ease;
+}
+.btn-hard:hover {
+  background: var(--bone);
+  color: var(--ink);
+  letter-spacing: 0.45em;
+}
+.btn-hard-invert {
+  display: inline-block;
+  padding: 18px 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  background: transparent;
+  transition: background-color 0.25s ease, color 0.25s ease, letter-spacing 0.4s ease;
+}
+.btn-hard-invert:hover {
+  background: var(--ink);
+  color: var(--bone);
+  letter-spacing: 0.45em;
+}
+
+/* Tilted striped bg for bone sections */
+.bone-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 28px,
+    rgba(5, 5, 10, 0.04) 28px,
+    rgba(5, 5, 10, 0.04) 29px
+  );
+}
+
+/* Section number — pinned top-left plaque */
+.section-plaque {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.7;
+}
+.section-plaque::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: currentColor;
 }
 

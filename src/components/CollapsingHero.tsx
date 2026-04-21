@@ -34,11 +34,11 @@ export default function CollapsingHero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // As progress 0 → 1 the video letterboxes down to a thin strip.
-  // Target collapsed strip ≈ 110px tall, pinned to the top of the viewport.
-  const stripHeight = 110; // px
+  // As progress 0 → 1 the video letterboxes down to nothing and fades out
+  // entirely — the hero fully disappears and the rest of the page takes over.
   const vh = typeof window !== "undefined" ? window.innerHeight : 800;
-  const collapseBottom = progress * Math.max(vh - stripHeight, 0); // bottom inset grows
+  const collapseBottom = progress * vh; // bottom inset grows to full viewport
+  const videoOpacity = Math.max(1 - progress * 1.1, 0); // fade during final slice
   const copyOpacity = Math.max(1 - progress * 1.8, 0);
   const copyTranslate = progress * -40;
 
@@ -50,12 +50,13 @@ export default function CollapsingHero() {
       style={{ height: "100vh" }}
       aria-label="Introduction"
     >
-      {/* Fixed full-viewport video that clips to a strip */}
+      {/* Fixed full-viewport video that clips away to nothing */}
       <div
         className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
         style={{
           clipPath: `inset(0 0 ${collapseBottom}px 0)`,
-          transition: "clip-path 60ms linear",
+          opacity: videoOpacity,
+          transition: "clip-path 60ms linear, opacity 60ms linear",
         }}
       >
         <video
@@ -89,53 +90,99 @@ export default function CollapsingHero() {
             backgroundSize: "200px",
           }}
         />
-        {/* A hairline rule at the bottom of the collapsed strip */}
-        <div
-          className="absolute left-0 right-0 h-px bg-white/15"
-          style={{ bottom: `${collapseBottom}px` }}
-        />
+      </div>
+
+      {/* Vertical marginalia — left edge coordinates */}
+      <div
+        className="fixed left-4 md:left-6 top-0 z-10 pointer-events-none hidden md:flex h-screen items-center"
+        style={{ opacity: copyOpacity }}
+      >
+        <span className="vert-text font-mono text-[10px] text-white/45">
+          52.2297° N  ·  21.0122° E  —  ATELIER · WARSZAWA · POLSKA
+        </span>
+      </div>
+
+      {/* Right-edge running meta */}
+      <div
+        className="fixed right-4 md:right-6 top-0 z-10 pointer-events-none hidden md:flex h-screen items-center"
+        style={{ opacity: copyOpacity }}
+      >
+        <span className="vert-text-up font-mono text-[10px] text-white/45">
+          N°07  /  48 EDITIONS  /  SPRING MMXXVI
+        </span>
       </div>
 
       {/* Hero copy — sits in the fixed viewport, fades/slides out as you scroll */}
       <div
-        className="fixed inset-0 z-10 pointer-events-none flex items-end pb-20 md:pb-28 px-6 md:px-12"
+        className="fixed inset-0 z-10 pointer-events-none flex items-end pb-16 md:pb-20 px-6 md:px-16"
         style={{
           opacity: copyOpacity,
           transform: `translateY(${copyTranslate}px)`,
           transition: "opacity 60ms linear, transform 60ms linear",
         }}
       >
-        <div className="w-full max-w-[1400px] mx-auto pointer-events-auto">
-          <div className="flex items-end justify-between gap-8">
-            <div>
-              <p className="text-[10px] tracking-[0.45em] text-white/55 mb-5">
-                EST. MMXX  ·  WARSZAWA
+        <div className="w-full max-w-[1600px] mx-auto pointer-events-auto">
+          {/* Top row — issue label + registration mark */}
+          <div className="grid grid-cols-12 gap-4 mb-10 md:mb-16 items-end">
+            <div className="col-span-6 md:col-span-3">
+              <p className="label-brut text-white">
+                ISSUE — 07 / XLVIII
               </p>
-              <h1
-                className="font-display text-white leading-[0.9] tracking-[-0.015em] text-[13vw] md:text-[10vw] lg:text-[8.5vw]"
-                style={{ fontWeight: 400 }}
-              >
-                Syrena Chocolate
-              </h1>
-              <p className="mt-6 text-white/70 text-sm md:text-base max-w-md leading-[1.55]">
-                A studio for fine chocolate, bean to bar. Slow craft,
-                single-origin cacao, and limited editions.
+              <p className="label-brut mt-2 text-white/55">
+                SPRING · MMXXVI
               </p>
             </div>
-            <div className="hidden md:flex flex-col items-end gap-2 shrink-0">
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                EDITION N°07
-              </span>
-              <span className="text-[10px] tracking-[0.4em] text-white/40">
-                SPRING MMXXVI
-              </span>
+            <div className="hidden md:flex col-span-6 justify-center">
+              <span className="crosshair text-white/70" />
+            </div>
+            <div className="col-span-6 md:col-span-3 text-right">
+              <p className="label-brut text-white">
+                SYRENA — BEAN TO BAR
+              </p>
+              <p className="label-brut mt-2 text-white/55">
+                EST. MMXX · WARSZAWA
+              </p>
             </div>
           </div>
 
-          {/* Scroll hint */}
-          <div className="mt-14 flex items-center gap-3 text-[10px] tracking-[0.4em] text-white/40">
-            <span className="inline-block w-10 h-px bg-white/30" />
-            <span>SCROLL TO CONTINUE</span>
+          {/* Primary display — Fraunces italic WONK, oversized */}
+          <div className="grid grid-cols-12 gap-4 items-end">
+            <div className="col-span-12 md:col-span-9">
+              <h1
+                className="font-editorial text-white leading-[0.82] tracking-[-0.035em] text-[20vw] md:text-[13.5vw]"
+                style={{ fontVariationSettings: '"opsz" 144, "SOFT" 40, "WONK" 1', fontStyle: "italic" }}
+              >
+                Syrena
+              </h1>
+              <h1
+                className="font-editorial-tight text-white/70 leading-[0.82] tracking-[-0.04em] text-[20vw] md:text-[13.5vw] -mt-[2vw]"
+                style={{ fontVariationSettings: '"opsz" 144, "SOFT" 0, "WONK" 0' }}
+              >
+                Chocolate.
+              </h1>
+            </div>
+
+            <div className="col-span-12 md:col-span-3 md:pl-8 md:border-l md:border-white/15">
+              <p className="text-white/80 text-[13px] md:text-sm leading-[1.6] max-w-xs">
+                A studio for fine chocolate, bean to bar —
+                <em className="font-editorial italic text-[color:var(--gold)]"> slow craft</em>,
+                single-origin cacao, and editions that refuse
+                to repeat themselves.
+              </p>
+              <div className="mt-6 h-px bg-white/20 w-full" />
+              <p className="mt-4 font-mono text-[10px] tracking-[0.2em] text-white/55">
+                Running time — 00:04:21
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom rail */}
+          <div className="mt-10 md:mt-14 flex items-center justify-between gap-3 text-[10px] tracking-[0.4em] text-white/50 font-mono">
+            <div className="flex items-center gap-3">
+              <span className="inline-block w-10 h-px bg-white/40" />
+              <span>SCROLL — IT COLLAPSES</span>
+            </div>
+            <span className="hidden md:inline">REEL 01 · TAKE 07</span>
           </div>
         </div>
       </div>

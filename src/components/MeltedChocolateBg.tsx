@@ -3,19 +3,19 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Fullscreen "melted chocolate" background — water-like waves.
+ * Fullscreen "melted chocolate" background — static pool that ripples
+ * fluidly around the cursor.
  *
- * The surface is a 2D wave equation solved on a coarse grid:
+ * Idle state: perfectly still. No ambient animation generators.
  *
- *     h(t+1) = 2·h(t) - h(t-1) + c² · (neighbors - 4·h)   * damping
+ * When the cursor moves, it presses the surface down with a soft radial
+ * Gaussian impression proportional to speed. Those impressions then
+ * propagate outward as circular ripples via the discrete 2D wave equation:
  *
- * The cursor continuously presses the surface down — like a finger dragging
- * through water — so as it moves it leaves a V-shaped wake and ripples
- * expand outward from each press. Waves reflect and interfere naturally.
+ *     h(t+1) = 2·h(t) - h(t-1) + c² · (neighbors - 4·h)    * damping
  *
- * A WebGL fragment shader treats the height field as a surface, computes
- * normals from its gradient, and shades it with Blinn-Phong lighting for
- * a glossy 3D liquid look.
+ * Ripples reflect, interfere, and dampen back to flat — so the surface
+ * returns to static after the cursor stops.
  */
 
 const GRID_W = 384;
@@ -145,9 +145,11 @@ export default function MeltedChocolateBg() {
 
     // ---------- wave simulation (CPU) ----------
     const size = GRID_W * GRID_H;
-    // Height fields at time t and t-1 for the discrete wave equation
-    let h = new Float32Array(size);
+    // Three buffers for the discrete wave equation: t-1, t, t+1.
+    // Rotated by reference each frame (no allocations in the loop).
     let hPrev = new Float32Array(size);
+    let h = new Float32Array(size);
+    let hNext = new Float32Array(size);
     const heightBytes = new Uint8Array(size);
 
     const idx = (x: number, y: number) => x + y * GRID_W;
@@ -187,94 +189,82 @@ export default function MeltedChocolateBg() {
       mouseInside = false;
     };
 
-    // Smoothed motion direction — keeps the arrow stable while moving
-    let dirX = 0;
+    // Smoothed motion direction so the blade doesn't jitter on small wobbles
+    let dirX = 1;
     let dirY = 0;
 
-    // The cursor paints an ARROW / TEARDROP shape on the surface: the tip
-    // sits at the cursor and the body trails behind along the direction of
-    // motion. No radial splash — just a clean directional shape that
-    // follows the mouse. Wave propagation is very slow so it doesn't
-    // spread out in circles.
+    // Blade cut — a thin elongated depression aligned with the motion
+    // direction, as if a knife is slicing through the fluid below the
+    // surface. The blade is long along the direction of travel and very
+    // narrow perpendicular to it, so the wave equation throws ripples out
+    // to both sides (the material "parts") instead of radiating concentric
+    // circles like a fingertip press would.
+    const BLADE_HALF_LEN = 7.0; // grid cells along motion
+    const BLADE_HALF_WID = 1.25; // grid cells perpendicular — keep sharp
+    const BLADE_SEARCH = Math.ceil(BLADE_HALF_LEN) + 1;
+
     const applyMousePress = () => {
       if (!mouseInside) return;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
       const speed = Math.sqrt(dx * dx + dy * dy);
 
-      if (speed < 0.3) {
+      if (speed < 0.5) {
         lastMouseX = mouseX;
         lastMouseY = mouseY;
         return;
       }
 
-      // Smooth direction (exponential moving average) so the arrow doesn't
-      // wobble when the mouse jitters
+      // Smooth the blade orientation (exponential moving average on the
+      // unit direction vector) — prevents the slit from flipping wildly
+      // when the cursor jiggles.
       const nx = dx / speed;
       const ny = dy / speed;
-      const dirBlend = 0.35;
-      dirX = dirX * (1 - dirBlend) + nx * dirBlend;
-      dirY = dirY * (1 - dirBlend) + ny * dirBlend;
+      const blend = 0.4;
+      dirX = dirX * (1 - blend) + nx * blend;
+      dirY = dirY * (1 - blend) + ny * blend;
       const dl = Math.sqrt(dirX * dirX + dirY * dirY) || 1;
-      const ax = dirX / dl; // arrow direction (unit)
+      const ax = dirX / dl; // blade long axis (unit)
       const ay = dirY / dl;
-      const px = -ay; // perpendicular
-      const py = ax;
+      const ppx = -ay; // perpendicular (blade width axis)
+      const ppy = ax;
 
-      // Arrow geometry in grid units (scaled for the higher-res grid)
-      const LENGTH = 18; // how far behind the tip the tail extends
-      const MAX_WIDTH = 4.0; // widest point across
-      const strength = Math.min(0.18 + speed * 0.015, 0.6);
+      // Cut depth — sharper than a press, scales with speed
+      const baseStrength = Math.min(0.08 + speed * 0.012, 0.42);
 
-      // Interpolate along the cursor's last step so fast moves still paint a
-      // continuous arrow without gaps. For each sub-step we stamp the whole
-      // arrow shape with a fractional strength.
-      const steps = Math.max(1, Math.ceil(speed / 6));
+      // Sub-steps so fast swipes still produce a continuous slice
+      const steps = Math.max(1, Math.ceil(speed / 3));
+      const perStep = baseStrength / (steps + 1);
 
       for (let s = 0; s <= steps; s++) {
         const t = s / steps;
-        const tipPx = lastMouseX + dx * t;
-        const tipPy = lastMouseY + dy * t;
-        const gx = (tipPx / width) * GRID_W;
-        const gy = (tipPy / height) * GRID_H;
+        const px = lastMouseX + dx * t;
+        const py = lastMouseY + dy * t;
+        const gx = (px / width) * GRID_W;
+        const gy = (py / height) * GRID_H;
         const cx = Math.floor(gx);
         const cy = Math.floor(gy);
         const fx = gx - cx;
         const fy = gy - cy;
 
-        // Bounding box of the arrow stamp in cells
-        const searchR = Math.ceil(LENGTH) + 1;
-        for (let j = -searchR; j <= searchR; j++) {
-          for (let i = -searchR; i <= searchR; i++) {
+        for (let j = -BLADE_SEARCH; j <= BLADE_SEARCH; j++) {
+          for (let i = -BLADE_SEARCH; i <= BLADE_SEARCH; i++) {
             const x = cx + i;
             const y = cy + j;
             if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
             const di = i - fx;
             const dj = j - fy;
-            // Offset projected onto arrow (along, perp) axes.
-            // Convention: along > 0 is BEHIND the tip (along the arrow
-            // body), so along = -(di·ax + dj·ay).
-            const along = -(di * ax + dj * ay);
-            const perp = di * px + dj * py;
-
-            // Skip anything ahead of the tip (sharp point) or past the tail
-            if (along < -0.2 || along > LENGTH) continue;
-
-            // Teardrop profile: sin(π · u) where u = along/LENGTH ∈ [0,1].
-            // Zero at the tip (sharp point), peaks around the middle, zero
-            // at the tail (smooth taper).
-            const u = along / LENGTH;
-            const widthFactor = Math.sin(Math.PI * u);
-            if (widthFactor <= 0.01) continue;
-
-            const localWidth = MAX_WIDTH * widthFactor;
-            const pn = perp / localWidth;
-            if (pn <= -1 || pn >= 1) continue;
-
-            // Parabolic cross-section (round edges)
-            const crossFall = 1 - pn * pn;
-            const fall = crossFall * widthFactor;
-            h[idx(x, y)] -= (strength * fall) / (steps + 1);
+            // Project onto blade local axes
+            const along = di * ax + dj * ay;
+            const perp = di * ppx + dj * ppy;
+            // Normalized distance in the blade ellipse
+            const na = along / BLADE_HALF_LEN;
+            const np = perp / BLADE_HALF_WID;
+            const r2 = na * na + np * np;
+            if (r2 > 1.2) continue;
+            // Sharp Gaussian — falls off fast perpendicular to the blade
+            const falloff = Math.exp(-r2 * 2.2);
+            h[idx(x, y)] -= perStep * falloff;
           }
         }
       }
@@ -283,24 +273,32 @@ export default function MeltedChocolateBg() {
       lastMouseY = mouseY;
     };
 
-    // No wave physics — just diffusion (a tiny blur each frame so the arrow
-    // edges stay buttery) and exponential decay (so it fades smoothly when
-    // the mouse stops). This is non-oscillating, non-jittery, ultra calm.
+    // Proper 2D wave equation:
+    //   h_next = 2·h − h_prev + c² · ( h_L + h_R + h_U + h_D − 4·h )
+    // Damping < 1 makes ripples decay so the pool returns to perfectly
+    // static after the cursor stops. c² is kept safely below 0.5 for
+    // numerical stability.
+    const C2 = 0.28; // wave speed squared (keep < 0.5 for stability)
+    const DAMPING = 0.9955; // close to 1 = wake lingers so the cut reads clearly
+    const FLAT_EPS = 1e-4; // below this, snap to zero so it truly stops
+
     const updateSurface = () => {
-      const alpha = 0.16; // diffusion amount per frame (0 = rigid, 0.25 = max stable)
-      const decay = 0.955; // per-frame fade toward flat
       for (let y = 1; y < GRID_H - 1; y++) {
         const row = y * GRID_W;
         for (let x = 1; x < GRID_W - 1; x++) {
           const i = row + x;
           const lap =
             h[i - 1] + h[i + 1] + h[i - GRID_W] + h[i + GRID_W] - 4 * h[i];
-          hPrev[i] = (h[i] + alpha * lap) * decay;
+          let v = (2 * h[i] - hPrev[i] + C2 * lap) * DAMPING;
+          if (v > -FLAT_EPS && v < FLAT_EPS) v = 0;
+          hNext[i] = v;
         }
       }
-      const tmp = h;
-      h = hPrev;
-      hPrev = tmp;
+      // Rotate buffers: hPrev ← h, h ← hNext, hNext ← (old hPrev, to be overwritten)
+      const tmp = hPrev;
+      hPrev = h;
+      h = hNext;
+      hNext = tmp;
     };
 
     const uploadHeight = () => {
