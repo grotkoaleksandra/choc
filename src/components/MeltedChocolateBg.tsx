@@ -298,7 +298,7 @@ export default function MeltedChocolateBg() {
       }
       const target = 0.45;
       for (let i = 0; i < size; i++) {
-        density[i] += (target - density[i]) * 0.0015;
+        density[i] += (target - density[i]) * 0.012;
       }
     };
 
@@ -315,7 +315,7 @@ export default function MeltedChocolateBg() {
       advect(velX, velXPrev, velXPrev, velYPrev, 1);
       advect(velY, velYPrev, velXPrev, velYPrev, 1);
 
-      const velDamp = 0.996;
+      const velDamp = 0.975;
       for (let i = 0; i < size; i++) {
         velX[i] *= velDamp;
         velY[i] *= velDamp;
