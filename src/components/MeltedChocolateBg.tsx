@@ -3,19 +3,19 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Fullscreen "melted chocolate" fluid background.
+ * Fullscreen "melted chocolate" background — water-like waves.
  *
- * - CPU runs a low-resolution semi-Lagrangian fluid simulation (velocity +
- *   dye density fields) so the surface has momentum, swirls, and trails.
- * - Each frame the density field is uploaded as a GPU texture.
- * - A WebGL fragment shader samples that texture bilinearly and computes
- *   Blinn-Phong lighting per screen pixel — surface normals come from the
- *   density gradient, a directional light produces diffuse shading and a
- *   glossy specular highlight.
+ * The surface is a 2D wave equation solved on a coarse grid:
  *
- * Result: the simulation is cheap, but the rendered surface is smooth and
- * flawless at full resolution with GPU-filtered shading. No visible pixel
- * grid, no upscale blur artifacts.
+ *     h(t+1) = 2·h(t) - h(t-1) + c² · (neighbors - 4·h)   * damping
+ *
+ * The cursor continuously presses the surface down — like a finger dragging
+ * through water — so as it moves it leaves a V-shaped wake and ripples
+ * expand outward from each press. Waves reflect and interfere naturally.
+ *
+ * A WebGL fragment shader treats the height field as a surface, computes
+ * normals from its gradient, and shades it with Blinn-Phong lighting for
+ * a glossy 3D liquid look.
  */
 
 const GRID_W = 256;
@@ -35,7 +35,7 @@ export default function MeltedChocolateBg() {
     }) as WebGLRenderingContext | null;
     if (!gl) return;
 
-    // ---------- shader setup ----------
+    // ---------- shaders ----------
     const vertSrc = `
       attribute vec2 a_pos;
       varying vec2 v_uv;
@@ -48,57 +48,51 @@ export default function MeltedChocolateBg() {
     const fragSrc = `
       precision highp float;
       varying vec2 v_uv;
-      uniform sampler2D u_density;
+      uniform sampler2D u_height;
       uniform vec2 u_texSize;
       uniform vec2 u_resolution;
-      uniform float u_time;
 
-      // Lighting params
-      const float NORMAL_STRENGTH = 14.0;
-      const float SHININESS = 80.0;
+      const float NORMAL_STRENGTH = 18.0;
+      const float SHININESS = 90.0;
 
-      const vec3 AMB  = vec3(14.0, 8.0, 5.0) / 255.0;
-      const vec3 DIF  = vec3(140.0, 82.0, 40.0) / 255.0;
-      const vec3 SPC  = vec3(255.0, 230.0, 188.0) / 255.0;
+      const vec3 AMB = vec3(14.0, 8.0, 5.0) / 255.0;
+      const vec3 DIF = vec3(140.0, 82.0, 40.0) / 255.0;
+      const vec3 SPC = vec3(255.0, 232.0, 188.0) / 255.0;
 
-      // Smooth density sample — bilinear is free on the GPU
-      float sampleDensity(vec2 uv) {
-        return texture2D(u_density, uv).r;
+      // Height is stored in [0,1], centered at 0.5 (0 = baseline).
+      float sampleHeight(vec2 uv) {
+        return texture2D(u_height, uv).r - 0.5;
       }
 
       void main() {
         vec2 texel = 1.0 / u_texSize;
 
-        float h  = sampleDensity(v_uv);
-        float hL = sampleDensity(v_uv - vec2(texel.x, 0.0));
-        float hR = sampleDensity(v_uv + vec2(texel.x, 0.0));
-        float hU = sampleDensity(v_uv - vec2(0.0, texel.y));
-        float hD = sampleDensity(v_uv + vec2(0.0, texel.y));
+        float h  = sampleHeight(v_uv);
+        float hL = sampleHeight(v_uv - vec2(texel.x, 0.0));
+        float hR = sampleHeight(v_uv + vec2(texel.x, 0.0));
+        float hU = sampleHeight(v_uv - vec2(0.0, texel.y));
+        float hD = sampleHeight(v_uv + vec2(0.0, texel.y));
 
-        // 4-tap gradient from neighbors
         vec2 grad = vec2(hR - hL, hD - hU) * NORMAL_STRENGTH;
         vec3 N = normalize(vec3(-grad, 1.0));
 
-        // Directional light from upper-left, slightly forward
         vec3 L = normalize(vec3(0.55, -0.55, 0.72));
         vec3 V = vec3(0.0, 0.0, 1.0);
         vec3 H = normalize(L + V);
 
         float diff = max(dot(N, L), 0.0);
         float spec = pow(max(dot(N, H), 0.0), SHININESS);
+        float fres = pow(1.0 - max(N.z, 0.0), 2.0) * 0.4;
 
-        // A subtle rim/fresnel that brightens the thin edges of swells
-        float fres = pow(1.0 - max(N.z, 0.0), 2.0) * 0.35;
+        // Very slight depth modulation from surface height so crests feel warmer
+        float depth = 0.85 + h * 0.25;
 
-        // Depth modulation — denser regions are richer, shallow ones darker
-        float depth = 0.55 + clamp(h, 0.0, 1.5) * 0.45;
+        vec3 color = AMB + DIF * diff * depth + SPC * (spec + fres * 0.3);
 
-        vec3 color = AMB + DIF * diff * depth + SPC * (spec + fres * 0.35);
-
-        // Soft vignette into darkness toward the edges
+        // Soft vignette so corners settle into darkness
         vec2 fromCenter = (v_uv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0);
-        float vig = smoothstep(0.9, 0.35, length(fromCenter));
-        color *= mix(0.45, 1.0, vig);
+        float vig = smoothstep(0.9, 0.32, length(fromCenter));
+        color *= mix(0.5, 1.0, vig);
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -125,7 +119,6 @@ export default function MeltedChocolateBg() {
     }
     gl.useProgram(program);
 
-    // Fullscreen quad
     const quad = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
     const buf = gl.createBuffer()!;
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
@@ -134,12 +127,10 @@ export default function MeltedChocolateBg() {
     gl.enableVertexAttribArray(locPos);
     gl.vertexAttribPointer(locPos, 2, gl.FLOAT, false, 0, 0);
 
-    const locTex = gl.getUniformLocation(program, "u_density");
+    const locTex = gl.getUniformLocation(program, "u_height");
     const locTexSize = gl.getUniformLocation(program, "u_texSize");
     const locRes = gl.getUniformLocation(program, "u_resolution");
-    const locTime = gl.getUniformLocation(program, "u_time");
 
-    // Density texture (single-channel luminance works well for this)
     const tex = gl.createTexture()!;
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -149,34 +140,14 @@ export default function MeltedChocolateBg() {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.uniform1i(locTex, 0);
 
-    // Byte buffer we upload to the density texture each frame
-    const densityBytes = new Uint8Array(GRID_W * GRID_H);
-
-    // ---------- simulation (CPU) ----------
+    // ---------- wave simulation (CPU) ----------
     const size = GRID_W * GRID_H;
-    let density = new Float32Array(size);
-    let densityPrev = new Float32Array(size);
-    let velX = new Float32Array(size);
-    let velXPrev = new Float32Array(size);
-    let velY = new Float32Array(size);
-    let velYPrev = new Float32Array(size);
+    // Height fields at time t and t-1 for the discrete wave equation
+    let h = new Float32Array(size);
+    let hPrev = new Float32Array(size);
+    const heightBytes = new Uint8Array(size);
 
     const idx = (x: number, y: number) => x + y * GRID_W;
-
-    // Seed a gentle swirl + baseline liquid so there's always surface to shade
-    for (let y = 0; y < GRID_H; y++) {
-      for (let x = 0; x < GRID_W; x++) {
-        const i = idx(x, y);
-        const nx = x / GRID_W - 0.5;
-        const ny = y / GRID_H - 0.5;
-        velX[i] = -ny * 0.35;
-        velY[i] = nx * 0.35;
-        density[i] =
-          0.42 +
-          Math.sin(x * 0.07 + y * 0.11) * 0.08 +
-          Math.cos(x * 0.14 - y * 0.09) * 0.06;
-      }
-    }
 
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -193,81 +164,60 @@ export default function MeltedChocolateBg() {
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
 
+    // Mouse tracking
     let mouseX = width / 2;
     let mouseY = height / 2;
     let lastMouseX = mouseX;
     let lastMouseY = mouseY;
-    let hasMoved = false;
+    let mouseInside = false;
 
     const handleMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!hasMoved) {
+      if (!mouseInside) {
         lastMouseX = mouseX;
         lastMouseY = mouseY;
-        hasMoved = true;
+        mouseInside = true;
       }
     };
-
-    const advect = (
-      out: Float32Array,
-      src: Float32Array,
-      vx: Float32Array,
-      vy: Float32Array,
-      dt: number
-    ) => {
-      for (let y = 0; y < GRID_H; y++) {
-        for (let x = 0; x < GRID_W; x++) {
-          const i = idx(x, y);
-          let px = x - vx[i] * dt;
-          let py = y - vy[i] * dt;
-          if (px < 0) px = 0;
-          if (py < 0) py = 0;
-          if (px > GRID_W - 1.001) px = GRID_W - 1.001;
-          if (py > GRID_H - 1.001) py = GRID_H - 1.001;
-          const x0 = Math.floor(px);
-          const y0 = Math.floor(py);
-          const sx = px - x0;
-          const sy = py - y0;
-          const a = src[idx(x0, y0)];
-          const b = src[idx(x0 + 1, y0)];
-          const c = src[idx(x0, y0 + 1)];
-          const d = src[idx(x0 + 1, y0 + 1)];
-          out[i] =
-            (a * (1 - sx) + b * sx) * (1 - sy) +
-            (c * (1 - sx) + d * sx) * sy;
-        }
-      }
+    const handleLeave = () => {
+      mouseInside = false;
     };
 
-    const injectMouse = () => {
-      if (!hasMoved) return;
+    // Continuously press the surface down wherever the cursor is, and
+    // interpolate along the cursor's last step so fast moves still leave a
+    // continuous wake.
+    const applyMousePress = () => {
+      if (!mouseInside) return;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
       const speed = Math.sqrt(dx * dx + dy * dy);
-      const steps = Math.max(1, Math.ceil(speed / 6));
-      for (let s = 1; s <= steps; s++) {
-        const t = s / steps;
+      const steps = Math.max(1, Math.ceil(speed / 4));
+      // Press strength scales a little with speed — faster cut, bigger wake
+      const baseStrength = 0.55 + Math.min(speed * 0.015, 0.45);
+
+      for (let s = 0; s <= steps; s++) {
+        const t = steps === 0 ? 0 : s / steps;
         const px = lastMouseX + dx * t;
         const py = lastMouseY + dy * t;
         const gx = (px / width) * GRID_W;
         const gy = (py / height) * GRID_H;
-        const fx = (dx / width) * GRID_W * 0.95;
-        const fy = (dy / height) * GRID_H * 0.95;
-        const radius = 5;
         const cx = Math.floor(gx);
         const cy = Math.floor(gy);
+        const fx = gx - cx;
+        const fy = gy - cy;
+        const radius = 3;
         for (let j = -radius; j <= radius; j++) {
           for (let i = -radius; i <= radius; i++) {
             const x = cx + i;
             const y = cy + j;
-            if (x < 1 || y < 1 || x >= GRID_W - 1 || y >= GRID_H - 1) continue;
-            const d2 = i * i + j * j;
-            const fall = Math.exp(-d2 / 6);
-            const k = idx(x, y);
-            velX[k] += fx * fall * 0.7;
-            velY[k] += fy * fall * 0.7;
-            density[k] += 0.22 * fall;
+            if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
+            const di = i - fx;
+            const dj = j - fy;
+            const d2 = di * di + dj * dj;
+            const fall = Math.exp(-d2 / 2.2);
+            // Push surface DOWN — creates a depression like a finger in water
+            h[idx(x, y)] -= baseStrength * fall / (steps + 1);
           }
         }
       }
@@ -275,65 +225,54 @@ export default function MeltedChocolateBg() {
       lastMouseY = mouseY;
     };
 
+    // Very gentle idle disturbances so the surface never goes perfectly flat
     let tTime = 0;
     const addAmbient = () => {
-      tTime += 0.0045;
-      for (let k = 0; k < 4; k++) {
-        const gx = Math.floor(GRID_W * (0.5 + Math.sin(tTime + k * 1.9) * 0.4));
-        const gy = Math.floor(GRID_H * (0.5 + Math.cos(tTime * 0.7 + k * 1.3) * 0.4));
-        const ax = Math.cos(tTime * 1.2 + k * 0.9) * 0.8;
-        const ay = Math.sin(tTime * 0.85 + k * 1.4) * 0.8;
-        for (let j = -3; j <= 3; j++) {
-          for (let i = -3; i <= 3; i++) {
+      tTime += 0.006;
+      for (let k = 0; k < 2; k++) {
+        const gx = Math.floor(GRID_W * (0.5 + Math.sin(tTime + k * 2.2) * 0.42));
+        const gy = Math.floor(GRID_H * (0.5 + Math.cos(tTime * 0.73 + k * 1.7) * 0.42));
+        const push = Math.sin(tTime * 3 + k * 1.9) * 0.04;
+        for (let j = -2; j <= 2; j++) {
+          for (let i = -2; i <= 2; i++) {
             const x = gx + i;
             const y = gy + j;
-            if (x < 1 || y < 1 || x >= GRID_W - 1 || y >= GRID_H - 1) continue;
-            const fall = Math.exp(-(i * i + j * j) / 5);
-            const kk = idx(x, y);
-            velX[kk] += ax * fall * 0.05;
-            velY[kk] += ay * fall * 0.05;
-            density[kk] += 0.003 * fall;
+            if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
+            const fall = Math.exp(-(i * i + j * j) / 3);
+            h[idx(x, y)] += push * fall;
           }
         }
       }
-      const target = 0.45;
-      for (let i = 0; i < size; i++) {
-        density[i] += (target - density[i]) * 0.012;
-      }
     };
 
-    const step = () => {
-      injectMouse();
-      addAmbient();
-
-      let tmp = velXPrev;
-      velXPrev = velX;
-      velX = tmp;
-      tmp = velYPrev;
-      velYPrev = velY;
-      velY = tmp;
-      advect(velX, velXPrev, velXPrev, velYPrev, 1);
-      advect(velY, velYPrev, velXPrev, velYPrev, 1);
-
-      const velDamp = 0.975;
-      for (let i = 0; i < size; i++) {
-        velX[i] *= velDamp;
-        velY[i] *= velDamp;
+    // Discrete 2D wave equation step.
+    // h_next = 2·h - h_prev + c² · Laplacian(h), then damp.
+    const waveStep = () => {
+      const c2 = 0.22; // wave-speed² — bigger = faster ripples
+      const damp = 0.985; // global damping — lower = faster settle
+      for (let y = 1; y < GRID_H - 1; y++) {
+        const row = y * GRID_W;
+        for (let x = 1; x < GRID_W - 1; x++) {
+          const i = row + x;
+          const lap =
+            h[i - 1] + h[i + 1] + h[i - GRID_W] + h[i + GRID_W] - 4 * h[i];
+          const next = (2 * h[i] - hPrev[i] + c2 * lap) * damp;
+          hPrev[i] = next;
+        }
       }
-
-      tmp = densityPrev;
-      densityPrev = density;
-      density = tmp;
-      advect(density, densityPrev, velX, velY, 1);
+      // Swap — hPrev now holds the new step
+      const tmp = h;
+      h = hPrev;
+      hPrev = tmp;
     };
 
-    const uploadDensity = () => {
-      // Scale density (roughly 0..1.5) to 0..255
+    const uploadHeight = () => {
+      // Map [-1, 1] → [0, 255], centered on 128
       for (let i = 0; i < size; i++) {
-        let d = density[i] * 170;
-        if (d < 0) d = 0;
-        if (d > 255) d = 255;
-        densityBytes[i] = d;
+        let v = h[i] * 90 + 128;
+        if (v < 0) v = 0;
+        if (v > 255) v = 255;
+        heightBytes[i] = v;
       }
       gl.bindTexture(gl.TEXTURE_2D, tex);
       gl.texImage2D(
@@ -345,19 +284,19 @@ export default function MeltedChocolateBg() {
         0,
         gl.LUMINANCE,
         gl.UNSIGNED_BYTE,
-        densityBytes
+        heightBytes
       );
     };
 
     let rafId = 0;
     const loop = () => {
-      step();
-      uploadDensity();
+      applyMousePress();
+      addAmbient();
+      waveStep();
+      uploadHeight();
 
       gl.uniform2f(locTexSize, GRID_W, GRID_H);
       gl.uniform2f(locRes, canvas.width, canvas.height);
-      gl.uniform1f(locTime, performance.now() * 0.001);
-
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
       rafId = requestAnimationFrame(loop);
@@ -366,12 +305,14 @@ export default function MeltedChocolateBg() {
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseleave", handleLeave);
     rafId = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseleave", handleLeave);
       gl.deleteProgram(program);
       gl.deleteTexture(tex);
       gl.deleteBuffer(buf);
