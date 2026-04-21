@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SparkleTrail from "@/components/SparkleTrail";
+import MeltedChocolateBg from "@/components/MeltedChocolateBg";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <MeltedChocolateBg />
         <SparkleTrail />
         {children}
       </body>

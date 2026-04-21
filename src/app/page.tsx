@@ -1,7 +1,6 @@
 import ArticleCard from "@/components/ArticleCard";
 import ProductCard from "@/components/ProductCard";
 import ChocolateAnimation from "@/components/ChocolateAnimation";
-import MeltedChocolateBg from "@/components/MeltedChocolateBg";
 import SectionHeader from "@/components/SectionHeader";
 import HeroVideo from "@/components/HeroVideo";
 import HomeNav from "@/components/HomeNav";
@@ -63,7 +62,7 @@ export default function Home() {
       </div>
 
       {/* ─── Shop ─── */}
-      <section className="py-20 bg-cream relative">
+      <section className="py-20 relative">
         <ScrollReveal>
           <div className="mx-auto max-w-7xl px-6">
             <SectionHeader
@@ -95,9 +94,8 @@ export default function Home() {
         </ScrollReveal>
       </section>
 
-      {/* ─── Featured This Month — melted chocolate ─── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "85vh" }}>
-        <MeltedChocolateBg />
+      {/* ─── Featured This Month ─── */}
+      <section className="relative" style={{ minHeight: "85vh" }}>
         <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 text-center py-24">
           <ScrollReveal>
             <p className="text-[10px] tracking-[0.4em] text-white/50 mb-6">LIMITED RUNS · HANDCRAFTED</p>

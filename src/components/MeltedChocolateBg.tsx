@@ -2,97 +2,151 @@
 
 import { useEffect, useRef } from "react";
 
+type TrailPoint = {
+  x: number;
+  y: number;
+  age: number;
+  life: number; // total frames to live
+  radius: number;
+  hue: number; // slight variation for depth
+};
+
 export default function MeltedChocolateBg() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const blobsRef = useRef<HTMLDivElement[]>([]);
-  const mouseRef = useRef({ x: 0.5, y: 0.5 });
-  const rafRef = useRef<number>(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
 
-    // Each blob has its own position that eases toward a target derived from the mouse.
-    // Different lags/offsets make the goop feel fluid rather than pinned to the cursor.
-    const blobState = [
-      { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, ease: 0.045, offX: 0, offY: 0 },
-      { x: 0.35, y: 0.5, tx: 0.35, ty: 0.5, ease: 0.03, offX: -0.12, offY: 0.05 },
-      { x: 0.65, y: 0.5, tx: 0.65, ty: 0.5, ease: 0.035, offX: 0.14, offY: -0.06 },
-      { x: 0.5, y: 0.3, tx: 0.5, ty: 0.3, ease: 0.025, offX: 0.02, offY: -0.18 },
-      { x: 0.5, y: 0.7, tx: 0.5, ty: 0.7, ease: 0.028, offX: -0.04, offY: 0.18 },
-    ];
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Paint initial base
+      paintBase(1);
+    };
+
+    const paintBase = (alpha: number) => {
+      // A dark chocolate bed. Low alpha = slow "flow back" so trails linger.
+      const g = ctx.createLinearGradient(0, 0, width, height);
+      g.addColorStop(0, `rgba(26, 14, 8, ${alpha})`);
+      g.addColorStop(0.5, `rgba(44, 24, 16, ${alpha})`);
+      g.addColorStop(1, `rgba(13, 9, 6, ${alpha})`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, width, height);
+    };
+
+    const trail: TrailPoint[] = [];
+    let lastX = width / 2;
+    let lastY = height / 2;
+    let hasMoved = false;
 
     const handleMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      mouseRef.current = { x, y };
+      const x = e.clientX;
+      const y = e.clientY;
+      if (!hasMoved) {
+        lastX = x;
+        lastY = y;
+        hasMoved = true;
+        return;
+      }
+      const dx = x - lastX;
+      const dy = y - lastY;
+      const speed = Math.sqrt(dx * dx + dy * dy);
+      // Interpolate between frames so fast moves still produce a continuous cut
+      const steps = Math.max(1, Math.ceil(speed / 6));
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        const px = lastX + dx * t;
+        const py = lastY + dy * t;
+        trail.push({
+          x: px,
+          y: py,
+          age: 0,
+          life: 90 + Math.min(speed * 0.8, 40),
+          radius: 45 + Math.min(speed * 1.4, 70),
+          hue: Math.random() * 15 - 7,
+        });
+      }
+      lastX = x;
+      lastY = y;
     };
 
-    // Ambient drift so it's alive even without mouse input
-    let t = 0;
+    let rafId = 0;
     const tick = () => {
-      t += 0.008;
-      const { x: mx, y: my } = mouseRef.current;
+      // Re-apply base at low alpha — this is the "liquid flowing back"
+      ctx.globalCompositeOperation = "source-over";
+      paintBase(0.08);
 
-      blobState.forEach((b, i) => {
-        const driftX = Math.sin(t + i * 1.3) * 0.04;
-        const driftY = Math.cos(t * 0.8 + i * 0.9) * 0.04;
-        b.tx = mx + b.offX + driftX;
-        b.ty = my + b.offY + driftY;
-        b.x += (b.tx - b.x) * b.ease;
-        b.y += (b.ty - b.y) * b.ease;
-
-        const el = blobsRef.current[i];
-        if (el) {
-          el.style.transform = `translate3d(${b.x * 100}%, ${b.y * 100}%, 0) translate(-50%, -50%)`;
+      // Draw trail points as warm highlights using "lighter" blend — a knife cut revealing brighter chocolate underneath
+      ctx.globalCompositeOperation = "lighter";
+      for (let i = trail.length - 1; i >= 0; i--) {
+        const p = trail[i];
+        p.age++;
+        const t = p.age / p.life;
+        if (t >= 1) {
+          trail.splice(i, 1);
+          continue;
         }
-      });
+        // Ease out — fast fade near the end, bright at the start
+        const fade = Math.pow(1 - t, 1.4);
+        // Radius grows a touch as the cut spreads
+        const r = p.radius * (1 + t * 0.5);
 
-      rafRef.current = requestAnimationFrame(tick);
+        const base = 28 + p.hue; // hue offset for variety
+        const rg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+        // Warm caramel core → chocolate mid → transparent edge
+        rg.addColorStop(0, `rgba(${180 + base}, ${115 + base * 0.5}, ${65 + base * 0.3}, ${0.55 * fade})`);
+        rg.addColorStop(0.35, `rgba(${130 + base}, ${78 + base * 0.4}, ${42}, ${0.28 * fade})`);
+        rg.addColorStop(1, "rgba(92, 58, 33, 0)");
+        ctx.fillStyle = rg;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // A slow ambient swirl so the surface looks alive without the mouse
+      ctx.globalCompositeOperation = "lighter";
+      const t = performance.now() * 0.00015;
+      for (let i = 0; i < 3; i++) {
+        const cx = width * (0.5 + Math.sin(t + i * 2.1) * 0.35);
+        const cy = height * (0.5 + Math.cos(t * 0.8 + i * 1.7) * 0.35);
+        const rr = 260 + Math.sin(t * 1.3 + i) * 40;
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+        g.addColorStop(0, "rgba(122, 74, 42, 0.08)");
+        g.addColorStop(0.5, "rgba(92, 58, 33, 0.04)");
+        g.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      rafId = requestAnimationFrame(tick);
     };
 
+    resize();
+    window.addEventListener("resize", resize);
     window.addEventListener("mousemove", handleMove);
-    rafRef.current = requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
 
     return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMove);
-      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
-  return (
-    <div ref={containerRef} className="melted-choc-bg">
-      {/* SVG filter that fuses blobs into a single molten surface */}
-      <svg className="melted-choc-svg" aria-hidden="true">
-        <defs>
-          <filter id="melted-goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -11"
-              result="goo"
-            />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
-
-      <div className="melted-choc-layer">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <div
-            key={i}
-            ref={(el) => {
-              if (el) blobsRef.current[i] = el;
-            }}
-            className={`melted-choc-blob blob-${i}`}
-          />
-        ))}
-      </div>
-
-      {/* Gold shimmer highlight on top */}
-      <div className="melted-choc-shine" />
-    </div>
-  );
+  return <canvas ref={canvasRef} className="melted-choc-canvas" aria-hidden="true" />;
 }
