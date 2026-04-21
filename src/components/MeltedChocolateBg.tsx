@@ -187,25 +187,49 @@ export default function MeltedChocolateBg() {
       mouseInside = false;
     };
 
-    // Hold a depression at the cursor that smoothly follows the mouse.
-    // The cursor-position depression is re-stamped each frame, so the
-    // depression always tracks the mouse. When the mouse moves we also
-    // stamp along the path so fast moves leave a continuous wake behind.
+    // The cursor cuts through the surface: we only create a disturbance
+    // where the mouse HAS MOVED since the last frame. The disturbance is
+    // a narrow slash elongated along the motion vector — like a blade edge
+    // slicing the liquid — so waves peel outward perpendicular to the
+    // direction of travel and trail behind the cursor.
     const applyMousePress = () => {
       if (!mouseInside) return;
       const dx = mouseX - lastMouseX;
       const dy = mouseY - lastMouseY;
       const speed = Math.sqrt(dx * dx + dy * dy);
-      const steps = Math.max(1, Math.ceil(speed / 4));
 
-      const stampAt = (px: number, py: number, strength: number) => {
-        const gx = (px / width) * GRID_W;
-        const gy = (py / height) * GRID_H;
+      // No motion, no disturbance — surface stays perfectly still
+      if (speed < 0.3) {
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+        return;
+      }
+
+      // Motion direction (unit vector) and its perpendicular
+      const nx = dx / speed;
+      const ny = dy / speed;
+      // perpendicular
+      const px = -ny;
+      const py = nx;
+
+      // Stamp an elongated slash along the segment [last → current]
+      // The slash is narrow across the motion (px,py axis) and long along
+      // the motion (nx,ny axis).
+      const steps = Math.max(2, Math.ceil(speed / 2));
+      const strength = Math.min(0.1 + speed * 0.02, 0.55);
+
+      for (let s = 0; s <= steps; s++) {
+        const t = s / steps;
+        const cxPx = lastMouseX + dx * t;
+        const cyPx = lastMouseY + dy * t;
+        const gx = (cxPx / width) * GRID_W;
+        const gy = (cyPx / height) * GRID_H;
         const cx = Math.floor(gx);
         const cy = Math.floor(gy);
         const fx = gx - cx;
         const fy = gy - cy;
-        const radius = 3;
+
+        const radius = 4;
         for (let j = -radius; j <= radius; j++) {
           for (let i = -radius; i <= radius; i++) {
             const x = cx + i;
@@ -213,23 +237,13 @@ export default function MeltedChocolateBg() {
             if (x < 2 || y < 2 || x >= GRID_W - 2 || y >= GRID_H - 2) continue;
             const di = i - fx;
             const dj = j - fy;
-            const d2 = di * di + dj * dj;
-            const fall = Math.exp(-d2 / 2.2);
-            h[idx(x, y)] -= strength * fall;
+            // Project the offset onto along/perp axes of motion
+            const along = di * nx + dj * ny;
+            const perp = di * px + dj * py;
+            // Narrow across the blade (σ = 0.8), longer along (σ = 2.0)
+            const fall = Math.exp(-(perp * perp) / 1.2 - (along * along) / 8);
+            h[idx(x, y)] -= strength * fall / steps;
           }
-        }
-      };
-
-      // Constant finger-in-water press at the current cursor position — the
-      // fluid follows the mouse even when it's stationary.
-      stampAt(mouseX, mouseY, 0.18);
-
-      // Additional wake along the path taken since last frame
-      if (speed > 0.5) {
-        const wakeStrength = Math.min(speed * 0.035, 0.55) / steps;
-        for (let s = 1; s <= steps; s++) {
-          const t = s / steps;
-          stampAt(lastMouseX + dx * t, lastMouseY + dy * t, wakeStrength);
         }
       }
 
