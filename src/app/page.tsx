@@ -5,6 +5,16 @@ import Link from "next/link";
 
 const collection = [
   {
+    id: "cherry-macadamia",
+    name: "Cherry, Macadamia",
+    origin: "Wrapper by Jakub Gliński",
+    percent: "70%",
+    weight: "70g",
+    notes: "Sour cherry · macadamia · dark chocolate",
+    price: "$26",
+    image: "/choc/cherry-macadamia.png",
+  },
+  {
     id: "chuao-100",
     name: "Chuao",
     origin: "Chuao, Venezuela",
