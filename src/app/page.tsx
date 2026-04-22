@@ -209,14 +209,14 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={160} className="col-span-12 md:col-span-5 md:pb-8">
-            <p className="eyebrow">This Season — Edition Nº 07</p>
+            <p className="eyebrow">Edition Nº 07 · Chuao, Venezuela</p>
             <h3
               className="font-display text-[color:var(--ink)] mt-6 leading-[0.98] tracking-[-0.015em] text-4xl md:text-6xl"
               style={{ fontWeight: 400 }}
             >
-              Chuao,
+              This month&rsquo;s
               <br />
-              <em className="italic">unsweetened</em>.
+              <em className="italic">chocolate</em>.
             </h3>
             <p className="mt-6 text-[color:var(--ink-muted)] leading-[1.7] max-w-md">
               A bar made from a single harvest on Venezuela&rsquo;s Chuao
