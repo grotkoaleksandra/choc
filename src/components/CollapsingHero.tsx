@@ -20,6 +20,7 @@ export default function CollapsingHero() {
   const vh = typeof window !== "undefined" ? window.innerHeight : 800;
   const collapseBottom = progress * vh;
   const videoOpacity = Math.max(1 - progress * 1.1, 0);
+  const copyOpacity = Math.max(1 - progress * 1.8, 0);
 
   return (
     <section
@@ -49,6 +50,24 @@ export default function CollapsingHero() {
           }}
           src="/choc/hero.mp4"
         />
+      </div>
+
+      <div
+        className="fixed inset-0 z-10 pointer-events-none flex items-center justify-center px-6"
+        style={{
+          opacity: copyOpacity,
+          transition: "opacity 60ms linear",
+        }}
+      >
+        <h1
+          className="font-display text-white text-center leading-[0.95] tracking-[-0.02em] text-[16vw] md:text-[12vw]"
+          style={{
+            fontWeight: 400,
+            textShadow: "0 2px 40px rgba(0,0,0,0.25)",
+          }}
+        >
+          Syrena <em className="italic">Chocolate</em>
+        </h1>
       </div>
     </section>
   );
