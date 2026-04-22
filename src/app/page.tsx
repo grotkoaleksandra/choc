@@ -66,6 +66,39 @@ const collection = [
   },
 ];
 
+const inesCollection = [
+  {
+    id: "ines-tile-set",
+    name: "Porcelain Tasting Set",
+    origin: "Berlin · cast by hand",
+    percent: "4 tiles",
+    weight: "Ø 9cm each",
+    notes: "Unglazed porcelain · paired to the six origins",
+    price: "$120",
+    image: "/choc/img-3.png",
+  },
+  {
+    id: "ines-oaxaca-72",
+    name: "Oaxaca, wrapped",
+    origin: "Oaxaca, México",
+    percent: "72%",
+    weight: "60g",
+    notes: "Mole spice · black cherry · tobacco",
+    price: "$28",
+    image: "/choc/img-2.png",
+  },
+  {
+    id: "ines-piura-66",
+    name: "Piura, Salt-Fired",
+    origin: "Piura, Perú",
+    percent: "66%",
+    weight: "60g",
+    notes: "Brown butter · hazelnut · caramel",
+    price: "$22",
+    image: "/choc/img-4.png",
+  },
+];
+
 const artistSeries = [
   {
     id: "series-01",
@@ -113,16 +146,16 @@ export default function Home() {
           <ScrollReveal>
             <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
               <div>
-                <p className="eyebrow">Chapter Two — The Bars</p>
+                <p className="eyebrow">Guest Curator — Autumn 2026</p>
                 <h3
-                  className="font-display text-[color:var(--ink)] mt-4 leading-[1.0] tracking-[-0.015em] text-4xl md:text-5xl"
+                  className="font-display text-[color:var(--ink)] mt-4 leading-[0.98] tracking-[-0.015em] text-4xl md:text-5xl lg:text-6xl"
                   style={{ fontWeight: 400 }}
                 >
-                  The Collection
+                  Jakub Gliński&rsquo;s <em className="italic">collection</em>.
                 </h3>
                 <p className="mt-4 text-sm text-[color:var(--ink-muted)] max-w-md leading-[1.6]">
-                  {collection.length} bars in current rotation. Each is a single
-                  origin, in an edition of forty-eight.
+                  {collection.length} bars chosen by the painter, each one a
+                  ground for his drawings. Editions of forty-eight.
                 </p>
               </div>
               <Link
@@ -329,7 +362,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* VI. INES BAUMGART — second artist, full-bleed portrait + bio */}
+      {/* VI. INES COLLECTION — her curation */}
+      <section className="relative py-24 md:py-32 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
+        <div className="max-w-[1400px] mx-auto">
+          <ScrollReveal>
+            <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
+              <div>
+                <p className="eyebrow">Guest Ceramicist — Winter 2026</p>
+                <h3
+                  className="font-display text-[color:var(--ink)] mt-4 leading-[0.98] tracking-[-0.015em] text-4xl md:text-5xl lg:text-6xl"
+                  style={{ fontWeight: 400 }}
+                >
+                  Ines Baumgart&rsquo;s <em className="italic">collection</em>.
+                </h3>
+                <p className="mt-4 text-sm text-[color:var(--ink-muted)] max-w-md leading-[1.6]">
+                  A porcelain tasting set and two bars she wrapped by hand,
+                  pressed from plates thrown for the edition.
+                </p>
+              </div>
+              <Link
+                href="/shop"
+                className="text-[color:var(--ink)] link-fancy text-sm shrink-0"
+              >
+                See all →
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 md:gap-x-10 md:gap-y-20">
+            {inesCollection.map((p, i) => (
+              <ScrollReveal key={p.id} delay={i * 60}>
+                <div className="card group flex flex-col h-full">
+                  <Link href="/shop" className="block">
+                    <div className="card-frame img-wipe aspect-[4/5]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  </Link>
+
+                  <div className="mt-6 flex-1 flex flex-col">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <Link href="/shop" className="block">
+                          <h4
+                            className="font-display text-[color:var(--ink)] text-2xl md:text-3xl leading-[1.05]"
+                            style={{ fontWeight: 400 }}
+                          >
+                            {p.name}
+                          </h4>
+                        </Link>
+                        <p className="mt-2 text-[13px] text-[color:var(--ink-muted)]">
+                          <span className="percent-dot" />
+                          {p.origin} · {p.percent} · {p.weight}
+                        </p>
+                      </div>
+                      <span className="price-tag shrink-0 mt-1">{p.price}</span>
+                    </div>
+
+                    <p className="mt-4 text-sm text-[color:var(--ink-muted)] leading-[1.55] italic font-display">
+                      {p.notes}
+                    </p>
+
+                    <button className="btn-basket mt-6">
+                      <span>Add to basket</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VII. INES BAUMGART — second artist, full-bleed portrait + bio */}
       <section className="relative border-t border-[color:var(--rule)]/60">
         <div className="relative w-screen left-1/2 -translate-x-1/2 aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.4/1] overflow-hidden bg-[color:var(--paper-deep)]">
           <ScrollReveal className="absolute inset-0">
