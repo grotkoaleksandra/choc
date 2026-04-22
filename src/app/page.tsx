@@ -107,65 +107,7 @@ export default function Home() {
       {/* I. HERO — video collapses completely on scroll */}
       <CollapsingHero />
 
-      {/* II. GUEST CURATOR — Jakub Glinski's collection intro */}
-      <section className="relative py-20 md:py-32 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-10 md:gap-16 items-end">
-          <ScrollReveal delay={40} className="col-span-12 md:col-span-7">
-            <div className="card-frame img-wipe aspect-[4/5] md:aspect-[4/5] relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/choc/img-1.png"
-                alt="Jakub Gliński's collection for Syrena"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={160} className="col-span-12 md:col-span-5 md:pb-8">
-            <p className="eyebrow">Guest Curator — Autumn 2026</p>
-            <h2
-              className="font-display text-[color:var(--ink)] mt-6 leading-[0.95] tracking-[-0.02em] text-5xl md:text-7xl lg:text-[5.5rem]"
-              style={{ fontWeight: 400 }}
-            >
-              Jakub Gliński&rsquo;s
-              <br />
-              <em className="italic">collection</em>.
-            </h2>
-            <p className="mt-5 text-[color:var(--ink-muted)] text-sm tracking-[0.15em] uppercase font-mono">
-              Painter · Warszawa · b. 1984
-            </p>
-
-            <p className="mt-10 text-base md:text-lg leading-[1.7] text-[color:var(--ink-muted)] max-w-md">
-              Six bars chosen by the painter Jakub Gliński — each one a ground
-              that his original drawings were printed onto. A seasonal cabinet,
-              available until the edition is gone.
-            </p>
-
-            <dl className="mt-10 grid grid-cols-2 gap-y-4 gap-x-8 text-sm max-w-sm">
-              <dt className="text-[color:var(--ink-muted)]">Bars</dt>
-              <dd className="text-[color:var(--ink)]">Six, single-origin</dd>
-              <dt className="text-[color:var(--ink-muted)]">Wrappers</dt>
-              <dd className="text-[color:var(--ink)]">Original works, signed</dd>
-              <dt className="text-[color:var(--ink-muted)]">Edition</dt>
-              <dd className="text-[color:var(--ink)]">48 of each</dd>
-              <dt className="text-[color:var(--ink-muted)]">Released</dt>
-              <dd className="text-[color:var(--ink)]">September 2026</dd>
-            </dl>
-
-            <div className="mt-12 flex items-center gap-8">
-              <a href="#collection" className="link-fancy text-sm">
-                See the collection ↓
-              </a>
-              <span className="text-[color:var(--rule)]">·</span>
-              <Link href="/about" className="link-fancy text-sm">
-                About Jakub
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* III. COLLECTION — expanded grid with e-comm affordances */}
+      {/* II. COLLECTION — expanded grid with e-comm affordances */}
       <section id="collection" className="relative py-24 md:py-32 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
