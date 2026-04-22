@@ -545,65 +545,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* VII. THIS MONTH'S ARTIST — the maker, portrait & voice */}
-      <section className="relative py-24 md:py-36 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-10 md:gap-16 items-end">
-          <ScrollReveal className="col-span-12 md:col-span-6">
-            <div className="card-frame img-wipe aspect-[4/5]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/miguel.jpeg"
-                alt="Aleksandra Grotko in the studio"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <p className="mt-4 eyebrow">Warszawa, 2026 — photo by M. Karnow</p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={160} className="col-span-12 md:col-span-6 md:pb-10">
-            <p className="eyebrow">This month&rsquo;s artist</p>
-            <h2
-              className="font-display text-[color:var(--ink)] mt-8 leading-[0.95] tracking-[-0.02em] text-5xl md:text-7xl lg:text-[7.5rem]"
-              style={{ fontWeight: 400 }}
-            >
-              Aleksandra
-              <br />
-              <em className="italic">Grotko</em>.
-            </h2>
-            <p className="mt-5 text-[color:var(--ink-muted)] text-sm tracking-[0.15em] uppercase font-mono">
-              Chocolatier · Painter · b. 1988, Kraków
-            </p>
-
-            <p className="mt-10 text-base md:text-lg leading-[1.7] text-[color:var(--ink-muted)] max-w-xl drop-cap">
-              Trained as a painter in Kraków before turning, quietly, to cacao
-              in 2020. Her bars are each a composition — one farm, one harvest,
-              a long ferment, and a refusal to hurry. She works alone, in
-              editions of forty-eight, from a small studio on Mokotowska street.
-            </p>
-
-            <blockquote
-              className="mt-12 font-display italic text-[color:var(--ink)] text-2xl md:text-3xl leading-[1.35] max-w-xl border-l border-[color:var(--cacao)] pl-6"
-              style={{ fontWeight: 400 }}
-            >
-              &ldquo;A bar is a record — of a farm, a season, a morning at the
-              conche. I try not to leave fingerprints on it.&rdquo;
-            </blockquote>
-            <p className="mt-4 eyebrow">— A. Grotko, for Syrena Journal</p>
-
-            <div className="mt-12 flex items-center gap-8">
-              <Link href="/about" className="link-fancy text-sm">
-                Read the full interview →
-              </Link>
-              <span className="text-[color:var(--rule)]">·</span>
-              <Link href="/articles" className="link-fancy text-sm">
-                Studio notes
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* V. ARTIST SERIES — limited collaborations, Casa Bosques style */}
+      {/* VIII. ARTIST SERIES — limited collaborations, Casa Bosques style */}
       <section className="relative py-24 md:py-36 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
