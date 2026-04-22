@@ -99,38 +99,6 @@ const inesCollection = [
   },
 ];
 
-const artistSeries = [
-  {
-    id: "series-01",
-    number: "Nº 01",
-    artist: "Marta Kowalska",
-    medium: "Printmaker · Kraków",
-    pairing: "66% Piura · sea salt",
-    edition: "Ed. 48",
-    price: "$24",
-    image: "/choc/img-2.png",
-  },
-  {
-    id: "series-02",
-    number: "Nº 02",
-    artist: "Ines Baumgart",
-    medium: "Ceramicist · Berlin",
-    pairing: "72% Oaxaca Heirloom",
-    edition: "Ed. 48",
-    price: "$28",
-    image: "/choc/img-3.png",
-  },
-  {
-    id: "series-03",
-    number: "Nº 03",
-    artist: "Jakub Nowak",
-    medium: "Illustrator · Warszawa",
-    pairing: "100% Chuao nibs",
-    edition: "Ed. 48",
-    price: "$22",
-    image: "/choc/img-4.png",
-  },
-];
 
 export default function Home() {
   return (
@@ -542,92 +510,6 @@ export default function Home() {
             </blockquote>
             <p className="mt-3 eyebrow">— Ines Baumgart, for Syrena Journal</p>
           </div>
-        </div>
-      </section>
-
-      {/* VIII. ARTIST SERIES — limited collaborations, Casa Bosques style */}
-      <section className="relative py-24 md:py-36 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
-        <div className="max-w-[1400px] mx-auto">
-          <ScrollReveal>
-            <div className="grid grid-cols-12 gap-8 items-end mb-14 md:mb-20">
-              <div className="col-span-12 md:col-span-7">
-                <p className="eyebrow">Chapter Three — Limited</p>
-                <h3
-                  className="font-display text-[color:var(--ink)] mt-4 leading-[0.98] tracking-[-0.015em] text-4xl md:text-6xl lg:text-7xl"
-                  style={{ fontWeight: 400 }}
-                >
-                  Artist <em className="italic">Series</em>.
-                </h3>
-              </div>
-              <div className="col-span-12 md:col-span-4 md:col-start-9">
-                <p className="text-[color:var(--ink-muted)] leading-[1.7] text-base md:text-lg">
-                  Each year, three artists wrap three bars. Original works,
-                  printed in editions of forty-eight — numbered, signed, then
-                  gone.
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-14 md:gap-x-12">
-            {artistSeries.map((s, i) => (
-              <ScrollReveal key={s.id} delay={i * 100}>
-                <div className="card group flex flex-col h-full">
-                  <Link href="/shop" className="block">
-                    <div className="card-frame img-wipe aspect-[3/4]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={s.image}
-                        alt={`${s.artist} for Syrena`}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      <div className="absolute top-4 left-4 z-10 eyebrow text-[color:var(--paper)] mix-blend-difference">
-                        {s.number}
-                      </div>
-                    </div>
-                  </Link>
-
-                  <div className="mt-6 flex-1 flex flex-col">
-                    <p className="eyebrow">{s.edition}</p>
-                    <h4
-                      className="font-display text-[color:var(--ink)] mt-3 text-3xl md:text-4xl leading-[1.05]"
-                      style={{ fontWeight: 400 }}
-                    >
-                      {s.artist}
-                    </h4>
-                    <p className="mt-2 text-[13px] text-[color:var(--ink-muted)]">
-                      {s.medium}
-                    </p>
-                    <p className="mt-5 text-sm text-[color:var(--ink)] font-display italic">
-                      Wraps {s.pairing}
-                    </p>
-
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className="price-tag">{s.price}</span>
-                      <span className="eyebrow">Low stock</span>
-                    </div>
-
-                    <button className="btn-basket mt-5">
-                      <span>Reserve</span>
-                      <span>→</span>
-                    </button>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal delay={240}>
-            <div className="mt-16 md:mt-24 flex items-center justify-between gap-6 pt-8 border-t border-[color:var(--rule)]/60">
-              <p className="text-sm text-[color:var(--ink-muted)] max-w-md leading-[1.6]">
-                Proposals from artists are open each January. Write to the
-                studio.
-              </p>
-              <Link href="/about" className="link-fancy text-sm shrink-0">
-                Apply to collaborate →
-              </Link>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
