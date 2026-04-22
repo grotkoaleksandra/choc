@@ -83,7 +83,7 @@ export default function CollapsingHero() {
         <div className="flex-1" />
         <div className="w-full max-w-[1400px] mx-auto pb-20 md:pb-28 pointer-events-auto">
           <p className="eyebrow" style={{ color: "rgba(245, 238, 224, 0.75)" }}>
-            Syrena Chocolate — Est. 2020, Warszawa
+            Syrena Chocolate
           </p>
           <h1
             className="font-display text-white mt-6 leading-[0.95] tracking-[-0.02em] text-[14vw] md:text-[9vw] lg:text-[8vw]"
