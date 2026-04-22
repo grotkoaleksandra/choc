@@ -350,7 +350,150 @@ export default function Home() {
         </div>
       </section>
 
-      {/* V. THIS MONTH'S ARTIST — the maker, portrait & voice */}
+      {/* V. VIDEO — a short film */}
+      <section className="relative py-20 md:py-28 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-10 md:gap-16 items-end">
+          <ScrollReveal className="col-span-12 md:col-span-8">
+            <div className="card-frame img-wipe aspect-[16/9] relative">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                src="/choc/hero.mp4"
+              />
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={160} className="col-span-12 md:col-span-4 md:pb-8">
+            <p className="eyebrow">A Short Film — In the Studio</p>
+            <h3
+              className="font-display text-[color:var(--ink)] mt-5 leading-[1.0] tracking-[-0.015em] text-4xl md:text-5xl"
+              style={{ fontWeight: 400 }}
+            >
+              The <em className="italic">making</em>.
+            </h3>
+            <p className="mt-6 text-[color:var(--ink-muted)] leading-[1.7]">
+              Three minutes inside the workshop on Mokotowska — the bean, the
+              stone wheel, the long conche, and the wrapping, folded by hand.
+            </p>
+            <p className="mt-8 text-sm text-[color:var(--ink-muted)] leading-[1.6]">
+              Filmed over two mornings in February. A collaboration with
+              cinematographer Ewa Malinowska.
+            </p>
+            <p className="mt-6 eyebrow">2 min 48 sec · Shot on 16mm</p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* VI. INES BAUMGART — second artist, full-bleed portrait + bio */}
+      <section className="relative border-t border-[color:var(--rule)]/60">
+        <div className="relative w-screen left-1/2 -translate-x-1/2 aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.4/1] overflow-hidden bg-[color:var(--paper-deep)]">
+          <ScrollReveal className="absolute inset-0">
+            <div className="img-wipe absolute inset-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/choc/img-3.png"
+                alt="Ines Baumgart in her Berlin studio"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(30,22,16,0.55) 0%, rgba(30,22,16,0.08) 40%, rgba(30,22,16,0) 70%)",
+                }}
+              />
+            </div>
+          </ScrollReveal>
+
+          <div className="absolute left-0 right-0 bottom-0 px-6 md:px-10 pb-10 md:pb-16">
+            <div className="max-w-[1400px] mx-auto">
+              <p className="eyebrow" style={{ color: "rgba(245,238,224,0.8)" }}>
+                On the Ceramicist — Berlin, 2026
+              </p>
+              <h2
+                className="font-display text-white mt-4 leading-[0.95] tracking-[-0.02em] text-5xl md:text-7xl lg:text-[8rem]"
+                style={{ fontWeight: 400 }}
+              >
+                Ines <em className="italic">Baumgart</em>.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-20 md:py-28 grid grid-cols-12 gap-10 md:gap-16">
+          <div className="col-span-12 md:col-span-4">
+            <p className="eyebrow">Biography</p>
+            <dl className="mt-8 space-y-5 text-sm">
+              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
+                <dt className="text-[color:var(--ink-muted)] eyebrow">Born</dt>
+                <dd className="col-span-2 text-[color:var(--ink)]">
+                  1979, Leipzig
+                </dd>
+              </div>
+              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
+                <dt className="text-[color:var(--ink-muted)] eyebrow">Studied</dt>
+                <dd className="col-span-2 text-[color:var(--ink)]">
+                  Burg Giebichenstein, Halle
+                </dd>
+              </div>
+              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
+                <dt className="text-[color:var(--ink-muted)] eyebrow">Lives</dt>
+                <dd className="col-span-2 text-[color:var(--ink)]">
+                  Wedding, Berlin
+                </dd>
+              </div>
+              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
+                <dt className="text-[color:var(--ink-muted)] eyebrow">Medium</dt>
+                <dd className="col-span-2 text-[color:var(--ink)]">
+                  Porcelain, stoneware, unglazed editions
+                </dd>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <dt className="text-[color:var(--ink-muted)] eyebrow">
+                  Selected
+                </dt>
+                <dd className="col-span-2 text-[color:var(--ink)]">
+                  Koenig Galerie · Salon 94 · GEO Grafic
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="col-span-12 md:col-span-7 md:col-start-6">
+            <p className="text-base md:text-lg leading-[1.75] text-[color:var(--ink)] drop-cap">
+              Ines Baumgart throws vessels that feel remembered rather than
+              made — tall-necked jugs, low bowls, small unglazed dishes that
+              hold the memory of the hand. She studied at Burg Giebichenstein
+              in Halle and has kept a studio in Wedding since 2011. Her work
+              moves between museum commissions and one-off domestic pieces.
+            </p>
+            <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
+              For Syrena she has cast a set of porcelain tasting tiles — one
+              for each origin in the collection — and designed the wrapper
+              for the 72% Oaxaca Heirloom, pressed from a plate she threw and
+              fired for the edition.
+            </p>
+            <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
+              The tiles are sold only alongside the full collection. Forty-eight
+              sets, no more.
+            </p>
+
+            <blockquote
+              className="mt-10 font-display italic text-[color:var(--ink)] text-2xl md:text-3xl leading-[1.35] max-w-xl border-l border-[color:var(--cacao)] pl-6"
+              style={{ fontWeight: 400 }}
+            >
+              &ldquo;A good tile is quiet. The chocolate does the talking — the
+              tile is only there to catch what falls.&rdquo;
+            </blockquote>
+            <p className="mt-3 eyebrow">— Ines Baumgart, for Syrena Journal</p>
+          </div>
+        </div>
+      </section>
+
+      {/* VII. THIS MONTH'S ARTIST — the maker, portrait & voice */}
       <section className="relative py-24 md:py-36 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
         <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-10 md:gap-16 items-end">
           <ScrollReveal className="col-span-12 md:col-span-6">
