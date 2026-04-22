@@ -66,35 +66,35 @@ const collection = [
   },
 ];
 
-const inesCollection = [
+const secondArtistCollection = [
   {
-    id: "ines-tile-set",
-    name: "Porcelain Tasting Set",
-    origin: "Berlin · cast by hand",
-    percent: "4 tiles",
-    weight: "Ø 9cm each",
-    notes: "Unglazed porcelain · paired to the six origins",
-    price: "$120",
+    id: "artist-two-edition-one",
+    name: "Edition One",
+    origin: "Origin · placeholder",
+    percent: "—",
+    weight: "—",
+    notes: "Tasting notes — placeholder",
+    price: "$—",
     image: "/choc/img-3.png",
   },
   {
-    id: "ines-oaxaca-72",
-    name: "Oaxaca, wrapped",
-    origin: "Oaxaca, México",
-    percent: "72%",
-    weight: "60g",
-    notes: "Mole spice · black cherry · tobacco",
-    price: "$28",
+    id: "artist-two-edition-two",
+    name: "Edition Two",
+    origin: "Origin · placeholder",
+    percent: "—",
+    weight: "—",
+    notes: "Tasting notes — placeholder",
+    price: "$—",
     image: "/choc/img-2.png",
   },
   {
-    id: "ines-piura-66",
-    name: "Piura, Salt-Fired",
-    origin: "Piura, Perú",
-    percent: "66%",
-    weight: "60g",
-    notes: "Brown butter · hazelnut · caramel",
-    price: "$22",
+    id: "artist-two-edition-three",
+    name: "Edition Three",
+    origin: "Origin · placeholder",
+    percent: "—",
+    weight: "—",
+    notes: "Tasting notes — placeholder",
+    price: "$—",
     image: "/choc/img-4.png",
   },
 ];
@@ -330,22 +330,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* VI. INES COLLECTION — her curation */}
+      {/* VI. SECOND ARTIST COLLECTION — placeholder curation */}
       <section className="relative py-24 md:py-32 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
             <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
               <div>
-                <p className="eyebrow">Guest Ceramicist — Winter 2026</p>
+                <p className="eyebrow">Guest Artist — Winter 2026</p>
                 <h3
                   className="font-display text-[color:var(--ink)] mt-4 leading-[0.98] tracking-[-0.015em] text-4xl md:text-5xl lg:text-6xl"
                   style={{ fontWeight: 400 }}
                 >
-                  Ines Baumgart&rsquo;s <em className="italic">collection</em>.
+                  Artist Name&rsquo;s <em className="italic">collection</em>.
                 </h3>
                 <p className="mt-4 text-sm text-[color:var(--ink-muted)] max-w-md leading-[1.6]">
-                  A porcelain tasting set and two bars she wrapped by hand,
-                  pressed from plates thrown for the edition.
+                  A short placeholder description for the second artist&rsquo;s
+                  curation — to be replaced.
                 </p>
               </div>
               <Link
@@ -358,7 +358,7 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 md:gap-x-10 md:gap-y-20">
-            {inesCollection.map((p, i) => (
+            {secondArtistCollection.map((p, i) => (
               <ScrollReveal key={p.id} delay={i * 60}>
                 <div className="card group flex flex-col h-full">
                   <Link href="/shop" className="block">
@@ -407,7 +407,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* VII. INES BAUMGART — second artist, full-bleed portrait + bio */}
+      {/* VII. SECOND ARTIST — placeholder, full-bleed portrait + bio */}
       <section className="relative border-t border-[color:var(--rule)]/60">
         <div className="relative w-screen left-1/2 -translate-x-1/2 aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.4/1] overflow-hidden bg-[color:var(--paper-deep)]">
           <ScrollReveal className="absolute inset-0">
@@ -415,7 +415,7 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/choc/img-3.png"
-                alt="Ines Baumgart in her Berlin studio"
+                alt="Second artist — placeholder"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div
@@ -431,13 +431,13 @@ export default function Home() {
           <div className="absolute left-0 right-0 bottom-0 px-6 md:px-10 pb-10 md:pb-16">
             <div className="max-w-[1400px] mx-auto">
               <p className="eyebrow" style={{ color: "rgba(245,238,224,0.8)" }}>
-                On the Ceramicist — Berlin, 2026
+                On the Artist — Placeholder, 2026
               </p>
               <h2
                 className="font-display text-white mt-4 leading-[0.95] tracking-[-0.02em] text-5xl md:text-7xl lg:text-[8rem]"
                 style={{ fontWeight: 400 }}
               >
-                Ines <em className="italic">Baumgart</em>.
+                Artist <em className="italic">Name</em>.
               </h2>
             </div>
           </div>
@@ -450,25 +450,25 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
                 <dt className="text-[color:var(--ink-muted)] eyebrow">Born</dt>
                 <dd className="col-span-2 text-[color:var(--ink)]">
-                  1979, Leipzig
+                  Year, City
                 </dd>
               </div>
               <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
                 <dt className="text-[color:var(--ink-muted)] eyebrow">Studied</dt>
                 <dd className="col-span-2 text-[color:var(--ink)]">
-                  Burg Giebichenstein, Halle
+                  Institution — placeholder
                 </dd>
               </div>
               <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
                 <dt className="text-[color:var(--ink-muted)] eyebrow">Lives</dt>
                 <dd className="col-span-2 text-[color:var(--ink)]">
-                  Wedding, Berlin
+                  City, Country
                 </dd>
               </div>
               <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
                 <dt className="text-[color:var(--ink-muted)] eyebrow">Medium</dt>
                 <dd className="col-span-2 text-[color:var(--ink)]">
-                  Porcelain, stoneware, unglazed editions
+                  Discipline — placeholder
                 </dd>
               </div>
               <div className="grid grid-cols-3 gap-4">
@@ -476,7 +476,7 @@ export default function Home() {
                   Selected
                 </dt>
                 <dd className="col-span-2 text-[color:var(--ink)]">
-                  Koenig Galerie · Salon 94 · GEO Grafic
+                  Exhibitions · placeholder
                 </dd>
               </div>
             </dl>
@@ -484,31 +484,28 @@ export default function Home() {
 
           <div className="col-span-12 md:col-span-7 md:col-start-6">
             <p className="text-base md:text-lg leading-[1.75] text-[color:var(--ink)] drop-cap">
-              Ines Baumgart throws vessels that feel remembered rather than
-              made — tall-necked jugs, low bowls, small unglazed dishes that
-              hold the memory of the hand. She studied at Burg Giebichenstein
-              in Halle and has kept a studio in Wedding since 2011. Her work
-              moves between museum commissions and one-off domestic pieces.
+              Placeholder biography. A few sentences introducing the second
+              artist — their practice, their training, and the thread that runs
+              through the work they&rsquo;ve made for Syrena.
             </p>
             <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
-              For Syrena she has cast a set of porcelain tasting tiles — one
-              for each origin in the collection — and designed the wrapper
-              for the 72% Oaxaca Heirloom, pressed from a plate she threw and
-              fired for the edition.
+              A second paragraph on the collaboration itself — which bars were
+              chosen, what was made for the edition, and how the pieces came
+              together in the studio.
             </p>
             <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
-              The tiles are sold only alongside the full collection. Forty-eight
-              sets, no more.
+              A closing note on the run — the edition size, whether it will be
+              reprinted, and how the bars are being released.
             </p>
 
             <blockquote
               className="mt-10 font-display italic text-[color:var(--ink)] text-2xl md:text-3xl leading-[1.35] max-w-xl border-l border-[color:var(--cacao)] pl-6"
               style={{ fontWeight: 400 }}
             >
-              &ldquo;A good tile is quiet. The chocolate does the talking — the
-              tile is only there to catch what falls.&rdquo;
+              &ldquo;A short pull quote from the artist — placeholder, to be
+              replaced with a line from the interview.&rdquo;
             </blockquote>
-            <p className="mt-3 eyebrow">— Ines Baumgart, for Syrena Journal</p>
+            <p className="mt-3 eyebrow">— Artist Name, for Syrena Journal</p>
           </div>
         </div>
       </section>
