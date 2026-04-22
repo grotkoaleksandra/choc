@@ -35,10 +35,10 @@ export default function HomeNav() {
           <span className="hidden md:inline eyebrow">Chocolate</span>
         </Link>
 
-        <div className="flex items-center gap-8 md:gap-12">
+        <div className="flex items-center gap-6 md:gap-10">
           <Link
             href="/articles"
-            className="text-[13px] text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors"
+            className="hidden sm:inline text-[13px] text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors"
           >
             Journal
           </Link>
@@ -50,9 +50,22 @@ export default function HomeNav() {
           </Link>
           <Link
             href="/about"
-            className="text-[13px] text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors"
+            className="hidden sm:inline text-[13px] text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors"
           >
             About
+          </Link>
+
+          <span className="hidden md:inline w-px h-4 bg-[color:var(--rule)]" />
+
+          <Link
+            href="/shop"
+            className="group inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase font-mono text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors"
+            aria-label="Basket"
+          >
+            <span className="hidden sm:inline">Basket</span>
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-[color:var(--rule)] text-[10px] font-mono group-hover:border-[color:var(--wine)] transition-colors">
+              0
+            </span>
           </Link>
         </div>
       </div>
