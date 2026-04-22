@@ -25,6 +25,9 @@ export default function Header() {
             <Link href="/about" className="link-fancy text-muted hover:text-foreground transition-colors duration-200">
               ABOUT
             </Link>
+            <Link href="/newsletter" className="link-fancy text-muted hover:text-foreground transition-colors duration-200">
+              JOIN US
+            </Link>
           </nav>
 
           {/* Mobile toggle */}
@@ -49,6 +52,9 @@ export default function Header() {
           </Link>
           <Link href="/about" onClick={() => setMenuOpen(false)} className="link-fancy text-muted hover:text-foreground transition-colors">
             ABOUT
+          </Link>
+          <Link href="/newsletter" onClick={() => setMenuOpen(false)} className="link-fancy text-muted hover:text-foreground transition-colors">
+            JOIN US
           </Link>
         </nav>
       )}

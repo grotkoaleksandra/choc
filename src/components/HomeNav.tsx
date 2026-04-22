@@ -54,6 +54,12 @@ export default function HomeNav() {
           >
             About
           </Link>
+          <Link
+            href="/newsletter"
+            className="text-[13px] text-[color:var(--ink)] hover:text-[color:var(--wine)] transition-colors italic font-display"
+          >
+            Join us
+          </Link>
 
           <span className="hidden md:inline w-px h-4 bg-[color:var(--rule)]" />
 
