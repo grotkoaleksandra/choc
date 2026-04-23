@@ -69,6 +69,23 @@ export default function CollapsingHero() {
           Syrena <em className="italic">Chocolate</em>
         </h1>
       </div>
+
+      <div
+        className="fixed left-0 right-0 bottom-8 md:bottom-10 z-20 pointer-events-none flex flex-col items-center gap-3"
+        style={{
+          opacity: Math.max(1 - progress * 3, 0),
+          transition: "opacity 120ms linear",
+        }}
+        aria-hidden="true"
+      >
+        <span
+          className="text-[11px] tracking-[0.28em] uppercase text-white/90 font-mono"
+          style={{ textShadow: "0 1px 12px rgba(0,0,0,0.35)" }}
+        >
+          Scroll
+        </span>
+        <span className="scroll-indicator-line" />
+      </div>
     </section>
   );
 }

@@ -25,7 +25,16 @@ export default function HomeNav() {
       }}
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between py-5">
-        <Link href="/" className="flex items-baseline gap-3 group">
+        <Link
+          href="/"
+          className="flex items-baseline gap-3 group transition-opacity duration-500"
+          style={{
+            opacity: scrolled ? 1 : 0,
+            pointerEvents: scrolled ? "auto" : "none",
+          }}
+          aria-hidden={!scrolled}
+          tabIndex={scrolled ? 0 : -1}
+        >
           <span
             className="font-display text-[color:var(--ink)] text-2xl md:text-3xl leading-none group-hover:opacity-70 transition-opacity"
             style={{ fontWeight: 400 }}
