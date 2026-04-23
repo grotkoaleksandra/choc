@@ -4,6 +4,14 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 const allArticles = [
   {
+    slug: "the-syrena-story",
+    title: "The Syrena Story",
+    excerpt: "Two hundred and fifty years of cacao, shipwrecks, Grand Prix medals, and one very patient conche.",
+    category: "History",
+    date: "Apr 20, 2026",
+    image: "/choc/syrena-raft.png",
+  },
+  {
     slug: "the-origin-of-cacao",
     title: "The Origin of Cacao",
     excerpt: "From the ancient forests of Mesoamerica to the finest chocolatiers of today.",

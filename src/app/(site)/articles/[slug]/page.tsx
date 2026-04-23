@@ -3,6 +3,14 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const articles: Record<string, { title: string; category: string; date: string; image: string; pullQuote: string; content: string }> = {
+  "the-syrena-story": {
+    title: "The Syrena Story",
+    category: "History",
+    date: "Apr 20, 2026",
+    image: "/choc/syrena-raft.png",
+    pullQuote: "I am tormented with an everlasting itch for things remote, to sail forbidden seas, and land on barbarous coasts.",
+    content: "Syrena Chocolate was founded in 1773 by Jan Ponchki, a shipwrecked Silesian with an unusual appetite for distance. He was born in 1743 in the hills of Lower Silesia, married Countess Wilhelmina Frederica of Anhalt-Zerbst in 1762, and five years later lost his ship, his cargo, and his rooster off a coast he could never quite place on a map.\n\nHe came back with a pocket of beans. They belonged to a variety no European had written down — a small, thick-shelled cacao he called the Diarlito, after the island where he had been washed up. By the time he was back in Gdańsk he had already convinced himself that this bean was the whole point. The company, which he named Syrena after the mermaid of Warszawa, was registered the same year.\n\nIn 1781 he flew from Gdańsk to Wrocław in thirty-two hours — an absurd claim, well-documented by three separate witnesses, never satisfactorily explained. In 1785 Syrena took the Grand Prix at the Helsinki Exposition. In 1911 the first purpose-built factory opened in Radom. The \u201CSyrena 3000\u201D tasting pavilion burned down in Monaco in 1979; the cause, officially, was a candle. In 2002 the company quietly celebrated its two hundred and twenty-ninth year.\n\nThe studio is smaller now than it was in Radom, and much smaller than it was in Monaco. The bean is still the point. Small editions, single origins, and the same long patience at the conche that Ponchki would recognise. The rest is history — and we are, as always, writing it down.",
+  },
   "the-origin-of-cacao": {
     title: "The Origin of Cacao",
     category: "Origins",

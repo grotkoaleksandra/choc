@@ -303,41 +303,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* V. VIDEO — a short film */}
-      <section className="relative py-20 md:py-28 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-12 gap-10 md:gap-16 items-end">
-          <ScrollReveal className="col-span-12 md:col-span-8">
-            <div className="card-frame img-wipe aspect-[16/9] relative">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-                src="/choc/hero.mp4"
-              />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={160} className="col-span-12 md:col-span-4 md:pb-8">
-            <p className="eyebrow">A Short Film — In the Studio</p>
-            <h3
-              className="font-display text-[color:var(--ink)] mt-5 leading-[1.0] tracking-[-0.015em] text-4xl md:text-5xl"
-              style={{ fontWeight: 400 }}
-            >
-              The <em className="italic">making</em>.
-            </h3>
-            <p className="mt-6 text-[color:var(--ink-muted)] leading-[1.7]">
-              Three minutes inside the workshop on Mokotowska — the bean, the
-              stone wheel, the long conche, and the wrapping, folded by hand.
-            </p>
-            <p className="mt-8 text-sm text-[color:var(--ink-muted)] leading-[1.6]">
-              Filmed over two mornings in February. A collaboration with
-              cinematographer Ewa Malinowska.
-            </p>
-            <p className="mt-6 eyebrow">2 min 48 sec · Shot on 16mm</p>
-          </ScrollReveal>
+      {/* V. JOURNAL TEASER — full-bleed video + single intro + CTA */}
+      <section className="relative border-t border-[color:var(--rule)]/60">
+        <div className="relative w-screen left-1/2 -translate-x-1/2 aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-[color:var(--paper-deep)]">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            src="/choc/hero.mp4"
+          />
         </div>
+
+        <ScrollReveal className="max-w-[640px] mx-auto px-6 md:px-10 py-20 md:py-28 text-center">
+          <p className="eyebrow">The Journal</p>
+          <p className="mt-6 text-base md:text-lg leading-[1.7] text-[color:var(--ink-muted)]">
+            Two hundred and fifty years of cacao, shipwrecks, Grand Prix medals,
+            and one very patient conche. Stories from the studio and the long
+            history behind the bar.
+          </p>
+          <Link href="/articles" className="btn-basket mt-10 inline-flex max-w-xs">
+            <span>Read the journal</span>
+            <span>→</span>
+          </Link>
+        </ScrollReveal>
       </section>
 
       {/* VI. SECOND ARTIST COLLECTION — placeholder curation */}
