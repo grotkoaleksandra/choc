@@ -65,16 +65,6 @@ const collection = [
     price: "$20",
     image: "https://images.unsplash.com/photo-1582716401301-b2407dc7563d?auto=format&fit=crop&w=900&q=80",
   },
-  {
-    id: "madagascar-68",
-    name: "Sambirano",
-    origin: "Sambirano, Madagascar",
-    percent: "68%",
-    weight: "60g",
-    notes: "Raspberry · apricot · lemon peel",
-    price: "$20",
-    image: "https://images.unsplash.com/photo-1551529834-525807d6b4f3?auto=format&fit=crop&w=900&q=80",
-  },
 ];
 
 const secondArtistCollection = [
