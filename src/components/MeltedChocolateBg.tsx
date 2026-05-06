@@ -55,11 +55,11 @@ export default function MeltedChocolateBg() {
       const float NORMAL_STRENGTH = 8.0;
       const float SHININESS = 110.0;
 
-      // Page color (muted light blue) is the base; ripples read as gentle
-      // pale-blue highlights and slightly cooler shadows on a still pool.
-      const vec3 AMB = vec3(221.0, 230.0, 238.0) / 255.0;  /* same as --background */
-      const vec3 DIF = vec3(197.0, 211.0, 223.0) / 255.0;  /* paper-deep */
-      const vec3 SPC = vec3(244.0, 249.0, 253.0) / 255.0;  /* paper */
+      // Page color (bottle green) is the base; ripples read as gentle
+      // lighter-green highlights and slightly deeper shadows on a still pool.
+      const vec3 AMB = vec3(14.0, 42.0, 34.0) / 255.0;    /* same as --background */
+      const vec3 DIF = vec3(20.0, 54.0, 49.0) / 255.0;    /* paper */
+      const vec3 SPC = vec3(212.0, 169.0, 86.0) / 255.0;  /* warm gold sheen */
 
       // Height is stored in [0,1], centered at 0.5 (0 = baseline).
       float sampleHeight(vec2 uv) {

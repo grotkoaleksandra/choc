@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Muted light-blue page, deep navy ink — quiet & atmospheric */
-  --background: #dde6ee;      /* pale powder-blue (page color) */
-  --foreground: #1c2833;      /* deep navy ink, not pure black */
-  --ink: #11171f;             /* deepest navy for headlines */
-  --ink-muted: #5d6e80;       /* cool body grey-blue */
-  --paper: #ebf1f6;            /* slightly lighter wash for cards */
-  --paper-deep: #c5d3df;       /* sidebar / muted panels */
-  --rule: #a7b8c8;             /* hairline rules on the pale blue */
+  /* Bottle-green page, warm cream ink — sophisticated, library-quiet */
+  --background: #0e2a22;      /* deep bottle green (page color) */
+  --foreground: #ece4d3;      /* warm cream, like aged paper */
+  --ink: #f5ecd5;             /* brightest cream for headlines */
+  --ink-muted: #a89e84;       /* muted warm grey-cream for body */
+  --paper: #143631;            /* slightly lighter green wash for cards */
+  --paper-deep: #0a1f19;       /* sunken green panels */
+  --rule: rgba(245, 236, 213, 0.16);  /* hairline rules on bottle green */
 
-  /* Accents — used sparingly */
-  --wine: #2a4a6a;             /* deep oxford blue (replaces burgundy) */
-  --cacao: #36495c;            /* slate blue (replaces chocolate brown) */
-  --gold: #6f8aa3;             /* muted steel-blue highlight */
+  /* Accents — warm tones to contrast the cool green */
+  --wine: #c98552;             /* warm copper (replaces burgundy) */
+  --cacao: #8a5e3c;            /* deep tobacco brown */
+  --gold: #d4a956;             /* warm restrained gold */
 
   --font-display: "Instrument Serif", "Times New Roman", Georgia, serif;
   --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
