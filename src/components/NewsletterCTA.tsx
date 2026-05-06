@@ -36,7 +36,7 @@ export default function NewsletterCTA() {
       className="relative border-t border-[color:var(--rule)]/60 px-6 md:px-10"
       aria-label="Newsletter signup"
     >
-      <div className="max-w-[800px] mx-auto py-16 md:py-24 text-center">
+      <div className="max-w-[800px] mx-auto py-12 md:py-16 text-center">
         {submitted ? (
           <div>
             <p className="eyebrow text-[color:var(--gold)]">Thank you</p>
@@ -53,17 +53,14 @@ export default function NewsletterCTA() {
         ) : !open ? (
           <button
             onClick={() => setOpen(true)}
-            className="group inline-flex items-baseline gap-3 transition-opacity"
+            className="group inline-flex items-center gap-3 px-8 md:px-10 py-4 border border-[color:var(--ink)] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-[color:var(--background)] transition-colors duration-300"
             aria-expanded="false"
           >
-            <span
-              className="font-display text-[color:var(--ink)] text-3xl md:text-5xl tracking-[-0.015em] group-hover:text-[color:var(--gold)] transition-colors"
-              style={{ fontWeight: 400 }}
-            >
-              Join <em className="italic">us</em>.
+            <span className="text-[11px] tracking-[0.3em] uppercase font-mono">
+              Join Our Newsletter
             </span>
-            <span className="eyebrow text-[color:var(--ink-muted)] group-hover:text-[color:var(--gold)] transition-colors">
-              ↓ &nbsp; Newsletter
+            <span className="text-[11px] font-mono transition-transform duration-300 group-hover:translate-x-1">
+              →
             </span>
           </button>
         ) : (
