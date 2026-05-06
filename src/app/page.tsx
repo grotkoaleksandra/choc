@@ -1,5 +1,6 @@
 import CollapsingHero from "@/components/CollapsingHero";
 import HomeNav from "@/components/HomeNav";
+import NewsletterCTA from "@/components/NewsletterCTA";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
 
@@ -7,7 +8,7 @@ const collection = [
   {
     id: "cherry-macadamia",
     name: "Cherry, Macadamia",
-    origin: "Wrapper by Jakub Gliński",
+    origin: "House Edition",
     percent: "70%",
     weight: "70g",
     notes: "Sour cherry · macadamia · dark chocolate",
@@ -118,22 +119,25 @@ export default function Home() {
       {/* I. HERO — video collapses completely on scroll */}
       <CollapsingHero />
 
+      {/* I.b NEWSLETTER CTA — "Join us" button expands into a form */}
+      <NewsletterCTA />
+
       {/* II. COLLECTION — expanded grid with e-comm affordances */}
       <section id="collection" className="relative py-24 md:py-32 px-6 md:px-10 border-t border-[color:var(--rule)]/60">
         <div className="max-w-[1400px] mx-auto">
           <ScrollReveal>
             <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
               <div>
-                <p className="eyebrow">Guest Curator — Autumn 2026</p>
+                <p className="eyebrow">Edition · May 2026</p>
                 <h3
                   className="font-display text-[color:var(--ink)] mt-4 leading-[0.98] tracking-[-0.015em] text-4xl md:text-5xl lg:text-6xl"
                   style={{ fontWeight: 400 }}
                 >
-                  Jakub Gliński&rsquo;s <em className="italic">collection</em>.
+                  This Month&rsquo;s <em className="italic">Edition</em>.
                 </h3>
                 <p className="mt-4 text-sm text-[color:var(--ink-muted)] max-w-md leading-[1.6]">
-                  {collection.length} bars chosen by the painter, each one a
-                  ground for his drawings. Editions of forty-eight.
+                  {collection.length} bars in this month&rsquo;s release —
+                  single-origin cacao, each one limited to forty-eight.
                 </p>
               </div>
               <Link
@@ -195,113 +199,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* IV. JAKUB GLIŃSKI — full-bleed landscape portrait + bio */}
-      <section className="relative border-t border-[color:var(--rule)]/60">
-        <div className="relative w-screen left-1/2 -translate-x-1/2 aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.4/1] overflow-hidden bg-[color:var(--paper-deep)]">
-          <ScrollReveal className="absolute inset-0">
-            <div className="img-wipe absolute inset-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/miguel.jpeg"
-                alt="Jakub Gliński in his Warszawa studio"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(30,22,16,0.55) 0%, rgba(30,22,16,0.08) 40%, rgba(30,22,16,0) 70%)",
-                }}
-              />
-            </div>
-          </ScrollReveal>
-
-          <div className="absolute left-0 right-0 bottom-0 px-6 md:px-10 pb-10 md:pb-16">
-            <div className="max-w-[1400px] mx-auto">
-              <p className="eyebrow" style={{ color: "rgba(245,238,224,0.8)" }}>
-                On the Painter — Warszawa, 2026
-              </p>
-              <h2
-                className="font-display text-white mt-4 leading-[0.95] tracking-[-0.02em] text-5xl md:text-7xl lg:text-[8rem]"
-                style={{ fontWeight: 400 }}
-              >
-                Jakub <em className="italic">Gliński</em>.
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-20 md:py-28 grid grid-cols-12 gap-10 md:gap-16">
-          <div className="col-span-12 md:col-span-4">
-            <p className="eyebrow">Biography</p>
-            <dl className="mt-8 space-y-5 text-sm">
-              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
-                <dt className="text-[color:var(--ink-muted)] eyebrow">Born</dt>
-                <dd className="col-span-2 text-[color:var(--ink)]">
-                  1984, Warszawa
-                </dd>
-              </div>
-              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
-                <dt className="text-[color:var(--ink-muted)] eyebrow">Studied</dt>
-                <dd className="col-span-2 text-[color:var(--ink)]">
-                  Academy of Fine Arts, Warszawa
-                </dd>
-              </div>
-              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
-                <dt className="text-[color:var(--ink-muted)] eyebrow">Lives</dt>
-                <dd className="col-span-2 text-[color:var(--ink)]">
-                  Praga-Północ, Warszawa
-                </dd>
-              </div>
-              <div className="grid grid-cols-3 gap-4 pb-4 border-b border-[color:var(--rule)]/60">
-                <dt className="text-[color:var(--ink-muted)] eyebrow">Medium</dt>
-                <dd className="col-span-2 text-[color:var(--ink)]">
-                  Painting, wall drawing, printed editions
-                </dd>
-              </div>
-              <div className="grid grid-cols-3 gap-4">
-                <dt className="text-[color:var(--ink-muted)] eyebrow">
-                  Selected
-                </dt>
-                <dd className="col-span-2 text-[color:var(--ink)]">
-                  Zachęta · Raster · BWA Warszawa
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="col-span-12 md:col-span-7 md:col-start-6">
-            <p className="text-base md:text-lg leading-[1.75] text-[color:var(--ink)] drop-cap">
-              Jakub Gliński works in the slipstream between painting and
-              drawing — panels that feel like fragments of a larger room, thin
-              washes of pigment built up until they hold a body of light.
-              Trained at the Academy of Fine Arts in Warszawa, he has shown at
-              Zachęta, Raster, and BWA, and his work is carried by several
-              private collections in Central Europe.
-            </p>
-            <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
-              This autumn he turned his hand to chocolate. Six of Syrena&rsquo;s
-              bars wear his drawings — each wrapper a small original, numbered
-              and signed, printed in a run of forty-eight. He chose the bars
-              himself, after a morning of tasting in the studio and the
-              afternoon reading in the garden.
-            </p>
-            <p className="mt-6 text-base leading-[1.7] text-[color:var(--ink-muted)]">
-              When the edition sells through, the wrappers will only exist on
-              the bars that have already gone out. No reprints, no seconds.
-            </p>
-
-            <blockquote
-              className="mt-10 font-display italic text-[color:var(--ink)] text-2xl md:text-3xl leading-[1.35] max-w-xl border-l border-[color:var(--cacao)] pl-6"
-              style={{ fontWeight: 400 }}
-            >
-              &ldquo;Chocolate is a surface I hadn&rsquo;t painted yet. I like
-              that it melts — nothing stays on the object forever.&rdquo;
-            </blockquote>
-            <p className="mt-3 eyebrow">— Jakub Gliński, for Syrena Journal</p>
-          </div>
-        </div>
-      </section>
 
       {/* V. JOURNAL TEASER — full-bleed video + single intro + CTA */}
       <section className="relative border-t border-[color:var(--rule)]/60">
