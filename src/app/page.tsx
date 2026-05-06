@@ -12,7 +12,7 @@ const collection = [
     weight: "70g",
     notes: "Sour cherry · macadamia · dark chocolate",
     price: "$26",
-    image: "/choc/cherry-macadamia.png",
+    image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "chuao-100",
@@ -22,7 +22,7 @@ const collection = [
     weight: "55g",
     notes: "Dried fig · cedar · roasted plum",
     price: "$38",
-    image: "/choc/img-1.png",
+    image: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "piura-66",
@@ -32,7 +32,7 @@ const collection = [
     weight: "60g",
     notes: "Brown butter · hazelnut · caramel",
     price: "$16",
-    image: "/choc/img-2.png",
+    image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "oaxaca-72",
@@ -42,7 +42,7 @@ const collection = [
     weight: "60g",
     notes: "Mole spice · black cherry · tobacco",
     price: "$22",
-    image: "/choc/img-3.png",
+    image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "tumbes-nibs",
@@ -52,7 +52,7 @@ const collection = [
     weight: "80g",
     notes: "Toasted rye · coffee · bitter orange",
     price: "$12",
-    image: "/choc/img-4.png",
+    image: "https://images.unsplash.com/photo-1542843137-8791a6904d14?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "haiti-70",
@@ -62,7 +62,7 @@ const collection = [
     weight: "60g",
     notes: "Red berry · molasses · clove",
     price: "$20",
-    image: "/choc/img-5.png",
+    image: "https://images.unsplash.com/photo-1582716401301-b2407dc7563d?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "madagascar-68",
@@ -72,7 +72,7 @@ const collection = [
     weight: "60g",
     notes: "Raspberry · apricot · lemon peel",
     price: "$20",
-    image: "/choc/img-2.png",
+    image: "https://images.unsplash.com/photo-1551529834-525807d6b4f3?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -85,7 +85,7 @@ const secondArtistCollection = [
     weight: "—",
     notes: "Tasting notes — placeholder",
     price: "$—",
-    image: "/choc/img-3.png",
+    image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "artist-two-edition-two",
@@ -95,7 +95,7 @@ const secondArtistCollection = [
     weight: "—",
     notes: "Tasting notes — placeholder",
     price: "$—",
-    image: "/choc/img-2.png",
+    image: "https://images.unsplash.com/photo-1623256530849-95d6671d8a25?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: "artist-two-edition-three",
@@ -105,7 +105,7 @@ const secondArtistCollection = [
     weight: "—",
     notes: "Tasting notes — placeholder",
     price: "$—",
-    image: "/choc/img-4.png",
+    image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=900&q=80",
   },
 ];
 

@@ -17,10 +17,9 @@ export default function HomeNav() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
-        backgroundColor: scrolled ? "rgba(236, 228, 211, 0.85)" : "transparent",
-        backdropFilter: scrolled ? "blur(14px) saturate(1.05)" : "none",
+        backgroundColor: "transparent",
         borderBottom: scrolled
-          ? "1px solid rgba(45, 35, 28, 0.08)"
+          ? "1px solid rgba(28, 40, 51, 0.08)"
           : "1px solid transparent",
       }}
     >
