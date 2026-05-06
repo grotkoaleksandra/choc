@@ -1,4 +1,5 @@
 import CollapsingHero from "@/components/CollapsingHero";
+import ContactForm from "@/components/ContactForm";
 import HomeNav from "@/components/HomeNav";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -447,35 +448,7 @@ export default function Home() {
 
           <div className="col-span-12 md:col-span-6 md:col-start-7">
             <ScrollReveal delay={160}>
-              <form className="flex flex-col gap-8">
-                <div>
-                  <label className="eyebrow block mb-3">Name</label>
-                  <input
-                    type="text"
-                    className="w-full bg-transparent border-b border-[color:var(--rule)] py-2 text-base text-[color:var(--ink)] focus:outline-none focus:border-[color:var(--ink)] transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="eyebrow block mb-3">Email</label>
-                  <input
-                    type="email"
-                    className="w-full bg-transparent border-b border-[color:var(--rule)] py-2 text-base text-[color:var(--ink)] focus:outline-none focus:border-[color:var(--ink)] transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="eyebrow block mb-3">Message</label>
-                  <textarea
-                    rows={5}
-                    className="w-full bg-transparent border-b border-[color:var(--rule)] py-2 text-base text-[color:var(--ink)] focus:outline-none focus:border-[color:var(--ink)] transition-colors resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="mt-4 self-start text-sm text-[color:var(--ink)] link-fancy"
-                >
-                  Send letter →
-                </button>
-              </form>
+              <ContactForm />
             </ScrollReveal>
           </div>
         </div>

@@ -1,34 +1,73 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { insertRow, SEND_EMAIL_URL, SEND_EMAIL_HEADERS } from "@/lib/supabase";
 
 /**
  * "Join us" CTA that lives just below the hero. Closed state is a single
  * elegant button. When pressed it expands smoothly into a full newsletter
- * form (eyebrow, headline, copy, email field, submit). Submitting flips
- * to a small confirmation state.
- *
- * Pure client component — no backend; in real life you'd POST the email
- * somewhere on submit.
+ * form. Submission writes to the Supabase `subscribers` table and asks
+ * the `send-email` Edge Function to email the studio inbox.
  */
 
 export default function NewsletterCTA() {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open && inputRef.current) {
-      // Focus the email input when the form expands
       inputRef.current.focus();
     }
   }, [open]);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
+    const trimmedEmail = email.trim();
+    const trimmedName = firstName.trim();
+    if (!trimmedEmail) return;
+
+    setBusy(true);
+    setError(null);
+
+    try {
+      // 1. Save to subscribers table (RLS: anon insert allowed).
+      const { error: dbErr } = await insertRow("subscribers", {
+        email: trimmedEmail,
+        first_name: trimmedName || null,
+      });
+
+      // Ignore unique-constraint duplicates — already subscribed is fine.
+      if (dbErr && dbErr.code !== "23505") {
+        throw new Error(dbErr.message);
+      }
+
+      // 2. Notify the studio inbox via the Edge Function.
+      const resp = await fetch(SEND_EMAIL_URL, {
+        method: "POST",
+        headers: SEND_EMAIL_HEADERS,
+        body: JSON.stringify({
+          type: "subscribe",
+          email: trimmedEmail,
+          first_name: trimmedName,
+        }),
+      });
+      if (!resp.ok) {
+        const errText = await resp.text();
+        // Don't block the user on a notification failure — they're saved.
+        console.error("send-email failed:", errText);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -81,24 +120,41 @@ export default function NewsletterCTA() {
 
             <form
               onSubmit={onSubmit}
-              className="mt-10 flex items-end gap-0 max-w-md mx-auto border-b border-[color:var(--rule)] focus-within:border-[color:var(--gold)] transition-colors"
+              className="mt-10 max-w-md mx-auto flex flex-col gap-5"
             >
               <input
-                ref={inputRef}
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your.address@somewhere.io"
-                className="flex-1 bg-transparent py-3 text-base text-[color:var(--ink)] placeholder:text-[color:var(--ink-muted)] focus:outline-none"
-                aria-label="Email address"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First name (optional)"
+                className="bg-transparent border-b border-[color:var(--rule)] py-3 text-base text-[color:var(--ink)] placeholder:text-[color:var(--ink-muted)] focus:outline-none focus:border-[color:var(--ink)] transition-colors text-center"
+                aria-label="First name"
               />
-              <button
-                type="submit"
-                className="text-[11px] tracking-[0.28em] uppercase font-mono text-[color:var(--ink)] hover:text-[color:var(--gold)] transition-colors py-3 px-2 whitespace-nowrap"
-              >
-                Send →
-              </button>
+              <div className="flex items-end border-b border-[color:var(--rule)] focus-within:border-[color:var(--ink)] transition-colors">
+                <input
+                  ref={inputRef}
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your.address@somewhere.io"
+                  className="flex-1 bg-transparent py-3 text-base text-[color:var(--ink)] placeholder:text-[color:var(--ink-muted)] focus:outline-none text-center"
+                  aria-label="Email address"
+                  disabled={busy}
+                />
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="text-[11px] tracking-[0.28em] uppercase font-mono text-[color:var(--ink)] hover:text-[color:var(--gold)] transition-colors py-3 px-2 whitespace-nowrap disabled:opacity-50"
+                >
+                  {busy ? "Sending…" : "Send →"}
+                </button>
+              </div>
+              {error && (
+                <p className="text-xs text-[color:var(--wine)] text-center">
+                  {error}
+                </p>
+              )}
             </form>
 
             <button
